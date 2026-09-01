@@ -17,255 +17,60 @@
             --border-color: #30363d;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 80px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 90px; }
 
         /* Header */
         .header {
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(22, 27, 34, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(22, 27, 34, 0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid var(--border-color);
         }
+        .brand-info { display: flex; align-items: center; gap: 12px; }
+        .brand-logo { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-color), var(--accent-glow)); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .brand-text h2 { font-size: 16px; font-weight: 700; }
+        .brand-text p { font-size: 11px; color: var(--text-sub); }
+        .balance-badge { background: #21262d; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #3fb950; font-weight: bold; }
 
-        .brand-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        /* Banner */
+        .banner-container { padding: 15px 20px; }
+        .banner { background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .banner-tag { background: #ff4757; color: #fff; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
+        .banner h3 { font-size: 20px; margin-bottom: 4px; }
+        .banner p { font-size: 12px; opacity: 0.8; margin-bottom: 12px; }
+        .banner-btn { background: #fff; color: #000; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 12px; cursor: pointer; }
 
-        .brand-logo {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-glow));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
-        }
+        /* Grid */
+        .section-title { padding: 10px 20px 5px; font-size: 13px; color: var(--text-sub); text-transform: uppercase; }
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-icon { width: 45px; height: 45px; border-radius: 12px; background: rgba(138, 43, 226, 0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--accent-glow); margin-bottom: 10px; }
+        .card h4 { font-size: 15px; }
+        .card p { font-size: 11px; color: var(--text-sub); margin-bottom: 10px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .price-tag { font-size: 12px; background: rgba(255, 255, 255, 0.05); padding: 4px 8px; border-radius: 8px; color: #3fb950; }
+        .buy-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-color); color: #fff; border: none; cursor: pointer; }
 
-        .brand-text h2 {
-            font-size: 16px;
-            font-weight: 700;
-        }
+        /* Admin Secret Bar */
+        #admin-trigger-container { display: none; padding: 10px 20px; }
+        .admin-trigger-btn { width: 100%; padding: 12px; background: #238636; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .brand-text p {
-            font-size: 11px;
-            color: var(--text-sub);
-        }
+        /* Navigation */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 11px; cursor: pointer; }
+        .nav-item.active { color: var(--accent-glow); }
 
-        .balance-badge {
-            background: #21262d;
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #3fb950;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Banner Carousel */
-        .banner-container {
-            padding: 15px 20px;
-        }
-
-        .banner {
-            background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%);
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-        .banner-tag {
-            background: #ff4757;
-            color: #fff;
-            font-size: 10px;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .banner h3 {
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-
-        .banner p {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-bottom: 12px;
-        }
-
-        .banner-btn {
-            background: var(--text-color);
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        /* Categories Grid */
-        .section-title {
-            padding: 10px 20px 5px;
-            font-size: 14px;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 10px 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: 0.2s;
-        }
-
-        .card-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            background: rgba(138, 43, 226, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: var(--accent-glow);
-            margin-bottom: 12px;
-        }
-
-        .card h4 {
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-
-        .card p {
-            font-size: 11px;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-tag {
-            font-size: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 8px;
-            border-radius: 8px;
-            color: #3fb950;
-        }
-
-        .buy-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            color: #fff;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        /* Admin Trigger Section (Hidden for normal users) */
-        #admin-panel {
-            display: none;
-            margin: 20px;
-            padding: 15px;
-            background: #1c2128;
-            border: 1px solid #388bfd;
-            border-radius: 12px;
-        }
-
-        #admin-panel h3 {
-            color: #388bfd;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(22, 27, 34, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 11px;
-        }
-
-        .nav-item.active {
-            color: var(--accent-glow);
-        }
-
-        .nav-item i {
-            font-size: 18px;
-        }
+        /* Modal Popups */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 400px; padding: 20px; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 18px; cursor: pointer; }
+        .input-box { width: 100%; padding: 10px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; }
+        .save-btn { width: 100%; padding: 10px; background: var(--accent-color); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="header">
         <div class="brand-info">
             <div class="brand-logo">🛍️</div>
@@ -274,25 +79,29 @@
                 <p>Digital Access Hub</p>
             </div>
         </div>
-        <div class="balance-badge">
-            <i class="fas fa-wallet"></i> ৳<span id="user-balance">0</span>
-        </div>
+        <div class="balance-badge"><i class="fas fa-wallet"></i> ৳<span id="user-balance">0</span></div>
     </div>
 
-    <!-- Banner Section -->
+    <!-- Banner -->
     <div class="banner-container">
         <div class="banner">
-            <span class="banner-tag">⚡ Fast Add Balance</span>
+            <span class="banner-tag">⚡ FAST ADD BALANCE</span>
             <h3>Instant TopUp</h3>
             <p>bKash, Nagad & Rocket - Automatic Add</p>
-            <button class="banner-btn" onclick="alert('পেমেন্ট অপশন শিগগিরই লাইভ হচ্ছে!')">Top Up Now</button>
+            <button class="banner-btn" onclick="openTopUpModal()">Top Up Now</button>
         </div>
     </div>
 
-    <!-- Categories Grid -->
+    <!-- Secret Admin Section (Only Visible to Admin ID) -->
+    <div id="admin-trigger-container">
+        <button class="admin-trigger-btn" onclick="openAdminModal()">
+            <i class="fas fa-user-shield"></i> Open Admin Panel
+        </button>
+    </div>
+
+    <!-- Categories -->
     <div class="section-title">Products & Services</div>
     <div class="grid-container">
-        <!-- Card 1 -->
         <div class="card">
             <div>
                 <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
@@ -301,11 +110,10 @@
             </div>
             <div class="card-footer">
                 <span class="price-tag">৳30+</span>
-                <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
+                <button class="buy-btn" onclick="openBuyModal('VPN')"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
-        <!-- Card 2 -->
         <div class="card">
             <div>
                 <div class="card-icon"><i class="fas fa-network-wired"></i></div>
@@ -314,11 +122,10 @@
             </div>
             <div class="card-footer">
                 <span class="price-tag">৳150+</span>
-                <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
+                <button class="buy-btn" onclick="openBuyModal('Proxy')"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
-        <!-- Card 3 -->
         <div class="card">
             <div>
                 <div class="card-icon"><i class="fas fa-envelope"></i></div>
@@ -327,11 +134,10 @@
             </div>
             <div class="card-footer">
                 <span class="price-tag">৳10+</span>
-                <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
+                <button class="buy-btn" onclick="openBuyModal('Mails')"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
-        <!-- Card 4 -->
         <div class="card">
             <div>
                 <div class="card-icon"><i class="fas fa-users"></i></div>
@@ -340,49 +146,93 @@
             </div>
             <div class="card-footer">
                 <span class="price-tag">৳50+</span>
-                <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
+                <button class="buy-btn" onclick="openBuyModal('Social Accounts')"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Hidden Admin Panel Area -->
-    <div id="admin-panel">
-        <h3><i class="fas fa-user-shield"></i> Secret Admin Area</h3>
-        <p style="font-size:12px; color:#8b949e;">স্বাগতম অ্যাডমিন! এখান থেকে আপনি পণ্য ও পেমেন্ট স্টক নিয়ন্ত্রণ করতে পারবেন।</p>
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('Home')"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" onclick="switchTab('Orders')"><i class="fas fa-shopping-bag"></i><span>Orders</span></div>
+        <div class="nav-item" onclick="openTopUpModal()"><i class="fas fa-plus-circle"></i><span>Add Fund</span></div>
+        <div class="nav-item" onclick="switchTab('Profile')"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-shopping-bag"></i>
-            <span>Orders</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-plus-circle"></i>
-            <span>Add Fund</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </a>
+    <!-- Top Up Modal -->
+    <div id="topup-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('topup-modal')"></i>
+            <h3><i class="fas fa-wallet"></i> Add Balance</h3>
+            <p style="font-size:12px; color:var(--text-sub); margin-top:4px;">Send money to these numbers:</p>
+            <div style="margin:12px 0; font-size:13px; line-height:1.6;">
+                <p><b>bKash:</b> <span id="disp-bkash">017XXXXXXXX</span></p>
+                <p><b>Nagad:</b> <span id="disp-nagad">017XXXXXXXX</span></p>
+            </div>
+            <input type="text" class="input-box" placeholder="Transaction ID">
+            <input type="number" class="input-box" placeholder="Amount (BDT)">
+            <button class="save-btn" onclick="alert('পেমেন্ট রিকোয়েস্ট পাঠানো হয়েছে!')">Submit Payment</button>
+        </div>
+    </div>
+
+    <!-- Buy Modal -->
+    <div id="buy-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('buy-modal')"></i>
+            <h3 id="buy-title">Buy Product</h3>
+            <p style="font-size:12px; color:var(--text-sub); margin:10px 0;">কনফার্ম করতে নিচে ক্লিক করুন।</p>
+            <button class="save-btn" onclick="alert('পর্যাপ্ত ব্যালেন্স নেই! দয়া করে Add Fund করুন।')">Confirm Purchase</button>
+        </div>
+    </div>
+
+    <!-- Admin Modal Panel -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
+            <h3 style="color:#388bfd;"><i class="fas fa-user-shield"></i> Secret Admin Panel</h3>
+            <div style="margin-top:15px;">
+                <label style="font-size:12px;">bKash Number:</label>
+                <input type="text" id="input-bkash" class="input-box" value="01700000000">
+                <label style="font-size:12px;">Nagad Number:</label>
+                <input type="text" id="input-nagad" class="input-box" value="01700000000">
+                <hr style="border-color:var(--border-color); margin:10px 0;">
+                <label style="font-size:12px;">Add Product Stock (Text):</label>
+                <textarea class="input-box" rows="3" placeholder="Paste account list here..."></textarea>
+                <button class="save-btn" style="background:#238636;" onclick="saveAdminData()">Save Changes</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Telegram WebApp Integration
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Full screen
+        tg.expand();
 
-        // Secret Admin ID Check
         const ADMIN_ID = "7753794493";
         const currentUser = tg.initDataUnsafe?.user;
 
+        // Reveal Admin Panel Button if Telegram User ID matches Admin ID
         if (currentUser && String(currentUser.id) === ADMIN_ID) {
-            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('admin-trigger-container').style.display = 'block';
+        }
+
+        function openTopUpModal() { document.getElementById('topup-modal').style.display = 'flex'; }
+        function openBuyModal(title) { 
+            document.getElementById('buy-title').innerText = 'Buy ' + title;
+            document.getElementById('buy-modal').style.display = 'flex'; 
+        }
+        function openAdminModal() { document.getElementById('admin-modal').style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function saveAdminData() {
+            document.getElementById('disp-bkash').innerText = document.getElementById('input-bkash').value;
+            document.getElementById('disp-nagad').innerText = document.getElementById('input-nagad').value;
+            closeModal('admin-modal');
+            alert('পেমেন্ট নম্বর সেভ করা হয়েছে!');
+        }
+
+        function switchTab(name) {
+            if(name !== 'Home') alert(name + ' সেকশন শিগগিরই আপডেট হচ্ছে!');
         }
     </script>
 </body>
-    </html>
+                                     </html>
