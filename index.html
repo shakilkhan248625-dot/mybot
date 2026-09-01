@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Menu</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+        .btn-container {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .bkash { background-color: #d12053; }
+        .nagad { background-color: #f7931e; }
+        .rocket { background-color: #8c3494; }
+        .binance { background-color: #f3ba2f; color: #000; }
+    </style>
+</head>
+<body>
 
+    <h2>Payment Method Select করুন</h2>
+
+    <div class="btn-container">
+        <button class="btn bkash">bKash (বিকাশ)</button>
+        <button class="btn nagad">Nagad (নগদ)</button>
+        <button class="btn rocket">Rocket (রকেট)</button>
+        <button class="btn binance">Binance (বাইন্যান্স)</button>
+    </div>
+
+    <script>
+        Telegram.WebApp.ready();
+    </script>
+</body>
+</html>
