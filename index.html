@@ -18,80 +18,79 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 90px; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 100px; }
 
         .page { display: none; }
         .page.active { display: block; }
 
         /* Header */
         .header {
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(22, 27, 34, 0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
+            padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid var(--border-color);
         }
         .brand-info { display: flex; align-items: center; gap: 12px; }
-        .brand-logo { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #8a2be2, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .brand-logo { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #8a2be2, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 22px; }
         .brand-text h2 { font-size: 16px; font-weight: 700; }
         .brand-text p { font-size: 11px; color: var(--text-sub); }
-        .balance-badge { background: #21262d; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #3fb950; font-weight: bold; }
+        .balance-badge { background: #21262d; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 15px; color: #3fb950; font-weight: bold; }
 
         /* Banner */
         .banner-container { padding: 15px 20px; }
-        .banner { background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .banner-tag { background: #ff4757; color: #fff; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
-        .banner h3 { font-size: 20px; margin-bottom: 4px; }
-        .banner p { font-size: 12px; opacity: 0.8; margin-bottom: 12px; }
-        .banner-btn { background: #fff; color: #000; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 12px; cursor: pointer; }
+        .banner { background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%); border-radius: 18px; padding: 22px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .banner-tag { background: #ff4757; color: #fff; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
+        .banner h3 { font-size: 22px; margin-bottom: 6px; }
+        .banner p { font-size: 13px; opacity: 0.85; margin-bottom: 14px; }
+        .banner-btn { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer; }
 
-        /* Original Card Design */
-        .section-title { padding: 10px 20px 5px; font-size: 13px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
+        /* Cards Grid */
+        .section-title { padding: 10px 20px 5px; font-size: 14px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
         .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
-        .card-icon { width: 45px; height: 45px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #a78bfa; margin-bottom: 10px; }
-        .card h4 { font-size: 15px; }
-        .card p { font-size: 11px; color: var(--text-sub); margin-bottom: 10px; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; }
-        .price-tag { font-size: 12px; background: rgba(255, 255, 255, 0.05); padding: 4px 8px; border-radius: 8px; color: #3fb950; }
-        .buy-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-color); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #a78bfa; margin-bottom: 12px; }
+        .card h4 { font-size: 16px; margin-bottom: 4px; }
+        .card p { font-size: 12px; color: var(--text-sub); margin-bottom: 12px; }
+
+        /* Deposit UI */
+        .deposit-container { padding: 15px 20px; }
+        .balance-card { background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; }
+        
+        .methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .method-card { background: #fff; color: #000; border-radius: 14px; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: bold; }
+        .method-card.selected { border: 3px solid #00d2ff; }
+
+        .pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .pkg-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 14px; text-align: center; cursor: pointer; }
+        .pkg-card.selected { border-color: var(--accent-glow); background: rgba(124, 58, 237, 0.2); }
+        .pkg-bdt { font-size: 16px; font-weight: bold; color: #fff; }
+        .pkg-usd { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
+
+        /* Payment Process */
+        .pay-screen { border-radius: 20px; padding: 22px; color: white; margin: 15px 20px; }
+        .number-box { background: rgba(255,255,255,0.2); padding: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 12px 0; }
+        .copy-btn { background: #fff; color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .tx-input { width: 100%; padding: 15px; border-radius: 12px; border: none; outline: none; margin-top: 12px; font-size: 15px; text-align: center; }
+        .verify-btn { width: 100%; padding: 16px; background: #22c55e; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 
         /* Admin Trigger */
         #admin-trigger-container { display: none; padding: 0 20px 10px; }
-        .admin-trigger-btn { width: 100%; padding: 12px; background: #238636; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .admin-trigger-btn { width: 100%; padding: 14px; background: #238636; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; }
 
-        /* Deposit Page */
-        .deposit-container { padding: 15px 20px; }
-        .balance-card { background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 18px; padding: 20px; color: white; margin-bottom: 20px; }
-        .input-card { background: #ffffff; color: #000; border-radius: 16px; padding: 15px; margin-bottom: 15px; }
-        .amount-input-box { display: flex; align-items: center; margin-top: 5px; font-size: 22px; font-weight: bold; }
-        .amount-input-box input { border: none; outline: none; font-size: 22px; font-weight: bold; width: 100%; margin-left: 8px; }
-        .quick-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
-        .q-btn { padding: 10px; background: #161b22; color: #fff; border-radius: 10px; border: 1px solid var(--border-color); font-weight: bold; text-align: center; cursor: pointer; font-size: 12px; }
-        .q-btn.selected { background: #7c3aed; border-color: #a78bfa; }
-
-        .methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .method-card { background: #fff; color: #000; border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; }
-
-        /* Payment Process Page */
-        .pay-screen { border-radius: 20px; padding: 20px; color: white; margin: 15px 20px; }
-        .number-box { background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-        .copy-btn { background: #fff; color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .tx-input { width: 100%; padding: 14px; border-radius: 12px; border: none; outline: none; margin-top: 10px; font-size: 14px; text-align: center; }
-        .verify-btn { width: 100%; padding: 14px; background: #22c55e; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: bold; margin-top: 15px; cursor: pointer; }
-
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-sub); text-decoration: none; font-size: 11px; cursor: pointer; }
+        /* Larger Bottom Nav Bar */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22, 27, 34, 0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 12px; cursor: pointer; font-weight: 600; }
+        .nav-item i { font-size: 20px; }
         .nav-item.active { color: var(--accent-glow); }
 
         /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 400px; padding: 20px; position: relative; max-height: 85vh; overflow-y: auto; }
-        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 18px; cursor: pointer; }
-        .input-box { width: 100%; padding: 10px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; }
-        .save-btn { width: 100%; padding: 12px; background: var(--accent-color); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 10px; cursor: pointer; }
-        .prod-item { background: #0d1117; padding: 12px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
-        .qty-box { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
-        .qty-btn { width: 30px; height: 30px; background: #30363d; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
+        .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
+        .save-btn { width: 100%; padding: 14px; background: var(--accent-color); color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 12px; cursor: pointer; font-size: 15px; }
+        .prod-item { background: #0d1117; padding: 14px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
+        .qty-box { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+        .qty-btn { width: 36px; height: 36px; background: #30363d; color: #fff; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -105,122 +104,106 @@
                 <p>Digital Access Hub</p>
             </div>
         </div>
-        <div class="balance-badge"><i class="fas fa-wallet"></i> ৳<span id="user-balance">0</span></div>
+        <div class="balance-badge"><i class="fas fa-wallet"></i> $<span id="user-balance">0.00</span></div>
     </div>
 
     <!-- HOME PAGE -->
     <div id="page-home" class="page active">
         <div class="banner-container">
             <div class="banner">
-                <span class="banner-tag">⚡ FAST ADD BALANCE</span>
-                <h3>Instant TopUp</h3>
-                <p>bKash, Nagad & Rocket - Automatic Add</p>
-                <button class="banner-btn" onclick="showPage('addfund')">Top Up Now</button>
+                <span class="banner-tag">⚡ INSTANT TOP-UP</span>
+                <h3>Deposit Funds</h3>
+                <p>bKash, Nagad & Binance Supported</p>
+                <button class="banner-btn" onclick="showPage('addfund')">Deposit Now</button>
             </div>
         </div>
 
         <div id="admin-trigger-container">
-            <button class="admin-trigger-btn" onclick="openAdminModal()"><i class="fas fa-user-shield"></i> Open Admin Panel</button>
+            <button class="admin-trigger-btn" onclick="openAdminModal()"><i class="fas fa-user-shield"></i> Open Secret Admin Panel</button>
         </div>
 
-        <div class="section-title">Products & Services</div>
+        <div class="section-title">Categories</div>
         <div class="grid-container">
             <div class="card" onclick="openProductList('VPN')">
-                <div>
-                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h4>VPN</h4>
-                    <p>Nord, Express, Surfshark</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">৳30+</span>
-                    <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
-                </div>
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>VPN</h4>
+                <p>Premium VPN Accounts</p>
             </div>
 
             <div class="card" onclick="openProductList('Proxy')">
-                <div>
-                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                    <h4>Proxy</h4>
-                    <p>Residential & HTTP</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">৳150+</span>
-                    <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
-                </div>
+                <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                <h4>Proxy</h4>
+                <p>Residential & HTTP</p>
             </div>
 
             <div class="card" onclick="openProductList('Mails')">
-                <div>
-                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                    <h4>Hotmail / Outlook</h4>
-                    <p>Trust V1, Gmail, Hotmail</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">৳10+</span>
-                    <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
-                </div>
+                <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                <h4>Hotmail / Outlook</h4>
+                <p>Trust V1 & Fresh Mails</p>
             </div>
 
             <div class="card" onclick="openProductList('Social')">
-                <div>
-                    <div class="card-icon"><i class="fas fa-users"></i></div>
-                    <h4>Social Accounts</h4>
-                    <p>FB, IG, Telegram 2FA</p>
-                </div>
-                <div class="card-footer">
-                    <span class="price-tag">৳50+</span>
-                    <button class="buy-btn"><i class="fas fa-arrow-right"></i></button>
-                </div>
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <h4>Social Accounts</h4>
+                <p>FB, IG, Telegram 2FA</p>
             </div>
         </div>
     </div>
 
-    <!-- ADD FUND PAGE -->
+    <!-- DEPOSIT PAGE -->
     <div id="page-addfund" class="page">
         <div class="deposit-container">
             <div class="balance-card">
                 <p>Current Balance</p>
-                <h1 style="font-size:32px; margin-top:5px;">৳ <span id="deposit-balance">0</span></h1>
+                <h1 style="font-size:36px; margin-top:5px;">$<span id="deposit-balance">0.00</span></h1>
             </div>
 
-            <div class="input-card">
-                <label style="font-size:12px; color:#666; font-weight:bold;">Add any amount to continue</label>
-                <p style="font-size:11px; color:#888;">Minimum add balance ৳ 10</p>
-                <div class="amount-input-box">
-                    ৳ <input type="number" id="pay-amount" value="50" min="10">
-                </div>
-            </div>
-
-            <p style="font-size:13px; color:var(--text-sub); margin-bottom:8px;">Quick Amount</p>
-            <div class="quick-amounts">
-                <div class="q-btn" onclick="setAmount(10, this)">৳10</div>
-                <div class="q-btn" onclick="setAmount(20, this)">৳20</div>
-                <div class="q-btn" onclick="setAmount(30, this)">৳30</div>
-                <div class="q-btn" onclick="setAmount(40, this)">৳40</div>
-                <div class="q-btn selected" onclick="setAmount(50, this)">৳50</div>
-                <div class="q-btn" onclick="setAmount(60, this)">৳60</div>
-                <div class="q-btn" onclick="setAmount(70, this)">৳70</div>
-                <div class="q-btn" onclick="setAmount(100, this)">৳100</div>
-            </div>
-
-            <p style="font-size:13px; color:var(--text-sub); margin-bottom:12px;">Select Payment Method to Proceed</p>
+            <p style="font-size:14px; color:var(--text-sub);">Step 1: Select Payment Method</p>
             <div class="methods-grid">
-                <div class="method-card" onclick="openPayment('bKash', '#e2136e')">
-                    <i class="fas fa-mobile-alt" style="color:#e2136e; font-size:24px;"></i>
-                    <p style="margin-top:5px;">bKash</p>
+                <div class="method-card" id="m-bKash" onclick="selectMethod('bKash', '#e2136e')">
+                    <i class="fas fa-mobile-alt" style="color:#e2136e; font-size:22px;"></i>
+                    <p style="margin-top:4px;">bKash</p>
                 </div>
-                <div class="method-card" onclick="openPayment('Nagad', '#f7921e')">
-                    <i class="fas fa-wallet" style="color:#f7921e; font-size:24px;"></i>
-                    <p style="margin-top:5px;">Nagad</p>
+                <div class="method-card" id="m-Nagad" onclick="selectMethod('Nagad', '#f7921e')">
+                    <i class="fas fa-wallet" style="color:#f7921e; font-size:22px;"></i>
+                    <p style="margin-top:4px;">Nagad</p>
                 </div>
-                <div class="method-card" onclick="openPayment('Rocket', '#8c3494')">
-                    <i class="fas fa-rocket" style="color:#8c3494; font-size:24px;"></i>
-                    <p style="margin-top:5px;">Rocket</p>
+                <div class="method-card" id="m-Binance" onclick="selectMethod('Binance', '#f0b90b')">
+                    <i class="fab fa-bitcoin" style="color:#f0b90b; font-size:22px;"></i>
+                    <p style="margin-top:4px;">Binance</p>
                 </div>
-                <div class="method-card" onclick="openPayment('Binance', '#f0b90b')">
-                    <i class="fab fa-bitcoin" style="color:#f0b90b; font-size:24px;"></i>
-                    <p style="margin-top:5px;">Binance</p>
+            </div>
+
+            <div id="pkg-section" style="display:none; margin-top:20px;">
+                <p style="font-size:14px; color:var(--text-sub);">Step 2: Choose Deposit Package</p>
+                <div class="pkg-grid">
+                    <div class="pkg-card" onclick="selectPkg(30, 0.25, this)">
+                        <div class="pkg-bdt">৳৩০</div>
+                        <div class="pkg-usd">+ $0.25 Add</div>
+                    </div>
+                    <div class="pkg-card" onclick="selectPkg(50, 0.45, this)">
+                        <div class="pkg-bdt">৳৫০</div>
+                        <div class="pkg-usd">+ $0.45 Add</div>
+                    </div>
+                    <div class="pkg-card" onclick="selectPkg(100, 0.85, this)">
+                        <div class="pkg-bdt">৳১০০</div>
+                        <div class="pkg-usd">+ $0.85 Add</div>
+                    </div>
+                    <div class="pkg-card" onclick="selectPkg(200, 1.70, this)">
+                        <div class="pkg-bdt">৳২০০</div>
+                        <div class="pkg-usd">+ $1.70 Add</div>
+                    </div>
+                    <div class="pkg-card" onclick="selectPkg(300, 2.50, this)">
+                        <div class="pkg-bdt">৳৩০০</div>
+                        <div class="pkg-usd">+ $2.50 Add</div>
+                    </div>
+                    <div class="pkg-card" onclick="selectPkg(600, 5.00, this)">
+                        <div class="pkg-bdt">৳৬০০</div>
+                        <div class="pkg-usd">+ $5.00 Add</div>
+                    </div>
                 </div>
+
+                <button class="save-btn" style="margin-top:20px;" onclick="proceedToPayment()">Continue to Payment →</button>
             </div>
         </div>
     </div>
@@ -228,29 +211,29 @@
     <!-- PAYMENT PROCESS PAGE -->
     <div id="page-pay-process" class="page">
         <div id="pay-screen-box" class="pay-screen">
-            <div style="background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
+            <div style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
                 <i class="fas fa-clock"></i> Session Expires in: 14:59
             </div>
             
-            <div style="font-size:13px; line-height:1.8;">
-                <p>1. আপনার <span id="method-name">bKash</span> App অথবা USSD খোলেন।</p>
+            <div style="font-size:14px; line-height:1.8;">
+                <p>1. আপনার <span id="method-name">bKash</span> App/USSD খুলুন।</p>
                 <p>2. "Send Money" অপশন সিলেক্ট করুন।</p>
                 <p>3. নিচের নম্বরে টাকা পাঠান:</p>
             </div>
 
             <div class="number-box">
-                <span id="target-number" style="font-size:16px; font-weight:bold;">01784280517</span>
+                <span id="target-number" style="font-size:18px; font-weight:bold;">01784280517</span>
                 <button class="copy-btn" onclick="copyNumber()">Copy</button>
             </div>
 
-            <div style="font-size:13px; line-height:1.8;">
-                <p>4. পরিমাণ: <b>৳ <span id="final-amount">50</span></b></p>
-                <p>5. Payment করার পর Transaction ID নিচে দিয়ে VERIFY করুন।</p>
+            <div style="font-size:14px; line-height:1.8;">
+                <p>4. পাঠান: <b>৳<span id="final-bdt">50</span></b> (অ্যাড হবে: <b>$<span id="final-usd">0.45</span></b>)</p>
+                <p>5. Transaction ID নিচে দিয়ে VERIFY করুন।</p>
             </div>
 
-            <input type="text" id="tx-id" class="tx-input" placeholder="ট্রানজ্যাকশন আইডি দিন">
-            <button class="verify-btn" onclick="submitDeposit()">VERIFY</button>
-            <button style="width:100%; padding:10px; background:transparent; border:none; color:white; margin-top:10px; cursor:pointer;" onclick="showPage('addfund')">← Back</button>
+            <input type="text" id="tx-id" class="tx-input" placeholder="Enter Transaction ID">
+            <button class="verify-btn" onclick="submitDeposit()">VERIFY PAYMENT</button>
+            <button style="width:100%; padding:12px; background:transparent; border:none; color:white; margin-top:10px; cursor:pointer;" onclick="showPage('addfund')">← Back</button>
         </div>
     </div>
 
@@ -268,17 +251,17 @@
         <div class="modal-content">
             <i class="fas fa-times close-btn" onclick="closeModal('buy-modal')"></i>
             <h3 id="buy-item-name">Product Name</h3>
-            <p id="buy-item-price" style="color:#3fb950; font-weight:bold; margin-top:5px;">Price: ৳0</p>
+            <p id="buy-item-price" style="color:#3fb950; font-weight:bold; margin-top:5px;">Price: $0.00</p>
             
             <div class="qty-box">
                 <span>কয়টি কিনবেন:</span>
                 <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                <span id="buy-qty" style="font-weight:bold;">1</span>
+                <span id="buy-qty" style="font-weight:bold; font-size:16px;">1</span>
                 <button class="qty-btn" onclick="changeQty(1)">+</button>
             </div>
 
-            <p style="font-size:13px; margin-bottom:15px;">মোট মূল্য: <b>৳<span id="total-price">0</span></b></p>
-            <button class="save-btn" onclick="confirmPurchase()">BUY NOW</button>
+            <p style="font-size:14px; margin-bottom:15px;">মোট মূল্য: <b>$<span id="total-price">0.00</span></b></p>
+            <button class="save-btn" onclick="confirmPurchase()">CONFIRM BUY</button>
         </div>
     </div>
 
@@ -288,11 +271,9 @@
             <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
             <h3 style="color:#388bfd; margin-bottom:15px;"><i class="fas fa-user-shield"></i> Secret Admin Panel</h3>
             
-            <!-- Tab Buttons inside Admin -->
             <div style="display:flex; gap:8px; margin-bottom:15px;">
-                <button class="q-btn selected" style="flex:1;" onclick="showAdminTab('numbers')">Numbers</button>
-                <button class="q-btn" style="flex:1;" onclick="showAdminTab('stock')">Add Stock</button>
-                <button class="q-btn" style="flex:1;" onclick="showAdminTab('requests')">Deposits</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px;" onclick="showAdminTab('numbers')">Numbers</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px;" onclick="showAdminTab('stock')">Add Product</button>
             </div>
 
             <!-- Numbers Tab -->
@@ -313,29 +294,19 @@
                     <option value="Mails">Hotmail / Outlook</option>
                     <option value="Social">Social Accounts</option>
                 </select>
-                <label style="font-size:12px;">Product Title & Price:</label>
+                <label style="font-size:12px;">Product Title & Price ($ USD):</label>
                 <input type="text" id="adm-prod-title" class="input-box" placeholder="e.g. Express VPN (1 Month)">
-                <input type="number" id="adm-prod-price" class="input-box" placeholder="Price (BDT)">
-                <label style="font-size:12px;">Accounts Stock (One per line):</label>
-                <textarea id="adm-prod-stock" class="input-box" rows="3" placeholder="user:pass..."></textarea>
+                <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="Price in USD (e.g. 0.50)">
                 <button class="save-btn" style="background:#238636;" onclick="addNewProduct()">Add Product</button>
-            </div>
-
-            <!-- Deposit Requests Tab -->
-            <div id="admin-tab-requests" style="display:none;">
-                <p style="font-size:12px; color:var(--text-sub);">Pending Deposit Requests:</p>
-                <div id="deposit-req-list" style="margin-top:10px;">
-                    <p style="font-size:12px; color:#888;">No pending requests.</p>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Nav Bar -->
+    <!-- Larger Bottom Nav Bar -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="showPage('home')"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item" onclick="alert('No Orders Yet!')"><i class="fas fa-shopping-bag"></i><span>Orders</span></div>
-        <div class="nav-item" onclick="showPage('addfund')"><i class="fas fa-plus-circle"></i><span>Add Fund</span></div>
+        <div class="nav-item" onclick="showPage('addfund')"><i class="fas fa-plus-circle"></i><span>Deposit</span></div>
         <div class="nav-item" onclick="alert('Profile Details')"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
 
@@ -350,14 +321,18 @@
             document.getElementById('admin-trigger-container').style.display = 'block';
         }
 
-        // Mock Products Database
+        // Empty Products Database (Admin adds everything)
         let productsDB = {
-            'VPN': [{ name: 'Express VPN 1 Month', price: 40 }, { name: 'Nord VPN 1 Year', price: 80 }],
-            'Proxy': [{ name: 'SOCKS5 Residential Proxy', price: 150 }],
-            'Mails': [{ name: 'Hotmail Trust V1', price: 10 }, { name: 'Outlook Fresh Mail', price: 15 }],
-            'Social': [{ name: 'Telegram 2FA Account', price: 50 }]
+            'VPN': [],
+            'Proxy': [],
+            'Mails': [],
+            'Social': []
         };
 
+        let selectedMethodName = '';
+        let selectedColor = '#e2136e';
+        let selectedBDT = 0;
+        let selectedUSD = 0;
         let currentSelectedProd = null;
         let currentQty = 1;
 
@@ -366,10 +341,31 @@
             document.getElementById('page-' + pageId).classList.add('active');
         }
 
-        function setAmount(val, btn) {
-            document.getElementById('pay-amount').value = val;
-            document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+        function selectMethod(method, color) {
+            selectedMethodName = method;
+            selectedColor = color;
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('m-' + method).classList.add('selected');
+            document.getElementById('pkg-section').style.display = 'block';
+        }
+
+        function selectPkg(bdt, usd, cardElem) {
+            selectedBDT = bdt;
+            selectedUSD = usd;
+            document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+            cardElem.classList.add('selected');
+        }
+
+        function proceedToPayment() {
+            if(!selectedMethodName) { alert('মেথড সিলেক্ট করুন!'); return; }
+            if(!selectedBDT) { alert('প্যাকেজ সিলেক্ট করুন!'); return; }
+
+            document.getElementById('method-name').innerText = selectedMethodName;
+            document.getElementById('final-bdt').innerText = selectedBDT;
+            document.getElementById('final-usd').innerText = selectedUSD.toFixed(2);
+            document.getElementById('pay-screen-box').style.backgroundColor = selectedColor;
+
+            showPage('pay-process');
         }
 
         function openProductList(cat) {
@@ -381,12 +377,12 @@
                 <div class="prod-item">
                     <div>
                         <b>${p.name}</b>
-                        <p style="font-size:12px; color:#3fb950;">৳${p.price}</p>
+                        <p style="font-size:13px; color:#3fb950; font-weight:bold;">$${p.price.toFixed(2)}</p>
                     </div>
-                    <button class="buy-btn" onclick="openBuyModal('${p.name}', ${p.price})">Buy</button>
+                    <button class="save-btn" style="width:auto; padding:8px 16px; margin:0;" onclick="openBuyModal('${p.name}', ${p.price})">Buy Now</button>
                 </div>`;
             });
-            document.getElementById('products-container').innerHTML = html || '<p>No products available.</p>';
+            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">কোনো প্রোডাক্ট এভেলেবল নেই। এডমিন প্যানেল থেকে এড করুন।</p>';
             document.getElementById('product-modal').style.display = 'flex';
         }
 
@@ -395,7 +391,7 @@
             currentSelectedProd = { name, price };
             currentQty = 1;
             document.getElementById('buy-item-name').innerText = name;
-            document.getElementById('buy-item-price').innerText = 'Price: ৳' + price;
+            document.getElementById('buy-item-price').innerText = 'Price: $' + price.toFixed(2);
             updateTotalPrice();
             document.getElementById('buy-modal').style.display = 'flex';
         }
@@ -409,23 +405,12 @@
         }
 
         function updateTotalPrice() {
-            document.getElementById('total-price').innerText = currentSelectedProd.price * currentQty;
+            document.getElementById('total-price').innerText = (currentSelectedProd.price * currentQty).toFixed(2);
         }
 
         function confirmPurchase() {
             closeModal('buy-modal');
-            alert('পর্যাপ্ত ব্যালেন্স নেই! দয়া করে Add Fund করুন।');
-        }
-
-        function openPayment(method, color) {
-            const amount = document.getElementById('pay-amount').value;
-            if(amount < 10) { alert('Minimum deposit ৳10'); return; }
-
-            document.getElementById('method-name').innerText = method;
-            document.getElementById('final-amount').innerText = amount;
-            document.getElementById('pay-screen-box').style.backgroundColor = color;
-
-            showPage('pay-process');
+            alert('পর্যাপ্ত ডলার ব্যালেন্স নেই! দয়া করে Deposit করুন।');
         }
 
         function copyNumber() {
@@ -446,27 +431,25 @@
         function showAdminTab(tab) {
             document.getElementById('admin-tab-numbers').style.display = tab === 'numbers' ? 'block' : 'none';
             document.getElementById('admin-tab-stock').style.display = tab === 'stock' ? 'block' : 'none';
-            document.getElementById('admin-tab-requests').style.display = tab === 'requests' ? 'block' : 'none';
         }
 
         function saveAdminNumbers() {
             document.getElementById('target-number').innerText = document.getElementById('adm-bkash').value;
-            alert('পেমেন্ট নম্বর সেভ করা হয়েছে!');
+            alert('নম্বর সেভ করা হয়েছে!');
             closeModal('admin-modal');
         }
 
         function addNewProduct() {
             const cat = document.getElementById('adm-cat-select').value;
             const title = document.getElementById('adm-prod-title').value;
-            const price = parseInt(document.getElementById('adm-prod-price').value);
+            const price = parseFloat(document.getElementById('adm-prod-price').value);
 
             if(title && price) {
-                if(!productsDB[cat]) productsDB[cat] = [];
                 productsDB[cat].push({ name: title, price: price });
-                alert('নতুন প্রোডাক্ট স্টকে এড করা হয়েছে!');
+                alert('নতুন প্রোডাক্ট সফলভাবে এড করা হয়েছে!');
                 closeModal('admin-modal');
             }
         }
     </script>
 </body>
-    </html>
+                            </html>
