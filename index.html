@@ -5,562 +5,777 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AURA STORE</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #0b0f19;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-glow: #00d2ff;
+            --text-color: #ffffff;
+            --text-sub: #8b949e;
+            --border-color: #30363d;
         }
-        .neon-border {
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
-            border: 1px solid rgba(139, 92, 246, 0.4);
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 90px; }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Header */
+        .header {
+            padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid var(--border-color);
         }
-        .glass-card {
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(12px);
-        }
-        .single-line-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        .brand-info { display: flex; align-items: center; gap: 12px; }
+        .brand-logo { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #8a2be2, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .brand-text h2 { font-size: 16px; font-weight: 700; }
+        .brand-text p { font-size: 11px; color: var(--text-sub); }
+        .balance-badge { background: #21262d; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 15px; color: #3fb950; font-weight: bold; }
+
+        /* Banner */
+        .banner-container { padding: 15px 20px; }
+        .banner { background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%); border-radius: 18px; padding: 22px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .banner-tag { background: #ff4757; color: #fff; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
+        .banner h3 { font-size: 22px; margin-bottom: 6px; }
+        .banner p { font-size: 13px; opacity: 0.85; margin-bottom: 14px; }
+        .banner-btn { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer; }
+
+        /* Cards Grid */
+        .section-title { padding: 10px 20px 5px; font-size: 14px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
+        .grid-container { display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; padding: 10px 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .card-left { display: flex; align-items: center; gap: 15px; }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #a78bfa; }
+        .card h4 { font-size: 16px; margin-bottom: 2px; }
+        .card p { font-size: 12px; color: var(--text-sub); }
+        .click-arrow { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #22c55e; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+
+        /* Deposit UI */
+        .deposit-container { padding: 15px 20px; }
+        .balance-card { background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; }
+        .methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .method-card { background: #fff; color: #000; border-radius: 14px; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: bold; border: 3px solid transparent; }
+        .method-card.selected { border-color: #00d2ff; }
+
+        .pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .pkg-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .pkg-card:active { transform: scale(0.98); border-color: var(--accent-glow); }
+        .pkg-bdt { font-size: 16px; font-weight: bold; color: #fff; }
+        .pkg-usd { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
+
+        /* Payment Screen */
+        .pay-screen { border-radius: 20px; padding: 22px; color: white; margin: 15px 20px; }
+        .number-box { background: rgba(255,255,255,0.2); padding: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 12px 0; word-break: break-all; }
+        .copy-btn { background: #fff; color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; flex-shrink: 0; margin-left: 10px; }
+        .tx-input { width: 100%; padding: 15px; border-radius: 12px; border: none; outline: none; margin-top: 12px; font-size: 15px; text-align: center; }
+        .verify-btn { width: 100%; padding: 16px; background: #22c55e; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 15px; cursor: pointer; }
+
+        /* Profile & History */
+        .profile-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; text-align: center; margin: 20px; }
+        .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 15px; }
+        .premium-badge { background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 15px; display: inline-block; margin-top: 10px; letter-spacing: 0.5px; }
+        
+        .history-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-PENDING { background: #d97706; color: white; }
+        .status-APPROVED { background: #059669; color: white; }
+        .status-REJECTED { background: #dc2626; color: white; }
+
+        /* Admin Trigger & Red Badge Notification */
+        #admin-trigger-container { padding: 0 20px 10px; position: relative; }
+        .admin-trigger-btn { width: 100%; padding: 14px; background: #238636; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; position: relative; }
+        .red-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: none; align-items: center; justify-content: center; border: 2px solid #0d1117; font-weight: bold; }
+
+        /* Bottom Nav Bar */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22, 27, 34, 0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 12px; cursor: pointer; font-weight: 600; width: 25%; }
+        .nav-item i { font-size: 20px; }
+        .nav-item.active { color: var(--accent-glow); }
+
+        /* Modal Inputs */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
+        
+        .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
+        .save-btn { width: 100%; padding: 12px; background: #7c3aed; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
+        .prod-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); }
+        .req-card { background: #0d1117; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; }
+
+        /* Custom Order Delivery Screen UI */
+        .delivery-card { background: #0d1117; border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-top: 15px; }
+        .delivery-item { background: #161b22; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; word-break: break-all; }
+        .delivery-item label { font-size: 11px; color: var(--text-sub); display: block; }
+        .delivery-item span { font-size: 14px; font-weight: bold; color: #00d2ff; }
+        .mini-copy { background: #238636; color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
     </style>
 </head>
-<body class="pb-20">
+<body>
 
     <!-- Header -->
-    <div class="p-4 flex justify-between items-center glass-card border-b border-gray-800 sticky top-0 z-40">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center font-bold text-lg shadow-lg">
-                🛍️
-            </div>
-            <div>
-                <h1 class="font-bold text-base tracking-wide text-gray-100">AURA STORE</h1>
-                <p class="text-xs text-purple-400">Digital Access Hub</p>
+    <div class="header">
+        <div class="brand-info">
+            <div class="brand-logo">🛍️</div>
+            <div class="brand-text">
+                <h2>AURA STORE</h2>
+                <p>Digital Access Hub</p>
             </div>
         </div>
-        <div class="bg-gray-800/80 px-3 py-1.5 rounded-full border border-purple-500/30 flex items-center gap-2">
-            <i class="fa-solid fa-wallet text-purple-400 text-sm"></i>
-            <span id="user-balance" class="font-bold text-green-400 text-sm">$0.00</span>
-        </div>
+        <div class="balance-badge"><i class="fas fa-wallet"></i> $<span id="user-balance">0.00</span></div>
     </div>
 
-    <!-- Main Container -->
-    <div class="p-4 space-y-4">
-
-        <!-- Banner -->
-        <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-900/40 to-indigo-900/40 neon-border relative overflow-hidden">
-            <div class="relative z-10">
-                <span class="bg-purple-500/20 text-purple-300 text-xs px-2.5 py-1 rounded-full font-semibold border border-purple-500/40">⚡ INSTANT ACCESS</span>
-                <h2 class="text-xl font-extrabold mt-2 text-white">Deposit Funds</h2>
-                <p class="text-xs text-gray-400 mt-1">bKash, Nagad & Binance Supported</p>
-                <button onclick="switchTab('deposit')" class="mt-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg hover:opacity-90 transition">
-                    Deposit Now
-                </button>
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+        <div class="banner-container">
+            <div class="banner">
+                <span class="banner-tag">⚡ INSTANT TOP-UP</span>
+                <h3>Deposit Funds</h3>
+                <p>bKash, Nagad & Binance Supported</p>
+                <button class="banner-btn" onclick="showPage('addfund')">Deposit Now</button>
             </div>
         </div>
 
-        <!-- Categories / Products Area -->
-        <div id="home-sec" class="space-y-3">
-            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Categories</h3>
-            
-            <!-- Proxy Category Card -->
-            <div onclick="openProductModal('Proxy')" class="p-4 rounded-xl glass-card border border-gray-800 flex justify-between items-center cursor-pointer hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3">
-                    <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400">
-                        <i class="fa-solid fa-network-wired text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm text-gray-200">Proxy</h4>
-                        <p class="text-xs text-gray-500">Residential & HTTP Premium Proxies</p>
-                    </div>
-                </div>
-                <span class="text-xs text-purple-400 font-semibold flex items-center gap-1">
-                    View <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                </span>
-            </div>
-        </div>
-
-        <!-- Orders Section -->
-        <div id="orders-sec" class="hidden space-y-3">
-            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">Purchase History</h3>
-            <div id="orders-list" class="space-y-2">
-                <p class="text-xs text-gray-500 text-center py-6">No orders found.</p>
-            </div>
-        </div>
-
-        <!-- Deposit Section -->
-        <div id="deposit-sec" class="hidden space-y-4">
-            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">Add Balance</h3>
-            <div class="p-4 rounded-xl glass-card border border-gray-800 space-y-3">
-                <div>
-                    <label class="text-xs text-gray-400">Select Payment Method</label>
-                    <select id="dep-method" class="w-full mt-1 bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-xs focus:border-purple-500 outline-none">
-                        <option value="bKash">bKash Personal (01700000000)</option>
-                        <option value="Nagad">Nagad Personal (01700000000)</option>
-                        <option value="Binance">Binance Pay ID (123456789)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400">Amount ($ USD)</label>
-                    <input type="number" id="dep-amount" placeholder="e.g. 1.00" class="w-full mt-1 bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-xs focus:border-purple-500 outline-none">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400">Transaction ID (TrxID)</label>
-                    <input type="text" id="dep-trx" placeholder="Enter Transaction TrxID" class="w-full mt-1 bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-xs focus:border-purple-500 outline-none">
-                </div>
-                <button onclick="submitDeposit()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-lg text-xs transition">
-                    Submit Deposit Request
-                </button>
-            </div>
-        </div>
-
-        <!-- Profile / Admin Section -->
-        <div id="profile-sec" class="hidden space-y-4">
-            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">User Profile</h3>
-            <div class="p-4 rounded-xl glass-card border border-gray-800 space-y-2 text-xs">
-                <p><strong>Name:</strong> <span id="prof-name">User</span></p>
-                <p><strong>Telegram ID:</strong> <span id="prof-id">0000000</span></p>
-            </div>
-
-            <!-- Admin Panel Button with Notification Badge -->
-            <div id="admin-panel-btn" class="hidden">
-                <button onclick="toggleAdminModal()" class="w-full relative bg-gradient-to-r from-amber-600 to-orange-600 text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg">
-                    <i class="fa-solid fa-user-shield"></i> Open Admin Control Panel
-                    <span id="dep-badge" class="hidden absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse border-2 border-gray-900">0</span>
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Product Selection Modal -->
-    <div id="product-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-sm p-4 space-y-3 relative">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                <h3 id="modal-cat-title" class="font-bold text-sm text-gray-200">Products</h3>
-                <button onclick="closeProductModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="modal-products-list" class="space-y-2 max-h-80 overflow-y-auto">
-                <!-- Dynamic Products -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div id="admin-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-        <div class="bg-gray-900 border border-purple-500/30 rounded-2xl w-full max-w-md p-4 space-y-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
-                <h3 class="font-bold text-sm text-purple-400"><i class="fa-solid fa-shield-halved"></i> Admin Control Center</h3>
-                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <!-- Deposit Notification Alert Bar -->
-            <div id="admin-notif-bar" class="hidden p-3 bg-red-500/10 border border-red-500/40 rounded-xl flex items-center justify-between">
-                <div class="flex items-center gap-2 text-xs text-red-400 font-bold">
-                    <i class="fa-solid fa-bell animate-bounce"></i>
-                    <span id="admin-notif-text">0 Pending Deposit Requests!</span>
-                </div>
-                <button onclick="switchAdminTab('requests')" class="text-[10px] bg-red-600 text-white px-2 py-1 rounded-md font-semibold">View</button>
-            </div>
-
-            <!-- Admin Navigation -->
-            <div class="flex gap-2 border-b border-gray-800 pb-2">
-                <button onclick="switchAdminTab('stock')" class="px-3 py-1.5 bg-purple-600 text-white rounded-lg text-xs font-semibold">Add Stock</button>
-                <button onclick="switchAdminTab('requests')" class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded-lg text-xs font-semibold relative">
-                    Deposit Requests
-                    <span id="tab-dep-badge" class="hidden absolute -top-1 -right-1 bg-red-600 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
-            </div>
-
-            <!-- Add Stock Form -->
-            <div id="admin-stock-tab" class="space-y-3">
-                <div>
-                    <label class="text-[11px] text-gray-400">Category</label>
-                    <select id="add-cat" class="w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs outline-none">
-                        <option value="Proxy">Proxy</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[11px] text-gray-400">Title (Premium Single-line Format)</label>
-                    <input type="text" id="add-title" placeholder="e.g. ULTRA RESIDENTIAL PROXY" class="w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs outline-none">
-                </div>
-                <div>
-                    <label class="text-[11px] text-gray-400">Price ($ USD)</label>
-                    <input type="number" id="add-price" placeholder="0.50" class="w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs outline-none">
-                </div>
-                <div>
-                    <label class="text-[11px] text-gray-400">Bulk Stock Data (1 Proxy Per Line Format: ip:port:user:pass)</label>
-                    <textarea id="add-stock-data" rows="4" placeholder="192.168.1.1:8080:user:pass" class="w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg p-2 text-xs font-mono outline-none"></textarea>
-                </div>
-                <button onclick="saveStock()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-lg text-xs transition">Add / Append Stock</button>
-            </div>
-
-            <!-- Requests Tab -->
-            <div id="admin-requests-tab" class="hidden space-y-2">
-                <div id="deposit-requests-list" class="space-y-2">
-                    <p class="text-xs text-gray-500 text-center py-4">No pending deposit requests.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- One-Click Purchase Success Modal (Image 2 Format) -->
-    <div id="success-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-        <div class="bg-gray-900 border border-purple-500/40 rounded-2xl w-full max-w-sm p-5 space-y-4 text-center">
-            <div class="text-4xl">🎉</div>
-            <h3 class="font-extrabold text-base text-green-400 tracking-wide">ORDER COMPLETED!</h3>
-            
-            <p class="text-xs text-gray-400">Your proxy details are formatted below. Click any item to copy instantly:</p>
-
-            <div class="space-y-2 text-left text-xs bg-gray-950 p-3 rounded-xl border border-gray-800">
-                <div onclick="copyText('item-ip')" class="p-2 bg-gray-900 rounded border border-gray-800 flex justify-between items-center cursor-pointer active:scale-98 transition">
-                    <div><span class="text-gray-500 font-semibold">🌐 IP:</span> <span id="item-ip" class="text-purple-300 font-mono font-bold"></span></div>
-                    <i class="fa-regular fa-copy text-gray-400 text-xs"></i>
-                </div>
-                <div onclick="copyText('item-port')" class="p-2 bg-gray-900 rounded border border-gray-800 flex justify-between items-center cursor-pointer active:scale-98 transition">
-                    <div><span class="text-gray-500 font-semibold">🔌 Port:</span> <span id="item-port" class="text-purple-300 font-mono font-bold"></span></div>
-                    <i class="fa-regular fa-copy text-gray-400 text-xs"></i>
-                </div>
-                <div onclick="copyText('item-user')" class="p-2 bg-gray-900 rounded border border-gray-800 flex justify-between items-center cursor-pointer active:scale-98 transition">
-                    <div class="truncate max-w-[220px]"><span class="text-gray-500 font-semibold">👤 User:</span> <span id="item-user" class="text-purple-300 font-mono font-bold"></span></div>
-                    <i class="fa-regular fa-copy text-gray-400 text-xs"></i>
-                </div>
-                <div onclick="copyText('item-pass')" class="p-2 bg-gray-900 rounded border border-gray-800 flex justify-between items-center cursor-pointer active:scale-98 transition">
-                    <div><span class="text-gray-500 font-semibold">🔑 Pass:</span> <span id="item-pass" class="text-purple-300 font-mono font-bold"></span></div>
-                    <i class="fa-regular fa-copy text-gray-400 text-xs"></i>
-                </div>
-            </div>
-
-            <button onclick="closeSuccessModal()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl text-xs transition">
-                Done / OK
+        <div id="admin-trigger-container">
+            <button class="admin-trigger-btn" onclick="openAdminModal()">
+                <i class="fas fa-user-shield"></i> Open Admin Panel
+                <span id="btn-admin-badge" class="red-badge">0</span>
             </button>
         </div>
+
+        <div class="section-title">Categories</div>
+        <div class="grid-container">
+            <div class="card" onclick="openProductList('VPN')">
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4>VPN</h4>
+                        <p>Premium VPN Accounts</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+            <div class="card" onclick="openProductList('Proxy')">
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h4>Proxy</h4>
+                        <p>Residential & HTTP Stock</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+            <div class="card" onclick="openProductList('Mails')">
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4>Hotmail / Outlook</h4>
+                        <p>Fresh Mails</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
+            </div>
+        </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="fixed bottom-0 left-0 right-0 glass-card border-t border-gray-800 flex justify-around py-2.5 z-40">
-        <button onclick="switchTab('home')" class="flex flex-col items-center gap-1 text-purple-400 text-xs font-semibold">
-            <i class="fa-solid fa-house text-base"></i> Home
-        </button>
-        <button onclick="switchTab('orders')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-400 text-xs font-semibold">
-            <i class="fa-solid fa-bag-shopping text-base"></i> Orders
-        </button>
-        <button onclick="switchTab('deposit')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-400 text-xs font-semibold">
-            <i class="fa-solid fa-circle-plus text-base"></i> Deposit
-        </button>
-        <button onclick="switchTab('profile')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-400 text-xs font-semibold">
-            <i class="fa-solid fa-user text-base"></i> Profile
-        </button>
+    <!-- DEPOSIT PAGE -->
+    <div id="page-addfund" class="page">
+        <div class="deposit-container">
+            <div class="balance-card">
+                <p>Current Balance</p>
+                <h1 style="font-size:36px; margin-top:5px;">$<span id="deposit-balance">0.00</span></h1>
+            </div>
+
+            <p style="font-size:14px; color:var(--text-sub);">Step 1: Select Payment Method</p>
+            <div class="methods-grid">
+                <div class="method-card" id="m-bKash" onclick="selectMethod('bKash', '#e2136e')">
+                    <i class="fas fa-mobile-alt" style="color:#e2136e; font-size:22px;"></i>
+                    <p style="margin-top:4px;">bKash</p>
+                </div>
+                <div class="method-card" id="m-Nagad" onclick="selectMethod('Nagad', '#f7921e')">
+                    <i class="fas fa-wallet" style="color:#f7921e; font-size:22px;"></i>
+                    <p style="margin-top:4px;">Nagad</p>
+                </div>
+                <div class="method-card" id="m-Binance" onclick="selectMethod('Binance', '#f0b90b')">
+                    <i class="fab fa-bitcoin" style="color:#f0b90b; font-size:22px;"></i>
+                    <p style="margin-top:4px;">Binance</p>
+                </div>
+            </div>
+
+            <div id="pkg-section" style="display:none; margin-top:20px;">
+                <p style="font-size:14px; color:var(--text-sub);">Step 2: Choose Deposit Package (Auto Direct)</p>
+                <div class="pkg-grid" id="pkg-container"></div>
+            </div>
+
+            <!-- Deposit History -->
+            <div style="margin-top:30px;">
+                <div class="section-title" style="padding:0 0 10px 0;"><i class="fas fa-history"></i> Deposit History</div>
+                <div id="user-deposit-history"></div>
+            </div>
+        </div>
     </div>
 
-    <!-- Application Script Logic -->
+    <!-- PROFILE PAGE -->
+    <div id="page-profile" class="page">
+        <div class="profile-box">
+            <div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div>
+            <h2 id="prof-user-name">User Name</h2>
+            <p style="font-size:13px; color:var(--text-sub); margin-top:4px;">Telegram ID: <span id="prof-user-id">00000000</span></p>
+            <div class="premium-badge"><i class="fas fa-crown"></i> Premium User</div>
+            
+            <div style="background:#0d1117; border:1px solid var(--border-color); border-radius:14px; padding:15px; margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--text-sub); font-size:14px;">Available Balance</span>
+                <b style="font-size:18px; color:#3fb950;">$<span id="prof-user-bal">0.00</span></b>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYMENT PROCESS PAGE -->
+    <div id="page-pay-process" class="page">
+        <div id="pay-screen-box" class="pay-screen">
+            <div style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
+                <i class="fas fa-clock"></i> Session Expires in: <span id="timer-display" style="font-weight:bold; color:#00ffff;">15:00</span>
+            </div>
+            
+            <div style="font-size:14px; line-height:1.8;" id="pay-instructions"></div>
+
+            <div class="number-box">
+                <span id="target-number" style="font-size:16px; font-weight:bold;">Loading...</span>
+                <button class="copy-btn" onclick="copyNumber()">Copy</button>
+            </div>
+
+            <div style="font-size:14px; line-height:1.8;">
+                <p id="amount-details-text"></p>
+                <p>Enter Transaction ID / Pay ID below to verify.</p>
+            </div>
+
+            <input type="text" id="tx-id" class="tx-input" placeholder="Enter Transaction ID / Pay ID">
+            <button class="verify-btn" onclick="submitDeposit()">VERIFY PAYMENT</button>
+            <button style="width:100%; padding:12px; background:transparent; border:none; color:white; margin-top:10px; cursor:pointer;" onclick="showPage('addfund')">← Back</button>
+        </div>
+    </div>
+
+    <!-- PRODUCTS MODAL -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('product-modal')"></i>
+            <h3 id="modal-cat-title" style="margin-bottom:15px;">Category</h3>
+            <div id="products-container"></div>
+        </div>
+    </div>
+
+    <!-- ORDER SUCCESS DELIVERY MODAL -->
+    <div id="delivery-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('delivery-modal')"></i>
+            <h3 style="color:#22c55e; margin-bottom:5px;"><i class="fas fa-check-circle"></i> অর্ডার সম্পন্ন ✨</h3>
+            <p style="font-size:12px; color:var(--text-sub);" id="delivery-time">Delivery Time: --</p>
+
+            <div class="delivery-card">
+                <p style="font-size:13px; color:#a78bfa; font-weight:bold; margin-bottom:10px;" id="delivery-pkg-name">Package: --</p>
+                <p style="font-size:13px; font-weight:bold; margin-bottom:10px;">আপনার প্রোডাক্ট: ✨</p>
+                
+                <div id="delivery-details-box"></div>
+            </div>
+
+            <button class="save-btn" style="background:#22c55e; margin-top:15px;" onclick="closeModal('delivery-modal')"><i class="fas fa-shopping-cart"></i> ঠিক আছে</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL MODAL -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
+            <h3 style="color:#388bfd; margin-bottom:15px;"><i class="fas fa-user-shield"></i> Admin Management</h3>
+            
+            <div style="display:flex; gap:6px; margin-bottom:15px;">
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('numbers')">Numbers</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('stock')">Add Stock</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px; background:#d97706; position:relative;" onclick="showAdminTab('requests')">
+                    Requests
+                    <span id="tab-admin-badge" class="red-badge" style="top:-8px; right:-5px;">0</span>
+                </button>
+            </div>
+
+            <!-- Numbers Tab -->
+            <div id="admin-tab-numbers">
+                <label style="font-size:12px;">bKash Number:</label>
+                <input type="text" id="adm-bkash" class="input-box" placeholder="017xxxxxxxx">
+                <label style="font-size:12px;">Nagad Number:</label>
+                <input type="text" id="adm-nagad" class="input-box" placeholder="017xxxxxxxx">
+                <label style="font-size:12px;">Binance Pay ID / USDT Address:</label>
+                <input type="text" id="adm-binance" class="input-box" placeholder="Binance ID / Wallet">
+                <button class="save-btn" style="background:#238636;" onclick="saveAdminNumbers()">Save Settings</button>
+            </div>
+
+            <!-- Add Product & Bulk Stock Tab -->
+            <div id="admin-tab-stock" style="display:none;">
+                <label style="font-size:12px;">Category:</label>
+                <select id="adm-cat-select" class="input-box">
+                    <option value="Proxy">Proxy</option>
+                    <option value="VPN">VPN</option>
+                    <option value="Mails">Hotmail / Outlook</option>
+                </select>
+                <label style="font-size:12px;">Title (e.g. Residential Proxy):</label>
+                <input type="text" id="adm-prod-title" class="input-box" placeholder="Title">
+                <label style="font-size:12px;">Price ($ USD):</label>
+                <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="0.50">
+                <label style="font-size:12px;">Bulk Stock Data (Each Proxy in new line):</label>
+                <textarea id="adm-prod-stock" class="input-box" style="height:90px;" placeholder="ip:port:user:pass"></textarea>
+                <button class="save-btn" style="background:#238636; margin-bottom:20px;" onclick="addNewProduct()">Add / Append Stock</button>
+
+                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Existing Products Stock:</p>
+                <div id="admin-product-list"></div>
+            </div>
+
+            <!-- Deposit Requests Tab -->
+            <div id="admin-tab-requests" style="display:none;">
+                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Pending Deposits:</p>
+                <div id="deposit-req-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav Bar -->
+    <div class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" id="nav-orders" onclick="alert('No Orders Yet!')"><i class="fas fa-shopping-bag"></i><span>Orders</span></div>
+        <div class="nav-item" id="nav-addfund" onclick="showPage('addfund')"><i class="fas fa-plus-circle"></i><span>Deposit</span></div>
+        <div class="nav-item" id="nav-profile" onclick="showPage('profile')"><i class="fas fa-user"></i><span>Profile</span></div>
+    </div>
+
     <script>
         const tg = window.Telegram ? window.Telegram.WebApp : null;
-        if (tg) tg.expand();
+        if (tg) { try { tg.expand(); } catch(e){} }
 
-        const ADMIN_ID = "123456789"; // Admin ID
+        const currentUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : { id: "7753794493", first_name: "Demo User" };
+        const userId = String(currentUser.id);
 
-        let currentUser = {
-            id: tg?.initDataUnsafe?.user?.id || "88990011",
-            first_name: tg?.initDataUnsafe?.user?.first_name || "User"
-        };
+        // Persistent Storage
+        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_PAY_ID' };
+        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [] };
+        let userBalances = JSON.parse(localStorage.getItem('aura_balances')) || {};
+        let depositRequests = JSON.parse(localStorage.getItem('aura_requests')) || [];
 
-        // Persistent LocalStorage Initialization (Prevents Loss of User Balances)
-        let balances = JSON.parse(localStorage.getItem('aura_balances')) || {};
-        let products = JSON.parse(localStorage.getItem('aura_products')) || [];
-        let deposits = JSON.parse(localStorage.getItem('aura_deposits')) || [];
-        let orders = JSON.parse(localStorage.getItem('aura_orders')) || [];
+        if (userBalances[userId] === undefined) { userBalances[userId] = 0.00; }
+        updateUserBalanceUI();
+        checkPendingNotifications();
 
-        function initApp() {
-            if (!balances[currentUser.id]) balances[currentUser.id] = 0.00;
-            updateBalanceUI();
-            
-            document.getElementById('prof-name').innerText = currentUser.first_name;
-            document.getElementById('prof-id').innerText = currentUser.id;
+        let selectedMethodName = '';
+        let selectedColor = '#e2136e';
+        let selectedBDT = 0;
+        let selectedUSD = 0;
+        let timerInterval = null;
 
-            if (String(currentUser.id) === String(ADMIN_ID)) {
-                document.getElementById('admin-panel-btn').classList.remove('hidden');
-            }
-            checkPendingDeposits();
+        function updateUserBalanceUI() {
+            const bal = (userBalances[userId] || 0).toFixed(2);
+            document.getElementById('user-balance').innerText = bal;
+            document.getElementById('deposit-balance').innerText = bal;
+            document.getElementById('prof-user-bal').innerText = bal;
+            document.getElementById('prof-user-name').innerText = currentUser.first_name + (currentUser.last_name ? ' ' + currentUser.last_name : '');
+            document.getElementById('prof-user-id').innerText = userId;
         }
 
-        function updateBalanceUI() {
-            localStorage.setItem('aura_balances', JSON.stringify(balances));
-            document.getElementById('user-balance').innerText = `$${(balances[currentUser.id] || 0).toFixed(2)}`;
-        }
+        // Check & Update Red Badge Notification for Admin
+        function checkPendingNotifications() {
+            const pendingCount = depositRequests.filter(r => r.status === 'PENDING').length;
+            const btnBadge = document.getElementById('btn-admin-badge');
+            const tabBadge = document.getElementById('tab-admin-badge');
 
-        function checkPendingDeposits() {
-            let pending = deposits.filter(d => d.status === 'pending');
-            let count = pending.length;
-            
-            let badge = document.getElementById('dep-badge');
-            let tabBadge = document.getElementById('tab-dep-badge');
-            let notifBar = document.getElementById('admin-notif-bar');
-
-            if (count > 0) {
-                badge.innerText = count;
-                badge.classList.remove('hidden');
-                tabBadge.innerText = count;
-                tabBadge.classList.remove('hidden');
-                notifBar.classList.remove('hidden');
-                document.getElementById('admin-notif-text').innerText = `${count} New Deposit Request(s) Pending!`;
+            if (pendingCount > 0) {
+                btnBadge.innerText = pendingCount;
+                btnBadge.style.display = 'flex';
+                tabBadge.innerText = pendingCount;
+                tabBadge.style.display = 'flex';
             } else {
-                badge.classList.add('hidden');
-                tabBadge.classList.add('hidden');
-                notifBar.classList.add('hidden');
+                btnBadge.style.display = 'none';
+                tabBadge.style.display = 'none';
             }
         }
 
-        function switchTab(tab) {
-            ['home-sec', 'orders-sec', 'deposit-sec', 'profile-sec'].forEach(id => document.getElementById(id).classList.add('hidden'));
-            document.getElementById(`${tab}-sec`).classList.remove('hidden');
-            if (tab === 'orders') renderOrders();
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(document.getElementById('nav-' + pageId)) document.getElementById('nav-' + pageId).classList.add('active');
+
+            if(pageId === 'addfund') renderUserHistory();
+            if(pageId === 'profile') updateUserBalanceUI();
         }
 
-        function openProductModal(cat) {
-            document.getElementById('modal-cat-title').innerText = `${cat} Items`;
-            let container = document.getElementById('modal-products-list');
-            container.innerHTML = '';
+        function selectMethod(method, color) {
+            selectedMethodName = method;
+            selectedColor = color;
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('m-' + method).classList.add('selected');
 
-            let items = products.filter(p => p.category === cat && p.stock.length > 0);
-            if (items.length === 0) {
-                container.innerHTML = '<p class="text-xs text-gray-500 text-center py-4">No stock available currently.</p>';
+            const pkgContainer = document.getElementById('pkg-container');
+            pkgContainer.innerHTML = '';
+
+            if (method === 'Binance') {
+                const binancePkgs = [{ usd: 0.10 }, { usd: 0.25 }, { usd: 0.50 }, { usd: 1.00 }, { usd: 2.50 }, { usd: 5.00 }];
+                binancePkgs.forEach(pkg => {
+                    pkgContainer.innerHTML += `
+                        <div class="pkg-card" onclick="autoProceedPayment(0, ${pkg.usd})">
+                            <div class="pkg-bdt" style="color:#f0b90b;">$${pkg.usd.toFixed(2)} USD</div>
+                            <div class="pkg-usd" style="color:#8b949e; font-size:11px;">Binance Pay</div>
+                        </div>`;
+                });
             } else {
-                items.forEach((p, idx) => {
-                    container.innerHTML += `
-                        <div class="p-3 bg-gray-950 rounded-xl border border-gray-800 flex justify-between items-center">
-                            <div class="max-w-[180px]">
-                                <h5 class="font-bold text-xs text-white uppercase single-line-title" title="${p.title}">${p.title}</h5>
-                                <p class="text-xs font-semibold text-green-400 mt-0.5">$${p.price.toFixed(2)}</p>
-                            </div>
-                            <button onclick="buyProduct(${p.id})" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-md transition">
-                                Buy Now
-                            </button>
-                        </div>
-                    `;
+                const localPkgs = [
+                    { bdt: 15, usd: 0.12 },
+                    { bdt: 30, usd: 0.25 },
+                    { bdt: 50, usd: 0.45 },
+                    { bdt: 100, usd: 0.85 },
+                    { bdt: 200, usd: 1.70 },
+                    { bdt: 300, usd: 2.50 },
+                    { bdt: 600, usd: 5.00 },
+                    { bdt: 1000, usd: 8.50 }
+                ];
+                localPkgs.forEach(pkg => {
+                    pkgContainer.innerHTML += `
+                        <div class="pkg-card" onclick="autoProceedPayment(${pkg.bdt}, ${pkg.usd})">
+                            <div class="pkg-bdt">৳${pkg.bdt}</div>
+                            <div class="pkg-usd">+ $${pkg.usd.toFixed(2)} Add</div>
+                        </div>`;
                 });
             }
-            document.getElementById('product-modal').classList.remove('hidden');
-            document.getElementById('product-modal').classList.add('flex');
+
+            document.getElementById('pkg-section').style.display = 'block';
         }
 
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
-            document.getElementById('product-modal').classList.remove('flex');
-        }
+        function autoProceedPayment(bdt, usd) {
+            selectedBDT = bdt;
+            selectedUSD = usd;
 
-        function buyProduct(prodId) {
-            let prod = products.find(p => p.id === prodId);
-            let userBal = balances[currentUser.id] || 0;
+            document.getElementById('pay-screen-box').style.backgroundColor = selectedColor;
 
-            if (userBal < prod.price) {
-                alert("Insufficient balance! Please deposit funds.");
-                return;
+            let num = paymentInfo.bkash;
+            let instrHtml = '';
+            let amountTxt = '';
+
+            if(selectedMethodName === 'Nagad') {
+                num = paymentInfo.nagad;
+                instrHtml = `<p>1. Open <b>Nagad App</b> or Dial *167#.</p><p>2. Send Money to number below:</p>`;
+                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
+            } else if(selectedMethodName === 'Binance') {
+                num = paymentInfo.binance;
+                instrHtml = `<p>1. Open <b>Binance App</b> -> Pay / Wallet.</p><p>2. Send USDT to ID / Address below:</p>`;
+                amountTxt = `Send Amount: <b>$${selectedUSD.toFixed(2)} USDT</b>`;
+            } else {
+                instrHtml = `<p>1. Open <b>bKash App</b> or Dial *247#.</p><p>2. Send Money to number below:</p>`;
+                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
             }
 
-            if (!prod || prod.stock.length === 0) {
-                alert("Stock finished!");
-                return;
-            }
+            document.getElementById('pay-instructions').innerHTML = instrHtml;
+            document.getElementById('target-number').innerText = num;
+            document.getElementById('amount-details-text').innerHTML = amountTxt;
 
-            // Deduct Balance & Stock
-            balances[currentUser.id] -= prod.price;
-            let itemData = prod.stock.shift(); // Remove 1 item
-            
-            localStorage.setItem('aura_products', JSON.stringify(products));
-            updateBalanceUI();
-
-            // Save Order
-            orders.unshift({
-                user: currentUser.id,
-                title: prod.title,
-                price: prod.price,
-                item: itemData,
-                date: new Date().toLocaleTimeString()
-            });
-            localStorage.setItem('aura_orders', JSON.stringify(orders));
-
-            closeProductModal();
-            showSuccessModal(itemData);
+            startCountdownTimer(15 * 60);
+            showPage('pay-process');
         }
 
-        function showSuccessModal(dataStr) {
-            let parts = dataStr.split(':');
-            document.getElementById('item-ip').innerText = parts[0] || 'N/A';
-            document.getElementById('item-port').innerText = parts[1] || 'N/A';
-            document.getElementById('item-user').innerText = parts[2] || 'N/A';
-            document.getElementById('item-pass').innerText = parts[3] || 'N/A';
+        function startCountdownTimer(seconds) {
+            clearInterval(timerInterval);
+            let timer = seconds;
+            const timerDisplay = document.getElementById('timer-display');
 
-            document.getElementById('success-modal').classList.remove('hidden');
-            document.getElementById('success-modal').classList.add('flex');
-        }
+            timerInterval = setInterval(() => {
+                let minutes = parseInt(timer / 60, 10);
+                let secs = parseInt(timer % 60, 10);
 
-        function closeSuccessModal() {
-            document.getElementById('success-modal').classList.add('hidden');
-            document.getElementById('success-modal').classList.remove('flex');
-        }
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                secs = secs < 10 ? "0" + secs : secs;
 
-        function copyText(elementId) {
-            let text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text);
-            alert("Copied: " + text);
+                timerDisplay.innerText = minutes + ":" + secs;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    alert("Session Expired! Please try again.");
+                    showPage('addfund');
+                }
+            }, 1000);
         }
 
         function submitDeposit() {
-            let method = document.getElementById('dep-method').value;
-            let amount = parseFloat(document.getElementById('dep-amount').value);
-            let trx = document.getElementById('dep-trx').value.trim();
+            const tx = document.getElementById('tx-id').value.trim();
+            if(!tx) { alert('Please enter Transaction ID!'); return; }
 
-            if (!amount || amount <= 0 || !trx) {
-                alert("Enter valid Amount and TrxID!");
-                return;
-            }
-
-            deposits.push({
-                id: Date.now(),
-                user: currentUser.id,
-                userName: currentUser.first_name,
-                method: method,
-                amount: amount,
-                trx: trx,
-                status: 'pending'
+            depositRequests.push({
+                reqId: 'REQ' + Date.now(),
+                userId: userId,
+                user: currentUser.first_name,
+                method: selectedMethodName,
+                amountUSD: selectedUSD,
+                txId: tx,
+                status: 'PENDING'
             });
 
-            localStorage.setItem('aura_deposits', JSON.stringify(deposits));
-            alert("Deposit submitted! Admin will verify soon.");
-            document.getElementById('dep-amount').value = '';
-            document.getElementById('dep-trx').value = '';
-            checkPendingDeposits();
-            switchTab('home');
+            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+            checkPendingNotifications(); // Trigger red badge immediately
+            alert('Deposit Request Submitted! Waiting for Admin verification.');
+            document.getElementById('tx-id').value = '';
+            clearInterval(timerInterval);
+            showPage('addfund');
         }
 
-        // Admin Modal Controls
-        function toggleAdminModal() {
-            let modal = document.getElementById('admin-modal');
-            modal.classList.toggle('hidden');
-            modal.classList.toggle('flex');
-            renderAdminRequests();
+        function renderUserHistory() {
+            const userHistory = depositRequests.filter(r => r.userId === userId);
+            let html = '';
+            userHistory.slice().reverse().forEach(req => {
+                html += `
+                <div class="history-card">
+                    <div>
+                        <b style="font-size:13px;">${req.method} Deposit</b>
+                        <p style="font-size:12px; color:#3fb950; font-weight:bold;">+$${req.amountUSD.toFixed(2)}</p>
+                        <p style="font-size:10px; color:#888;">TxID: ${req.txId}</p>
+                    </div>
+                    <span class="status-badge status-${req.status}">${req.status}</span>
+                </div>`;
+            });
+            document.getElementById('user-deposit-history').innerHTML = html || '<p style="font-size:12px; color:#888;">No deposit history found.</p>';
         }
 
-        function switchAdminTab(tab) {
-            if (tab === 'stock') {
-                document.getElementById('admin-stock-tab').classList.remove('hidden');
-                document.getElementById('admin-requests-tab').classList.add('hidden');
-            } else {
-                document.getElementById('admin-stock-tab').classList.add('hidden');
-                document.getElementById('admin-requests-tab').classList.remove('hidden');
-                renderAdminRequests();
-            }
+        function openProductList(cat) {
+            document.getElementById('modal-cat-title').innerText = cat + ' Stock';
+            const list = productsDB[cat] || [];
+            let html = '';
+
+            list.forEach((p, idx) => {
+                const stockCount = p.items ? p.items.length : 0;
+                html += `
+                <div class="prod-item">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <b>${p.name}</b>
+                            <p style="font-size:13px; color:#3fb950; font-weight:bold;">$${p.price.toFixed(2)}</p>
+                            <p style="font-size:11px; color:#8b949e;">Available Stock: <b style="color:#00d2ff;">${stockCount}</b></p>
+                        </div>
+                        <button class="save-btn" style="width:auto; padding:8px 16px; margin:0; ${stockCount === 0 ? 'background:#555;' : ''}" ${stockCount === 0 ? 'disabled' : ''} onclick="buyProduct('${cat}', ${idx})">
+                            ${stockCount === 0 ? 'Out of Stock' : 'Buy Now'}
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">No items currently available.</p>';
+            document.getElementById('product-modal').style.display = 'flex';
         }
 
-        function saveStock() {
-            let cat = document.getElementById('add-cat').value;
-            let title = document.getElementById('add-title').value.trim();
-            let price = parseFloat(document.getElementById('add-price').value);
-            let rawData = document.getElementById('add-stock-data').value.trim();
-
-            if (!title || !price || !rawData) {
-                alert("Fill all stock details properly!");
+        function buyProduct(cat, idx) {
+            const product = productsDB[cat][idx];
+            if ((userBalances[userId] || 0) < product.price) {
+                alert('Insufficient USD Balance! Please Deposit.');
                 return;
             }
 
-            let lines = rawData.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            
-            let existing = products.find(p => p.title.toLowerCase() === title.toLowerCase());
-            if (existing) {
-                existing.stock.push(...lines);
-            } else {
-                products.push({
-                    id: Date.now(),
-                    category: cat,
-                    title: title,
-                    price: price,
-                    stock: lines
-                });
+            if (!product.items || product.items.length === 0) {
+                alert('Out of Stock!');
+                return;
             }
 
-            localStorage.setItem('aura_products', JSON.stringify(products));
-            alert(`Success! ${lines.length} stock items added.`);
-            document.getElementById('add-stock-data').value = '';
+            // Deduct Stock & Balance
+            const rawItem = product.items.shift();
+            userBalances[userId] -= product.price;
+
+            localStorage.setItem('aura_products', JSON.stringify(productsDB));
+            localStorage.setItem('aura_balances', JSON.stringify(userBalances));
+
+            updateUserBalanceUI();
+            closeModal('product-modal');
+            
+            // Show Delivery UI in beautiful format
+            showDeliveryModal(product.name, rawItem);
+        }
+
+        // Delivery Modal UI Logic
+        function showDeliveryModal(pkgName, rawText) {
+            const now = new Date();
+            const timeStr = now.toLocaleDateString() + ', ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            document.getElementById('delivery-time').innerText = "Delivery Time: " + timeStr;
+            document.getElementById('delivery-pkg-name').innerText = "Package: " + pkgName;
+
+            let detailsHtml = '';
+            
+            // If data is formatted as ip:port:user:pass
+            if (rawText.includes(':')) {
+                const parts = rawText.split(':');
+                const ip = parts[0] || 'N/A';
+                const port = parts[1] || 'N/A';
+                const user = parts[2] || 'N/A';
+                const pass = parts[3] || 'N/A';
+
+                detailsHtml = `
+                <div class="delivery-item">
+                    <div><label>🌐 IP</label><span id="val-ip">${ip}</span></div>
+                    <button class="mini-copy" onclick="copyText('${ip}')">Copy</button>
+                </div>
+                <div class="delivery-item">
+                    <div><label>⚡ Port</label><span id="val-port">${port}</span></div>
+                    <button class="mini-copy" onclick="copyText('${port}')">Copy</button>
+                </div>
+                ${user !== 'N/A' ? `
+                <div class="delivery-item">
+                    <div><label>👤 User</label><span>${user}</span></div>
+                    <button class="mini-copy" onclick="copyText('${user}')">Copy</button>
+                </div>` : ''}
+                ${pass !== 'N/A' ? `
+                <div class="delivery-item">
+                    <div><label>🔑 Pass</label><span>${pass}</span></div>
+                    <button class="mini-copy" onclick="copyText('${pass}')">Copy</button>
+                </div>` : ''}`;
+            } else {
+                detailsHtml = `
+                <div class="delivery-item">
+                    <div><label>📦 Account / Key</label><span>${rawText}</span></div>
+                    <button class="mini-copy" onclick="copyText('${rawText}')">Copy</button>
+                </div>`;
+            }
+
+            document.getElementById('delivery-details-box').innerHTML = detailsHtml;
+            document.getElementById('delivery-modal').style.display = 'flex';
+        }
+
+        // ADMIN FUNCTIONS
+        function openAdminModal() {
+            document.getElementById('adm-bkash').value = paymentInfo.bkash;
+            document.getElementById('adm-nagad').value = paymentInfo.nagad;
+            document.getElementById('adm-binance').value = paymentInfo.binance;
+            renderAdminProducts();
+            renderAdminRequests();
+            document.getElementById('admin-modal').style.display = 'flex';
+        }
+
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function showAdminTab(tab) {
+            document.getElementById('admin-tab-numbers').style.display = tab === 'numbers' ? 'block' : 'none';
+            document.getElementById('admin-tab-stock').style.display = tab === 'stock' ? 'block' : 'none';
+            document.getElementById('admin-tab-requests').style.display = tab === 'requests' ? 'block' : 'none';
+            if(tab === 'stock') renderAdminProducts();
+            if(tab === 'requests') renderAdminRequests();
+        }
+
+        function saveAdminNumbers() {
+            paymentInfo.bkash = document.getElementById('adm-bkash').value;
+            paymentInfo.nagad = document.getElementById('adm-nagad').value;
+            paymentInfo.binance = document.getElementById('adm-binance').value;
+            localStorage.setItem('aura_payments', JSON.stringify(paymentInfo));
+            alert('Settings Saved Successfully!');
+            closeModal('admin-modal');
+        }
+
+        function addNewProduct() {
+            const cat = document.getElementById('adm-cat-select').value;
+            const title = document.getElementById('adm-prod-title').value.trim();
+            const price = parseFloat(document.getElementById('adm-prod-price').value);
+            const rawStock = document.getElementById('adm-prod-stock').value.trim();
+
+            if (!title || isNaN(price)) { alert('Enter valid title and price!'); return; }
+
+            const newItems = rawStock ? rawStock.split('\n').map(s => s.trim()).filter(s => s.length > 0) : [];
+
+            if (!productsDB[cat]) productsDB[cat] = [];
+
+            let existingProd = productsDB[cat].find(p => p.name.toLowerCase() === title.toLowerCase());
+            if (existingProd) {
+                existingProd.items = existingProd.items.concat(newItems);
+            } else {
+                productsDB[cat].push({ name: title, price: price, items: newItems });
+            }
+
+            localStorage.setItem('aura_products', JSON.stringify(productsDB));
+            alert(`Added ${newItems.length} stock items to ${title}!`);
+            document.getElementById('adm-prod-stock').value = '';
+            renderAdminProducts();
+        }
+
+        function renderAdminProducts() {
+            let html = '';
+            for (let cat in productsDB) {
+                productsDB[cat].forEach((p, idx) => {
+                    const count = p.items ? p.items.length : 0;
+                    html += `
+                    <div class="prod-item" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <b>[${cat}] ${p.name}</b>
+                            <p style="font-size:12px; color:#3fb950;">$${p.price.toFixed(2)} | Stock: ${count}</p>
+                        </div>
+                        <button class="save-btn" style="background:#dc2626; width:auto; padding:6px 10px; margin:0; font-size:12px;" onclick="deleteProduct('${cat}', ${idx})">Delete</button>
+                    </div>`;
+                });
+            }
+            document.getElementById('admin-product-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No products found.</p>';
+        }
+
+        function deleteProduct(cat, idx) {
+            if(confirm('Are you sure you want to delete this product?')) {
+                productsDB[cat].splice(idx, 1);
+                localStorage.setItem('aura_products', JSON.stringify(productsDB));
+                renderAdminProducts();
+            }
         }
 
         function renderAdminRequests() {
-            let list = document.getElementById('deposit-requests-list');
-            list.innerHTML = '';
-
-            let pending = deposits.filter(d => d.status === 'pending');
-            if (pending.length === 0) {
-                list.innerHTML = '<p class="text-xs text-gray-500 text-center py-4">No pending deposit requests.</p>';
-                return;
-            }
-
-            pending.forEach(req => {
-                list.innerHTML += `
-                    <div class="p-3 bg-gray-950 rounded-xl border border-gray-800 space-y-2 text-xs">
-                        <div class="flex justify-between font-bold">
-                            <span class="text-purple-400">${req.userName} (${req.user})</span>
-                            <span class="text-green-400">$${req.amount.toFixed(2)}</span>
-                        </div>
-                        <p class="text-gray-400">Method: ${req.method} | TrxID: <span class="text-white font-mono font-bold">${req.trx}</span></p>
-                        <div class="flex gap-2 pt-1">
-                            <button onclick="approveDeposit(${req.id})" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-1.5 rounded-lg">Approve</button>
-                            <button onclick="rejectDeposit(${req.id})" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-1.5 rounded-lg">Reject</button>
-                        </div>
+            let html = '';
+            const pendingReqs = depositRequests.filter(r => r.status === 'PENDING');
+            pendingReqs.forEach((req) => {
+                html += `
+                <div class="req-card">
+                    <p style="font-size:12px; color:#fff;"><b>User:</b> ${req.user} (${req.userId})</p>
+                    <p style="font-size:12px; color:#fff;"><b>Method:</b> ${req.method}</p>
+                    <p style="font-size:12px; color:#3fb950;"><b>Amount:</b> +$${req.amountUSD.toFixed(2)}</p>
+                    <p style="font-size:12px; color:#aaa;"><b>TxID:</b> ${req.txId}</p>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <button class="save-btn" style="background:#238636; padding:6px; margin:0;" onclick="approveDeposit('${req.reqId}')">Approve</button>
+                        <button class="save-btn" style="background:#da3633; padding:6px; margin:0;" onclick="rejectDeposit('${req.reqId}')">Reject</button>
                     </div>
-                `;
+                </div>`;
             });
+            document.getElementById('deposit-req-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No pending requests.</p>';
         }
 
         function approveDeposit(reqId) {
-            let req = deposits.find(d => d.id === reqId);
-            if (req) {
-                req.status = 'approved';
-                balances[req.user] = (balances[req.user] || 0) + req.amount;
-                localStorage.setItem('aura_deposits', JSON.stringify(deposits));
-                updateBalanceUI();
-                checkPendingDeposits();
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'APPROVED';
+                userBalances[req.userId] = (userBalances[req.userId] || 0) + req.amountUSD;
+
+                localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+                localStorage.setItem('aura_balances', JSON.stringify(userBalances));
+
+                updateUserBalanceUI();
+                checkPendingNotifications();
+                alert('Deposit Approved!');
                 renderAdminRequests();
             }
         }
 
         function rejectDeposit(reqId) {
-            let req = deposits.find(d => d.id === reqId);
-            if (req) {
-                req.status = 'rejected';
-                localStorage.setItem('aura_deposits', JSON.stringify(deposits));
-                checkPendingDeposits();
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'REJECTED';
+                localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+                checkPendingNotifications();
+                alert('Deposit Rejected.');
                 renderAdminRequests();
             }
         }
 
-        function renderOrders() {
-            let container = document.getElementById('orders-list');
-            container.innerHTML = '';
-
-            let myOrders = orders.filter(o => o.user === currentUser.id);
-            if (myOrders.length === 0) {
-                container.innerHTML = '<p class="text-xs text-gray-500 text-center py-6">No orders found.</p>';
-                return;
-            }
-
-            myOrders.forEach(o => {
-                container.innerHTML += `
-                    <div class="p-3 bg-gray-900 rounded-xl border border-gray-800 text-xs space-y-1">
-                        <div class="flex justify-between font-bold text-gray-200">
-                            <span>${o.title}</span>
-                            <span class="text-green-400">$${o.price.toFixed(2)}</span>
-                        </div>
-                        <p class="text-[11px] text-gray-400 font-mono break-all bg-gray-950 p-2 rounded">${o.item}</p>
-                    </div>
-                `;
-            });
+        function copyNumber() {
+            navigator.clipboard.writeText(document.getElementById('target-number').innerText);
+            alert('Copied to clipboard!');
         }
 
-        initApp();
+        function copyText(str) {
+            navigator.clipboard.writeText(str);
+            alert('Copied: ' + str);
+        }
     </script>
 </body>
-            </html>
+    </html>
