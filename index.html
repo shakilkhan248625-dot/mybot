@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +23,14 @@
         .page { display: none; }
         .page.active { display: block; }
 
+        /* Notification Banner */
+        .notification-bar {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white; padding: 10px 15px; font-size: 13px; font-weight: 600;
+            display: none; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
         /* Header */
         .header {
             padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
@@ -45,11 +53,15 @@
 
         /* Cards Grid */
         .section-title { padding: 10px 20px 5px; font-size: 14px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
-        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
-        .card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #a78bfa; margin-bottom: 12px; }
-        .card h4 { font-size: 16px; margin-bottom: 4px; }
-        .card p { font-size: 12px; color: var(--text-sub); margin-bottom: 12px; }
+        .grid-container { display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; padding: 10px 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .card-left { display: flex; align-items: center; gap: 15px; }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #a78bfa; }
+        .card h4 { font-size: 16px; margin-bottom: 2px; }
+        .card p { font-size: 12px; color: var(--text-sub); }
+        
+        /* Green Arrow Indicator */
+        .click-arrow { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #22c55e; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
 
         /* Deposit UI */
         .deposit-container { padding: 15px 20px; }
@@ -64,6 +76,13 @@
         .pkg-card.selected { border-color: var(--accent-glow); background: rgba(124, 58, 237, 0.2); }
         .pkg-bdt { font-size: 16px; font-weight: bold; color: #fff; }
         .pkg-usd { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
+
+        /* History Cards */
+        .history-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-PENDING { background: #d97706; color: white; }
+        .status-APPROVED { background: #059669; color: white; }
+        .status-REJECTED { background: #dc2626; color: white; }
 
         /* Payment Process */
         .pay-screen { border-radius: 20px; padding: 22px; color: white; margin: 15px 20px; }
@@ -88,11 +107,17 @@
         .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
         .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
         .save-btn { width: 100%; padding: 12px; background: var(--accent-color); color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
-        .prod-item { background: #0d1117; padding: 14px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
+        .prod-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
         .req-card { background: #0d1117; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; }
     </style>
 </head>
 <body>
+
+    <!-- Notification Bar -->
+    <div id="notification-bar" class="notification-bar">
+        <span id="notification-text">Notification Message</span>
+        <i class="fas fa-times" onclick="closeNotification()" style="cursor:pointer;"></i>
+    </div>
 
     <!-- Header -->
     <div class="header">
@@ -124,27 +149,36 @@
         <div class="section-title">Categories</div>
         <div class="grid-container">
             <div class="card" onclick="openProductList('VPN')">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <h4>VPN</h4>
-                <p>Premium VPN Accounts</p>
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4>VPN</h4>
+                        <p>Premium VPN Accounts</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
             </div>
 
             <div class="card" onclick="openProductList('Proxy')">
-                <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                <h4>Proxy</h4>
-                <p>Residential & HTTP</p>
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h4>Proxy</h4>
+                        <p>Residential & HTTP</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
             </div>
 
             <div class="card" onclick="openProductList('Mails')">
-                <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                <h4>Hotmail / Outlook</h4>
-                <p>Trust V1 & Fresh Mails</p>
-            </div>
-
-            <div class="card" onclick="openProductList('Social')">
-                <div class="card-icon"><i class="fas fa-users"></i></div>
-                <h4>Social Accounts</h4>
-                <p>FB, IG, Telegram 2FA</p>
+                <div class="card-left">
+                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4>Hotmail / Outlook</h4>
+                        <p>Trust V1 & Fresh Mails</p>
+                    </div>
+                </div>
+                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
             </div>
         </div>
     </div>
@@ -204,6 +238,12 @@
 
                 <button class="save-btn" style="margin-top:20px;" onclick="proceedToPayment()">Continue to Payment →</button>
             </div>
+
+            <!-- Deposit History Section -->
+            <div style="margin-top:30px;">
+                <div class="section-title" style="padding:0 0 10px 0;"><i class="fas fa-history"></i> Deposit History</div>
+                <div id="user-deposit-history"></div>
+            </div>
         </div>
     </div>
 
@@ -215,9 +255,9 @@
             </div>
             
             <div style="font-size:14px; line-height:1.8;">
-                <p>1. আপনার <span id="method-name">bKash</span> খুলুন।</p>
-                <p>2. "Send Money" / Transfer সিলেক্ট করুন।</p>
-                <p>3. নিচের নম্বর/আইডিতে পেমেন্ট করুন:</p>
+                <p>1. Open your <span id="method-name">bKash</span> app.</p>
+                <p>2. Select "Send Money" or Transfer option.</p>
+                <p>3. Send payment to details below:</p>
             </div>
 
             <div class="number-box">
@@ -226,8 +266,8 @@
             </div>
 
             <div style="font-size:14px; line-height:1.8;">
-                <p>4. পরিমাণ: <b>৳<span id="final-bdt">50</span></b> (ব্যালেন্স যোগ হবে: <b>$<span id="final-usd">0.45</span></b>)</p>
-                <p>5. Transaction ID বা Pay ID দিয়ে VERIFY করুন।</p>
+                <p>4. Send Amount: <b>৳<span id="final-bdt">50</span></b> (Balance Added: <b>$<span id="final-usd">0.45</span></b>)</p>
+                <p>5. Enter Transaction ID / Pay ID below to verify.</p>
             </div>
 
             <input type="text" id="tx-id" class="tx-input" placeholder="Enter Transaction ID / Pay ID">
@@ -253,7 +293,7 @@
             
             <div style="display:flex; gap:6px; margin-bottom:15px;">
                 <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px;" onclick="showAdminTab('numbers')">Numbers</button>
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px;" onclick="showAdminTab('stock')">Add Product</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px;" onclick="showAdminTab('stock')">Products</button>
                 <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px; background:#d97706;" onclick="showAdminTab('requests')">Requests</button>
             </div>
 
@@ -268,20 +308,22 @@
                 <button class="save-btn" style="background:#238636;" onclick="saveAdminNumbers()">Save Payment Details</button>
             </div>
 
-            <!-- Add Product Tab -->
+            <!-- Add Product & Manage Stock Tab -->
             <div id="admin-tab-stock" style="display:none;">
                 <label style="font-size:12px;">Category:</label>
                 <select id="adm-cat-select" class="input-box">
                     <option value="VPN">VPN</option>
                     <option value="Proxy">Proxy</option>
                     <option value="Mails">Hotmail / Outlook</option>
-                    <option value="Social">Social Accounts</option>
                 </select>
                 <label style="font-size:12px;">Product Title:</label>
                 <input type="text" id="adm-prod-title" class="input-box" placeholder="Title">
                 <label style="font-size:12px;">Price ($ USD):</label>
                 <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="Price">
-                <button class="save-btn" style="background:#238636;" onclick="addNewProduct()">Add Product</button>
+                <button class="save-btn" style="background:#238636; margin-bottom:20px;" onclick="addNewProduct()">Add Product</button>
+
+                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Existing Products (Delete if needed):</p>
+                <div id="admin-product-list"></div>
             </div>
 
             <!-- Deposit Requests Tab -->
@@ -305,34 +347,54 @@
         tg.expand();
 
         const ADMIN_ID = "7753794493";
-        const currentUser = tg.initDataUnsafe?.user;
+        const currentUser = tg.initDataUnsafe?.user || { id: "99999999", first_name: "Guest User" };
+        const userId = String(currentUser.id);
 
-        if (currentUser && String(currentUser.id) === ADMIN_ID) {
+        if (userId === ADMIN_ID) {
             document.getElementById('admin-trigger-container').style.display = 'block';
         }
 
-        // Global State Saved in LocalStorage
-        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || {
-            bkash: '01784280517',
-            nagad: '01784280517',
-            binance: 'AURA_BINANCE_PAY_ID'
-        };
+        // Saved Payment Info & Products
+        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_BINANCE_PAY_ID' };
+        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [] };
+        
+        // Multi-User Balance & Deposit Database
+        let userBalances = JSON.parse(localStorage.getItem('aura_user_balances')) || {};
+        let depositRequests = JSON.parse(localStorage.getItem('aura_deposit_requests')) || [];
+        let userNotifications = JSON.parse(localStorage.getItem('aura_notifications')) || {};
 
-        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [], Social: [] };
-        let depositRequests = JSON.parse(localStorage.getItem('aura_requests')) || [];
-        let userBalance = parseFloat(localStorage.getItem('aura_balance')) || 0.00;
-
-        document.getElementById('user-balance').innerText = userBalance.toFixed(2);
-        document.getElementById('deposit-balance').innerText = userBalance.toFixed(2);
+        if (userBalances[userId] === undefined) { userBalances[userId] = 0.00; }
+        updateUserBalanceUI();
+        checkNotifications();
 
         let selectedMethodName = '';
         let selectedColor = '#e2136e';
         let selectedBDT = 0;
         let selectedUSD = 0;
 
+        function updateUserBalanceUI() {
+            const bal = (userBalances[userId] || 0).toFixed(2);
+            document.getElementById('user-balance').innerText = bal;
+            document.getElementById('deposit-balance').innerText = bal;
+        }
+
+        function checkNotifications() {
+            if (userNotifications[userId]) {
+                document.getElementById('notification-text').innerText = userNotifications[userId];
+                document.getElementById('notification-bar').style.display = 'flex';
+            }
+        }
+
+        function closeNotification() {
+            document.getElementById('notification-bar').style.display = 'none';
+            delete userNotifications[userId];
+            localStorage.setItem('aura_notifications', JSON.stringify(userNotifications));
+        }
+
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
+            if(pageId === 'addfund') renderUserHistory();
         }
 
         function selectMethod(method, color) {
@@ -351,15 +413,14 @@
         }
 
         function proceedToPayment() {
-            if(!selectedMethodName) { alert('মেথড সিলেক্ট করুন!'); return; }
-            if(!selectedBDT) { alert('প্যাকেজ সিলেক্ট করুন!'); return; }
+            if(!selectedMethodName) { alert('Please select a payment method!'); return; }
+            if(!selectedBDT) { alert('Please select a deposit package!'); return; }
 
             document.getElementById('method-name').innerText = selectedMethodName;
             document.getElementById('final-bdt').innerText = selectedBDT;
             document.getElementById('final-usd').innerText = selectedUSD.toFixed(2);
             document.getElementById('pay-screen-box').style.backgroundColor = selectedColor;
 
-            // Load saved Admin Payment Details
             let num = paymentInfo.bkash;
             if(selectedMethodName === 'Nagad') num = paymentInfo.nagad;
             if(selectedMethodName === 'Binance') num = paymentInfo.binance;
@@ -369,22 +430,41 @@
         }
 
         function submitDeposit() {
-            const tx = document.getElementById('tx-id').value;
-            if(!tx) { alert('Transaction ID দিন!'); return; }
+            const tx = document.getElementById('tx-id').value.trim();
+            if(!tx) { alert('Please enter Transaction ID!'); return; }
 
             depositRequests.push({
-                user: currentUser ? currentUser.first_name : 'User',
-                userId: currentUser ? currentUser.id : '12345',
+                reqId: 'REQ' + Date.now(),
+                user: currentUser.first_name,
+                userId: userId,
                 method: selectedMethodName,
                 amountUSD: selectedUSD,
                 txId: tx,
+                status: 'PENDING',
                 time: new Date().toLocaleTimeString()
             });
 
-            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
-            alert('আপনার ডিপোজিট রিকোয়েস্ট অ্যাডমিনের কাছে জমা হয়েছে!');
+            localStorage.setItem('aura_deposit_requests', JSON.stringify(depositRequests));
+            alert('Deposit Request Successful! Please wait for admin approval.');
             document.getElementById('tx-id').value = '';
-            showPage('home');
+            showPage('addfund');
+        }
+
+        function renderUserHistory() {
+            const userHistory = depositRequests.filter(r => r.userId === userId);
+            let html = '';
+            userHistory.reverse().forEach(req => {
+                html += `
+                <div class="history-card">
+                    <div>
+                        <b style="font-size:13px;">${req.method} Deposit</b>
+                        <p style="font-size:12px; color:#3fb950; font-weight:bold;">+$${req.amountUSD.toFixed(2)}</p>
+                        <p style="font-size:10px; color:#888;">TxID: ${req.txId}</p>
+                    </div>
+                    <span class="status-badge status-${req.status}">${req.status}</span>
+                </div>`;
+            });
+            document.getElementById('user-deposit-history').innerHTML = html || '<p style="font-size:12px; color:#888;">No deposit history found.</p>';
         }
 
         function openProductList(cat) {
@@ -401,19 +481,18 @@
                     <button class="save-btn" style="width:auto; padding:6px 12px; margin:0;" onclick="buyProduct('${p.name}', ${p.price})">Buy</button>
                 </div>`;
             });
-            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">কোনো প্রোডাক্ট এভেলেবল নেই। এডমিন থেকে এড করুন।</p>';
+            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">No products available.</p>';
             document.getElementById('product-modal').style.display = 'flex';
         }
 
         function buyProduct(name, price) {
-            if(userBalance < price) {
-                alert('পর্যাপ্ত ডলার ব্যালেন্স নেই! ডিপোজিট করুন।');
+            if((userBalances[userId] || 0) < price) {
+                alert('Insufficient USD Balance! Please deposit.');
             } else {
-                userBalance -= price;
-                localStorage.setItem('aura_balance', userBalance.toString());
-                document.getElementById('user-balance').innerText = userBalance.toFixed(2);
-                document.getElementById('deposit-balance').innerText = userBalance.toFixed(2);
-                alert('প্রোডাক্ট সফলভাবে কেনা হয়েছে!');
+                userBalances[userId] -= price;
+                localStorage.setItem('aura_user_balances', JSON.stringify(userBalances));
+                updateUserBalanceUI();
+                alert('Product Purchased Successfully!');
                 closeModal('product-modal');
             }
         }
@@ -422,7 +501,8 @@
             document.getElementById('adm-bkash').value = paymentInfo.bkash;
             document.getElementById('adm-nagad').value = paymentInfo.nagad;
             document.getElementById('adm-binance').value = paymentInfo.binance;
-            renderRequests();
+            renderAdminProducts();
+            renderAdminRequests();
             document.getElementById('admin-modal').style.display = 'flex'; 
         }
 
@@ -432,7 +512,8 @@
             document.getElementById('admin-tab-numbers').style.display = tab === 'numbers' ? 'block' : 'none';
             document.getElementById('admin-tab-stock').style.display = tab === 'stock' ? 'block' : 'none';
             document.getElementById('admin-tab-requests').style.display = tab === 'requests' ? 'block' : 'none';
-            if(tab === 'requests') renderRequests();
+            if(tab === 'stock') renderAdminProducts();
+            if(tab === 'requests') renderAdminRequests();
         }
 
         function saveAdminNumbers() {
@@ -440,65 +521,104 @@
             paymentInfo.nagad = document.getElementById('adm-nagad').value;
             paymentInfo.binance = document.getElementById('adm-binance').value;
             localStorage.setItem('aura_payments', JSON.stringify(paymentInfo));
-            alert('পেমেন্ট নম্বর ও আইডি সফলভাবে সেভ হয়েছে!');
+            alert('Payment details saved!');
             closeModal('admin-modal');
         }
 
         function addNewProduct() {
             const cat = document.getElementById('adm-cat-select').value;
-            const title = document.getElementById('adm-prod-title').value;
+            const title = document.getElementById('adm-prod-title').value.trim();
             const price = parseFloat(document.getElementById('adm-prod-price').value);
 
             if(title && price) {
-                productsDB[cat].push({ name: title, price: price });
+                if(!productsDB[cat]) productsDB[cat] = [];
+                productsDB[cat].push({ id: Date.now(), name: title, price: price });
                 localStorage.setItem('aura_products', JSON.stringify(productsDB));
-                alert('নতুন প্রোডাক্ট এড করা হয়েছে!');
+                alert('Product added successfully!');
                 document.getElementById('adm-prod-title').value = '';
                 document.getElementById('adm-prod-price').value = '';
-                closeModal('admin-modal');
+                renderAdminProducts();
             }
         }
 
-        function renderRequests() {
+        function renderAdminProducts() {
             let html = '';
-            depositRequests.forEach((req, idx) => {
+            for (let cat in productsDB) {
+                productsDB[cat].forEach((p, idx) => {
+                    html += `
+                    <div class="prod-item">
+                        <div>
+                            <b>[${cat}] ${p.name}</b>
+                            <p style="font-size:12px; color:#3fb950;">$${p.price.toFixed(2)}</p>
+                        </div>
+                        <button class="save-btn" style="background:#dc2626; width:auto; padding:6px 10px; margin:0; font-size:12px;" onclick="deleteProduct('${cat}', ${idx})">Delete</button>
+                    </div>`;
+                });
+            }
+            document.getElementById('admin-product-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No products found.</p>';
+        }
+
+        function deleteProduct(cat, idx) {
+            if(confirm('Are you sure you want to delete this product?')) {
+                productsDB[cat].splice(idx, 1);
+                localStorage.setItem('aura_products', JSON.stringify(productsDB));
+                renderAdminProducts();
+            }
+        }
+
+        function renderAdminRequests() {
+            let html = '';
+            const pendingReqs = depositRequests.filter(r => r.status === 'PENDING');
+            pendingReqs.forEach((req) => {
                 html += `
                 <div class="req-card">
-                    <p style="font-size:12px; color:#fff;"><b>User:</b> ${req.user} | <b>Method:</b> ${req.method}</p>
+                    <p style="font-size:12px; color:#fff;"><b>User:</b> ${req.user} (${req.userId})</p>
+                    <p style="font-size:12px; color:#fff;"><b>Method:</b> ${req.method}</p>
                     <p style="font-size:12px; color:#3fb950;"><b>Amount:</b> +$${req.amountUSD.toFixed(2)}</p>
                     <p style="font-size:12px; color:#aaa;"><b>TxID:</b> ${req.txId}</p>
                     <div style="display:flex; gap:8px; margin-top:8px;">
-                        <button class="save-btn" style="background:#238636; padding:6px; margin:0;" onclick="approveDeposit(${idx})">Approve</button>
-                        <button class="save-btn" style="background:#da3633; padding:6px; margin:0;" onclick="rejectDeposit(${idx})">Reject</button>
+                        <button class="save-btn" style="background:#238636; padding:6px; margin:0;" onclick="approveDeposit('${req.reqId}')">Approve</button>
+                        <button class="save-btn" style="background:#da3633; padding:6px; margin:0;" onclick="rejectDeposit('${req.reqId}')">Reject</button>
                     </div>
                 </div>`;
             });
-            document.getElementById('deposit-req-list').innerHTML = html || '<p style="font-size:12px; color:#888;">কোনো পেন্ডিং রিকোয়েস্ট নেই।</p>';
+            document.getElementById('deposit-req-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No pending requests.</p>';
         }
 
-        function approveDeposit(idx) {
-            let req = depositRequests[idx];
-            userBalance += req.amountUSD;
-            localStorage.setItem('aura_balance', userBalance.toString());
-            document.getElementById('user-balance').innerText = userBalance.toFixed(2);
-            document.getElementById('deposit-balance').innerText = userBalance.toFixed(2);
-            
-            depositRequests.splice(idx, 1);
-            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
-            alert('ডিপোজিট অ্যাপ্রুভড হয়েছে এবং ব্যালেন্স যোগ করা হয়েছে!');
-            renderRequests();
+        function approveDeposit(reqId) {
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'APPROVED';
+                userBalances[req.userId] = (userBalances[req.userId] || 0) + req.amountUSD;
+                userNotifications[req.userId] = `🎉 Your deposit of $${req.amountUSD.toFixed(2)} has been approved!`;
+                
+                localStorage.setItem('aura_deposit_requests', JSON.stringify(depositRequests));
+                localStorage.setItem('aura_user_balances', JSON.stringify(userBalances));
+                localStorage.setItem('aura_notifications', JSON.stringify(userNotifications));
+
+                updateUserBalanceUI();
+                alert('Deposit approved!');
+                renderAdminRequests();
+            }
         }
 
-        function rejectDeposit(idx) {
-            depositRequests.splice(idx, 1);
-            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
-            renderRequests();
+        function rejectDeposit(reqId) {
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'REJECTED';
+                userNotifications[req.userId] = `❌ Your deposit request of $${req.amountUSD.toFixed(2)} was rejected.`;
+                
+                localStorage.setItem('aura_deposit_requests', JSON.stringify(depositRequests));
+                localStorage.setItem('aura_notifications', JSON.stringify(userNotifications));
+                alert('Deposit rejected.');
+                renderAdminRequests();
+            }
         }
 
         function copyNumber() {
             navigator.clipboard.writeText(document.getElementById('target-number').innerText);
-            alert('কপি হয়েছে!');
+            alert('Copied to clipboard!');
         }
     </script>
 </body>
-                                                                             </html>
+</html>
