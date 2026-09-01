@@ -10,20 +10,19 @@
         :root {
             --bg-color: #0d1117;
             --card-bg: #161b22;
-            --accent-color: #7c3aed;
             --accent-glow: #00d2ff;
             --text-color: #ffffff;
             --text-sub: #8b949e;
             --border-color: #30363d;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 90px; }
 
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Notification Banner */
+        /* Notification Bar */
         .notification-bar {
             background: linear-gradient(90deg, #10b981, #059669);
             color: white; padding: 10px 15px; font-size: 13px; font-weight: 600;
@@ -64,8 +63,8 @@
         .deposit-container { padding: 15px 20px; }
         .balance-card { background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; }
         .methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-        .method-card { background: #fff; color: #000; border-radius: 14px; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: bold; }
-        .method-card.selected { border: 3px solid #00d2ff; }
+        .method-card { background: #fff; color: #000; border-radius: 14px; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: bold; border: 3px solid transparent; }
+        .method-card.selected { border-color: #00d2ff; }
 
         .pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
         .pkg-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s; }
@@ -73,14 +72,7 @@
         .pkg-bdt { font-size: 16px; font-weight: bold; color: #fff; }
         .pkg-usd { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
 
-        /* History Cards */
-        .history-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
-        .status-PENDING { background: #d97706; color: white; }
-        .status-APPROVED { background: #059669; color: white; }
-        .status-REJECTED { background: #dc2626; color: white; }
-
-        /* Payment Process */
+        /* Payment Screen */
         .pay-screen { border-radius: 20px; padding: 22px; color: white; margin: 15px 20px; }
         .number-box { background: rgba(255,255,255,0.2); padding: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 12px 0; word-break: break-all; }
         .copy-btn { background: #fff; color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; flex-shrink: 0; margin-left: 10px; }
@@ -90,7 +82,7 @@
         /* Profile Screen */
         .profile-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; text-align: center; margin: 20px; }
         .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 15px; }
-        .premium-badge { background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 12px; font-weight: bold; padding: 5px 12px; border-radius: 15px; display: inline-block; margin-top: 8px; letter-spacing: 0.5px; }
+        .premium-badge { background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 15px; display: inline-block; margin-top: 10px; letter-spacing: 0.5px; }
 
         /* Admin Trigger */
         #admin-trigger-container { display: none; padding: 0 20px 10px; }
@@ -102,23 +94,21 @@
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: var(--accent-glow); }
 
-        /* Modals */
+        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; }
         .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
-        .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
-        .save-btn { width: 100%; padding: 12px; background: var(--accent-color); color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
-        .prod-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); }
-        .req-card { background: #0d1117; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
+    <!-- Notification Bar -->
     <div id="notification-bar" class="notification-bar">
         <span id="notification-text">Notification Message</span>
         <i class="fas fa-times" onclick="closeNotification()" style="cursor:pointer;"></i>
     </div>
 
+    <!-- Header -->
     <div class="header">
         <div class="brand-info">
             <div class="brand-logo">🛍️</div>
@@ -130,6 +120,7 @@
         <div class="balance-badge"><i class="fas fa-wallet"></i> $<span id="user-balance">0.00</span></div>
     </div>
 
+    <!-- HOME PAGE -->
     <div id="page-home" class="page active">
         <div class="banner-container">
             <div class="banner">
@@ -141,7 +132,7 @@
         </div>
 
         <div id="admin-trigger-container">
-            <button class="admin-trigger-btn" onclick="openAdminModal()"><i class="fas fa-user-shield"></i> Open Secret Admin Panel</button>
+            <button class="admin-trigger-btn" onclick="openAdminModal()"><i class="fas fa-user-shield"></i> Open Admin Panel</button>
         </div>
 
         <div class="section-title">Categories</div>
@@ -181,6 +172,7 @@
         </div>
     </div>
 
+    <!-- DEPOSIT PAGE -->
     <div id="page-addfund" class="page">
         <div class="deposit-container">
             <div class="balance-card">
@@ -208,14 +200,10 @@
                 <p style="font-size:14px; color:var(--text-sub);">Step 2: Choose Deposit Package (Auto Direct)</p>
                 <div class="pkg-grid" id="pkg-container"></div>
             </div>
-
-            <div style="margin-top:30px;">
-                <div class="section-title" style="padding:0 0 10px 0;"><i class="fas fa-history"></i> Deposit History</div>
-                <div id="user-deposit-history"></div>
-            </div>
         </div>
     </div>
 
+    <!-- PROFILE PAGE -->
     <div id="page-profile" class="page">
         <div class="profile-box">
             <div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div>
@@ -230,10 +218,11 @@
         </div>
     </div>
 
+    <!-- PAYMENT PROCESS PAGE -->
     <div id="page-pay-process" class="page">
         <div id="pay-screen-box" class="pay-screen">
             <div style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
-                <i class="fas fa-clock"></i> Session Expires in: 14:59
+                <i class="fas fa-clock"></i> Payment Session Active
             </div>
             
             <div style="font-size:14px; line-height:1.8;" id="pay-instructions"></div>
@@ -254,6 +243,7 @@
         </div>
     </div>
 
+    <!-- PRODUCTS MODAL -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
             <i class="fas fa-times close-btn" onclick="closeModal('product-modal')"></i>
@@ -262,51 +252,7 @@
         </div>
     </div>
 
-    <div id="admin-modal" class="modal">
-        <div class="modal-content">
-            <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
-            <h3 style="color:#388bfd; margin-bottom:15px;"><i class="fas fa-user-shield"></i> Secret Admin Panel</h3>
-            
-            <div style="display:flex; gap:6px; margin-bottom:15px;">
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px;" onclick="showAdminTab('numbers')">Numbers</button>
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px;" onclick="showAdminTab('stock')">Products</button>
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:12px; background:#d97706;" onclick="showAdminTab('requests')">Requests</button>
-            </div>
-
-            <div id="admin-tab-numbers">
-                <label style="font-size:12px;">bKash Number:</label>
-                <input type="text" id="adm-bkash" class="input-box" placeholder="017xxxxxxxx">
-                <label style="font-size:12px;">Nagad Number:</label>
-                <input type="text" id="adm-nagad" class="input-box" placeholder="017xxxxxxxx">
-                <label style="font-size:12px;">Binance Pay ID / USDT Address:</label>
-                <input type="text" id="adm-binance" class="input-box" placeholder="Binance ID / Wallet">
-                <button class="save-btn" style="background:#238636;" onclick="saveAdminNumbers()">Save Payment Details</button>
-            </div>
-
-            <div id="admin-tab-stock" style="display:none;">
-                <label style="font-size:12px;">Category:</label>
-                <select id="adm-cat-select" class="input-box">
-                    <option value="VPN">VPN</option>
-                    <option value="Proxy">Proxy</option>
-                    <option value="Mails">Hotmail / Outlook</option>
-                </select>
-                <label style="font-size:12px;">Product Title:</label>
-                <input type="text" id="adm-prod-title" class="input-box" placeholder="Title">
-                <label style="font-size:12px;">Price ($ USD):</label>
-                <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="Price">
-                <button class="save-btn" style="background:#238636; margin-bottom:20px;" onclick="addNewProduct()">Add Product</button>
-
-                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Existing Products (Delete if needed):</p>
-                <div id="admin-product-list"></div>
-            </div>
-
-            <div id="admin-tab-requests" style="display:none;">
-                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Pending Deposit Requests:</p>
-                <div id="deposit-req-list"></div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Bottom Nav Bar -->
     <div class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item" id="nav-orders" onclick="alert('No Orders Yet!')"><i class="fas fa-shopping-bag"></i><span>Orders</span></div>
@@ -315,27 +261,24 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+        // Init Telegram WebApp safely
+        let tg = window.Telegram ? window.Telegram.WebApp : null;
+        if (tg) { try { tg.expand(); } catch(e){} }
 
         const ADMIN_ID = "7753794493";
-        const currentUser = tg.initDataUnsafe?.user || { id: "99999999", first_name: "Aura User" };
+        const currentUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : { id: "7753794493", first_name: "Demo User" };
         const userId = String(currentUser.id);
 
         if (userId === ADMIN_ID) {
             document.getElementById('admin-trigger-container').style.display = 'block';
         }
 
-        // Database Setup
-        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_BINANCE_PAY_ID' };
-        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [] };
-        let userBalances = JSON.parse(localStorage.getItem('aura_user_balances')) || {};
-        let depositRequests = JSON.parse(localStorage.getItem('aura_deposit_requests')) || [];
-        let userNotifications = JSON.parse(localStorage.getItem('aura_notifications')) || {};
-
-        if (userBalances[userId] === undefined) { userBalances[userId] = 0.00; }
+        // Saved State
+        let paymentInfo = { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_PAY_ID' };
+        let userBalances = {};
+        
+        if (!userBalances[userId]) { userBalances[userId] = 0.00; }
         updateUserBalanceUI();
-        checkNotifications();
 
         let selectedMethodName = '';
         let selectedColor = '#e2136e';
@@ -351,31 +294,17 @@
             document.getElementById('prof-user-id').innerText = userId;
         }
 
-        function checkNotifications() {
-            if (userNotifications[userId]) {
-                document.getElementById('notification-text').innerText = userNotifications[userId];
-                document.getElementById('notification-bar').style.display = 'flex';
-            }
-        }
-
-        function closeNotification() {
-            document.getElementById('notification-bar').style.display = 'none';
-            delete userNotifications[userId];
-            localStorage.setItem('aura_notifications', JSON.stringify(userNotifications));
-        }
-
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
 
-            // Bottom Nav Active Highlight Fix
+            // Bottom Nav Active Highlight
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if(document.getElementById('nav-' + pageId)) {
-                document.getElementById('nav-' + pageId).classList.add('active');
-            }
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) activeNav.classList.add('active');
 
-            if(pageId === 'addfund') renderUserHistory();
-            if(pageId === 'profile') updateUserBalanceUI();
+            if (pageId === 'profile') updateUserBalanceUI();
         }
 
         function selectMethod(method, color) {
@@ -395,12 +324,13 @@
                 ];
                 binancePkgs.forEach(pkg => {
                     pkgContainer.innerHTML += `
-                        <div class="pkg-card" onclick="autoProceedPayment(0, ${pkg.usd})">                             <div class="pkg-bdt" style="color:#f0b90b;">$${pkg.usd.toFixed(2)} USD</div>
+                        <div class="pkg-card" onclick="autoProceedPayment(0, ${pkg.usd})">
+                            <div class="pkg-bdt" style="color:#f0b90b;">$${pkg.usd.toFixed(2)} USD</div>
                             <div class="pkg-usd" style="color:#8b949e; font-size:11px;">Binance Pay</div>
                         </div>`;
                 });
             } else {
-                // bKash & Nagad Packages (BDT & USD)
+                // bKash & Nagad Packages (BDT + USD)
                 const localPkgs = [
                     { bdt: 30, usd: 0.25 }, { bdt: 50, usd: 0.45 },
                     { bdt: 100, usd: 0.85 }, { bdt: 200, usd: 1.70 },
@@ -408,8 +338,9 @@
                 ];
                 localPkgs.forEach(pkg => {
                     pkgContainer.innerHTML += `
-                        <div class="pkg-card" onclick="autoProceedPayment(${pkg.bdt},${pkg.usd})">
-                            <div class="pkg-bdt">৳${pkg.bdt}</div>                             <div class="pkg-usd">+ $${pkg.usd.toFixed(2)} Add</div>
+                        <div class="pkg-card" onclick="autoProceedPayment(${pkg.bdt}, ${pkg.usd})">
+                            <div class="pkg-bdt">৳${pkg.bdt}</div>
+                            <div class="pkg-usd">+ $${pkg.usd.toFixed(2)} Add</div>
                         </div>`;
                 });
             }
@@ -429,9 +360,45 @@
 
             if(selectedMethodName === 'Nagad') {
                 num = paymentInfo.nagad;
-                instrHtml = `<p>1. Open your <b>Nagad</b> app or Dial *167#.</p><p>2. Choose Send Money option.</p><p>3. Send payment to details below:</p>`;
-                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance Added: <b>$${selectedUSD.toFixed(2)}</b>)`;
+                instrHtml = `<p>1. Open <b>Nagad</b> App or Dial *167#.</p><p>2. Send Money to number below:</p>`;
+                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
             } else if(selectedMethodName === 'Binance') {
                 num = paymentInfo.binance;
-                instrHtml = `<p>1. Open <b>Binance App</b> -> Pay / Wallet.</p><p>2. Send USDT via Binance Pay ID or Address.</p><p>3. Transfer details below:</p>`;
-                amountTxt = `Send Amount: <b>$${selectedUSD.toFixed(2)}
+                instrHtml = `<p>1. Open <b>Binance App</b> -> Pay / Wallet.</p><p>2. Send USDT to ID / Address below:</p>`;
+                amountTxt = `Send Amount: <b>$${selectedUSD.toFixed(2)} USDT</b>`;
+            } else {
+                instrHtml = `<p>1. Open <b>bKash App</b> or Dial *247#.</p><p>2. Send Money to number below:</p>`;
+                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
+            }
+
+            document.getElementById('pay-instructions').innerHTML = instrHtml;
+            document.getElementById('target-number').innerText = num;
+            document.getElementById('amount-details-text').innerHTML = amountTxt;
+
+            showPage('pay-process');
+        }
+
+        function submitDeposit() {
+            const tx = document.getElementById('tx-id').value.trim();
+            if(!tx) { alert('Please enter Transaction ID!'); return; }
+            alert('Deposit Request Submitted! Waiting for verification.');
+            document.getElementById('tx-id').value = '';
+            showPage('addfund');
+        }
+
+        function openProductList(cat) {
+            document.getElementById('modal-cat-title').innerText = cat + ' Products';
+            document.getElementById('products-container').innerHTML = '<p style="color:#888; font-size:13px;">No items currently in stock.</p>';
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function copyNumber() {
+            const txt = document.getElementById('target-number').innerText;
+            navigator.clipboard.writeText(txt);
+            alert('Copied: ' + txt);
+        }
+    </script>
+</body>
+</html>
