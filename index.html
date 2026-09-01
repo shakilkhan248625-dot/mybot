@@ -22,13 +22,6 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Notification Bar */
-        .notification-bar {
-            background: linear-gradient(90deg, #10b981, #059669);
-            color: white; padding: 10px 15px; font-size: 13px; font-weight: 600;
-            display: none; justify-content: space-between; align-items: center;
-        }
-
         /* Header */
         .header {
             padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
@@ -79,13 +72,19 @@
         .tx-input { width: 100%; padding: 15px; border-radius: 12px; border: none; outline: none; margin-top: 12px; font-size: 15px; text-align: center; }
         .verify-btn { width: 100%; padding: 16px; background: #22c55e; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 
-        /* Profile Screen */
+        /* Profile & History */
         .profile-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; text-align: center; margin: 20px; }
         .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 15px; }
         .premium-badge { background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 15px; display: inline-block; margin-top: 10px; letter-spacing: 0.5px; }
+        
+        .history-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-PENDING { background: #d97706; color: white; }
+        .status-APPROVED { background: #059669; color: white; }
+        .status-REJECTED { background: #dc2626; color: white; }
 
         /* Admin Trigger */
-        #admin-trigger-container { display: none; padding: 0 20px 10px; }
+        #admin-trigger-container { padding: 0 20px 10px; }
         .admin-trigger-btn { width: 100%; padding: 14px; background: #238636; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; }
 
         /* Bottom Nav Bar */
@@ -94,19 +93,18 @@
         .nav-item i { font-size: 20px; }
         .nav-item.active { color: var(--accent-glow); }
 
-        /* Modal */
+        /* Modal Inputs */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; }
         .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
+        
+        .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
+        .save-btn { width: 100%; padding: 12px; background: #7c3aed; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
+        .prod-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); }
+        .req-card { background: #0d1117; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; }
     </style>
 </head>
 <body>
-
-    <!-- Notification Bar -->
-    <div id="notification-bar" class="notification-bar">
-        <span id="notification-text">Notification Message</span>
-        <i class="fas fa-times" onclick="closeNotification()" style="cursor:pointer;"></i>
-    </div>
 
     <!-- Header -->
     <div class="header">
@@ -153,7 +151,7 @@
                     <div class="card-icon"><i class="fas fa-network-wired"></i></div>
                     <div>
                         <h4>Proxy</h4>
-                        <p>Residential & HTTP</p>
+                        <p>Residential & HTTP Stock</p>
                     </div>
                 </div>
                 <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
@@ -164,7 +162,7 @@
                     <div class="card-icon"><i class="fas fa-envelope"></i></div>
                     <div>
                         <h4>Hotmail / Outlook</h4>
-                        <p>Trust V1 & Fresh Mails</p>
+                        <p>Fresh Mails</p>
                     </div>
                 </div>
                 <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
@@ -200,6 +198,12 @@
                 <p style="font-size:14px; color:var(--text-sub);">Step 2: Choose Deposit Package (Auto Direct)</p>
                 <div class="pkg-grid" id="pkg-container"></div>
             </div>
+
+            <!-- Deposit History -->
+            <div style="margin-top:30px;">
+                <div class="section-title" style="padding:0 0 10px 0;"><i class="fas fa-history"></i> Deposit History</div>
+                <div id="user-deposit-history"></div>
+            </div>
         </div>
     </div>
 
@@ -222,7 +226,7 @@
     <div id="page-pay-process" class="page">
         <div id="pay-screen-box" class="pay-screen">
             <div style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
-                <i class="fas fa-clock"></i> Payment Session Active
+                <i class="fas fa-clock"></i> Session Expires in: <span id="timer-display" style="font-weight:bold; color:#00ffff;">15:00</span>
             </div>
             
             <div style="font-size:14px; line-height:1.8;" id="pay-instructions"></div>
@@ -252,6 +256,57 @@
         </div>
     </div>
 
+    <!-- ADMIN PANEL MODAL -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
+            <h3 style="color:#388bfd; margin-bottom:15px;"><i class="fas fa-user-shield"></i> Admin Management</h3>
+            
+            <div style="display:flex; gap:6px; margin-bottom:15px;">
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('numbers')">Numbers</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('stock')">Add Stock</button>
+                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px; background:#d97706;" onclick="showAdminTab('requests')">Requests</button>
+            </div>
+
+            <!-- Numbers Tab -->
+            <div id="admin-tab-numbers">
+                <label style="font-size:12px;">bKash Number:</label>
+                <input type="text" id="adm-bkash" class="input-box" placeholder="017xxxxxxxx">
+                <label style="font-size:12px;">Nagad Number:</label>
+                <input type="text" id="adm-nagad" class="input-box" placeholder="017xxxxxxxx">
+                <label style="font-size:12px;">Binance Pay ID / USDT Address:</label>
+                <input type="text" id="adm-binance" class="input-box" placeholder="Binance ID / Wallet">
+                <button class="save-btn" style="background:#238636;" onclick="saveAdminNumbers()">Save Settings</button>
+            </div>
+
+            <!-- Add Product & Bulk Stock Tab -->
+            <div id="admin-tab-stock" style="display:none;">
+                <label style="font-size:12px;">Category:</label>
+                <select id="adm-cat-select" class="input-box">
+                    <option value="Proxy">Proxy</option>
+                    <option value="VPN">VPN</option>
+                    <option value="Mails">Hotmail / Outlook</option>
+                </select>
+                <label style="font-size:12px;">Title (e.g. Residential Proxy):</label>
+                <input type="text" id="adm-prod-title" class="input-box" placeholder="Title">
+                <label style="font-size:12px;">Price ($ USD):</label>
+                <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="0.50">
+                <label style="font-size:12px;">Bulk Stock Data (Each Proxy in new line):</label>
+                <textarea id="adm-prod-stock" class="input-box" style="height:90px;" placeholder="192.168.1.1:8080:user:pass&#10;192.168.1.2:8080:user:pass"></textarea>
+                <button class="save-btn" style="background:#238636; margin-bottom:20px;" onclick="addNewProduct()">Add / Append Stock</button>
+
+                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Existing Products Stock:</p>
+                <div id="admin-product-list"></div>
+            </div>
+
+            <!-- Deposit Requests Tab -->
+            <div id="admin-tab-requests" style="display:none;">
+                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Pending Deposits:</p>
+                <div id="deposit-req-list"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bottom Nav Bar -->
     <div class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i><span>Home</span></div>
@@ -261,29 +316,26 @@
     </div>
 
     <script>
-        // Init Telegram WebApp safely
-        let tg = window.Telegram ? window.Telegram.WebApp : null;
+        const tg = window.Telegram ? window.Telegram.WebApp : null;
         if (tg) { try { tg.expand(); } catch(e){} }
 
-        const ADMIN_ID = "7753794493";
         const currentUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : { id: "7753794493", first_name: "Demo User" };
         const userId = String(currentUser.id);
 
-        if (userId === ADMIN_ID) {
-            document.getElementById('admin-trigger-container').style.display = 'block';
-        }
+        // Persistent Storage
+        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_PAY_ID' };
+        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [] };
+        let userBalances = JSON.parse(localStorage.getItem('aura_balances')) || {};
+        let depositRequests = JSON.parse(localStorage.getItem('aura_requests')) || [];
 
-        // Saved State
-        let paymentInfo = { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_PAY_ID' };
-        let userBalances = {};
-        
-        if (!userBalances[userId]) { userBalances[userId] = 0.00; }
+        if (userBalances[userId] === undefined) { userBalances[userId] = 0.00; }
         updateUserBalanceUI();
 
         let selectedMethodName = '';
         let selectedColor = '#e2136e';
         let selectedBDT = 0;
         let selectedUSD = 0;
+        let timerInterval = null;
 
         function updateUserBalanceUI() {
             const bal = (userBalances[userId] || 0).toFixed(2);
@@ -296,15 +348,13 @@
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById('page-' + pageId);
-            if (targetPage) targetPage.classList.add('active');
+            document.getElementById('page-' + pageId).classList.add('active');
 
-            // Bottom Nav Active Highlight
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const activeNav = document.getElementById('nav-' + pageId);
-            if (activeNav) activeNav.classList.add('active');
+            if(document.getElementById('nav-' + pageId)) document.getElementById('nav-' + pageId).classList.add('active');
 
-            if (pageId === 'profile') updateUserBalanceUI();
+            if(pageId === 'addfund') renderUserHistory();
+            if(pageId === 'profile') updateUserBalanceUI();
         }
 
         function selectMethod(method, color) {
@@ -317,11 +367,7 @@
             pkgContainer.innerHTML = '';
 
             if (method === 'Binance') {
-                // Binance USD Packages ($0.10 to $5.00)
-                const binancePkgs = [
-                    { usd: 0.10 }, { usd: 0.25 }, { usd: 0.50 },
-                    { usd: 1.00 }, { usd: 2.50 }, { usd: 5.00 }
-                ];
+                const binancePkgs = [{ usd: 0.10 }, { usd: 0.25 }, { usd: 0.50 }, { usd: 1.00 }, { usd: 2.50 }, { usd: 5.00 }];
                 binancePkgs.forEach(pkg => {
                     pkgContainer.innerHTML += `
                         <div class="pkg-card" onclick="autoProceedPayment(0, ${pkg.usd})">
@@ -330,11 +376,16 @@
                         </div>`;
                 });
             } else {
-                // bKash & Nagad Packages (BDT + USD)
+                // bKash & Nagad Packages (including 15 Tk & 1000 Tk)
                 const localPkgs = [
-                    { bdt: 30, usd: 0.25 }, { bdt: 50, usd: 0.45 },
-                    { bdt: 100, usd: 0.85 }, { bdt: 200, usd: 1.70 },
-                    { bdt: 300, usd: 2.50 }, { bdt: 600, usd: 5.00 }
+                    { bdt: 15, usd: 0.12 },
+                    { bdt: 30, usd: 0.25 },
+                    { bdt: 50, usd: 0.45 },
+                    { bdt: 100, usd: 0.85 },
+                    { bdt: 200, usd: 1.70 },
+                    { bdt: 300, usd: 2.50 },
+                    { bdt: 600, usd: 5.00 },
+                    { bdt: 1000, usd: 8.50 }
                 ];
                 localPkgs.forEach(pkg => {
                     pkgContainer.innerHTML += `
@@ -360,7 +411,7 @@
 
             if(selectedMethodName === 'Nagad') {
                 num = paymentInfo.nagad;
-                instrHtml = `<p>1. Open <b>Nagad</b> App or Dial *167#.</p><p>2. Send Money to number below:</p>`;
+                instrHtml = `<p>1. Open <b>Nagad App</b> or Dial *167#.</p><p>2. Send Money to number below:</p>`;
                 amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
             } else if(selectedMethodName === 'Binance') {
                 num = paymentInfo.binance;
@@ -375,30 +426,248 @@
             document.getElementById('target-number').innerText = num;
             document.getElementById('amount-details-text').innerHTML = amountTxt;
 
+            startCountdownTimer(15 * 60);
             showPage('pay-process');
+        }
+
+        function startCountdownTimer(seconds) {
+            clearInterval(timerInterval);
+            let timer = seconds;
+            const timerDisplay = document.getElementById('timer-display');
+
+            timerInterval = setInterval(() => {
+                let minutes = parseInt(timer / 60, 10);
+                let secs = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                secs = secs < 10 ? "0" + secs : secs;
+
+                timerDisplay.innerText = minutes + ":" + secs;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    alert("Session Expired! Please try again.");
+                    showPage('addfund');
+                }
+            }, 1000);
         }
 
         function submitDeposit() {
             const tx = document.getElementById('tx-id').value.trim();
             if(!tx) { alert('Please enter Transaction ID!'); return; }
-            alert('Deposit Request Submitted! Waiting for verification.');
+
+            depositRequests.push({
+                reqId: 'REQ' + Date.now(),
+                userId: userId,
+                user: currentUser.first_name,
+                method: selectedMethodName,
+                amountUSD: selectedUSD,
+                txId: tx,
+                status: 'PENDING'
+            });
+
+            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+            alert('Deposit Request Submitted! Waiting for Admin verification.');
             document.getElementById('tx-id').value = '';
+            clearInterval(timerInterval);
             showPage('addfund');
         }
 
+        function renderUserHistory() {
+            const userHistory = depositRequests.filter(r => r.userId === userId);
+            let html = '';
+            userHistory.reverse().forEach(req => {
+                html += `
+                <div class="history-card">
+                    <div>
+                        <b style="font-size:13px;">${req.method} Deposit</b>
+                        <p style="font-size:12px; color:#3fb950; font-weight:bold;">+$${req.amountUSD.toFixed(2)}</p>
+                        <p style="font-size:10px; color:#888;">TxID: ${req.txId}</p>
+                    </div>
+                    <span class="status-badge status-${req.status}">${req.status}</span>
+                </div>`;
+            });
+            document.getElementById('user-deposit-history').innerHTML = html || '<p style="font-size:12px; color:#888;">No deposit history found.</p>';
+        }
+
         function openProductList(cat) {
-            document.getElementById('modal-cat-title').innerText = cat + ' Products';
-            document.getElementById('products-container').innerHTML = '<p style="color:#888; font-size:13px;">No items currently in stock.</p>';
+            document.getElementById('modal-cat-title').innerText = cat + ' Stock';
+            const list = productsDB[cat] || [];
+            let html = '';
+
+            list.forEach((p, idx) => {
+                const stockCount = p.items ? p.items.length : 0;
+                html += `
+                <div class="prod-item">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <b>${p.name}</b>
+                            <p style="font-size:13px; color:#3fb950; font-weight:bold;">$${p.price.toFixed(2)}</p>
+                            <p style="font-size:11px; color:#8b949e;">Available Stock: <b style="color:#00d2ff;">${stockCount}</b></p>
+                        </div>
+                        <button class="save-btn" style="width:auto; padding:8px 16px; margin:0; ${stockCount === 0 ? 'background:#555;' : ''}" ${stockCount === 0 ? 'disabled' : ''} onclick="buyProduct('${cat}', ${idx})">
+                            ${stockCount === 0 ? 'Out of Stock' : 'Buy Now'}
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">No items currently available.</p>';
             document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function buyProduct(cat, idx) {
+            const product = productsDB[cat][idx];
+            if ((userBalances[userId] || 0) < product.price) {
+                alert('Insufficient USD Balance! Please Deposit.');
+                return;
+            }
+
+            if (!product.items || product.items.length === 0) {
+                alert('Out of Stock!');
+                return;
+            }
+
+            // Deduct Stock & Balance
+            const deliveredItem = product.items.shift();
+            userBalances[userId] -= product.price;
+
+            localStorage.setItem('aura_products', JSON.stringify(productsDB));
+            localStorage.setItem('aura_balances', JSON.stringify(userBalances));
+
+            updateUserBalanceUI();
+            alert(`🎉 Purchase Successful!\n\nYour Item:\n${deliveredItem}`);
+            openProductList(cat);
+        }
+
+        // ADMIN FUNCTIONS
+        function openAdminModal() {
+            document.getElementById('adm-bkash').value = paymentInfo.bkash;
+            document.getElementById('adm-nagad').value = paymentInfo.nagad;
+            document.getElementById('adm-binance').value = paymentInfo.binance;
+            renderAdminProducts();
+            renderAdminRequests();
+            document.getElementById('admin-modal').style.display = 'flex';
         }
 
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
+        function showAdminTab(tab) {
+            document.getElementById('admin-tab-numbers').style.display = tab === 'numbers' ? 'block' : 'none';
+            document.getElementById('admin-tab-stock').style.display = tab === 'stock' ? 'block' : 'none';
+            document.getElementById('admin-tab-requests').style.display = tab === 'requests' ? 'block' : 'none';
+            if(tab === 'stock') renderAdminProducts();
+            if(tab === 'requests') renderAdminRequests();
+        }
+
+        function saveAdminNumbers() {
+            paymentInfo.bkash = document.getElementById('adm-bkash').value;
+            paymentInfo.nagad = document.getElementById('adm-nagad').value;
+            paymentInfo.binance = document.getElementById('adm-binance').value;
+            localStorage.setItem('aura_payments', JSON.stringify(paymentInfo));
+            alert('Settings Saved Successfully!');
+            closeModal('admin-modal');
+        }
+
+        function addNewProduct() {
+            const cat = document.getElementById('adm-cat-select').value;
+            const title = document.getElementById('adm-prod-title').value.trim();
+            const price = parseFloat(document.getElementById('adm-prod-price').value);
+            const rawStock = document.getElementById('adm-prod-stock').value.trim();
+
+            if (!title || isNaN(price)) { alert('Enter valid title and price!'); return; }
+
+            const newItems = rawStock ? rawStock.split('\n').map(s => s.trim()).filter(s => s.length > 0) : [];
+
+            if (!productsDB[cat]) productsDB[cat] = [];
+
+            let existingProd = productsDB[cat].find(p => p.name.toLowerCase() === title.toLowerCase());
+            if (existingProd) {
+                existingProd.items = existingProd.items.concat(newItems);
+            } else {
+                productsDB[cat].push({ name: title, price: price, items: newItems });
+            }
+
+            localStorage.setItem('aura_products', JSON.stringify(productsDB));
+            alert(`Added ${newItems.length} stock items to ${title}!`);
+            document.getElementById('adm-prod-stock').value = '';
+            renderAdminProducts();
+        }
+
+        function renderAdminProducts() {
+            let html = '';
+            for (let cat in productsDB) {
+                productsDB[cat].forEach((p, idx) => {
+                    const count = p.items ? p.items.length : 0;
+                    html += `
+                    <div class="prod-item" style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <b>[${cat}] ${p.name}</b>
+                            <p style="font-size:12px; color:#3fb950;">$${p.price.toFixed(2)} | Stock: ${count}</p>
+                        </div>
+                        <button class="save-btn" style="background:#dc2626; width:auto; padding:6px 10px; margin:0; font-size:12px;" onclick="deleteProduct('${cat}', ${idx})">Delete</button>
+                    </div>`;
+                });
+            }
+            document.getElementById('admin-product-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No products found.</p>';
+        }
+
+        function deleteProduct(cat, idx) {
+            if(confirm('Are you sure you want to delete this product?')) {
+                productsDB[cat].splice(idx, 1);
+                localStorage.setItem('aura_products', JSON.stringify(productsDB));
+                renderAdminProducts();
+            }
+        }
+
+        function renderAdminRequests() {
+            let html = '';
+            const pendingReqs = depositRequests.filter(r => r.status === 'PENDING');
+            pendingReqs.forEach((req) => {
+                html += `
+                <div class="req-card">
+                    <p style="font-size:12px; color:#fff;"><b>User:</b> ${req.user} (${req.userId})</p>
+                    <p style="font-size:12px; color:#fff;"><b>Method:</b> ${req.method}</p>
+                    <p style="font-size:12px; color:#3fb950;"><b>Amount:</b> +$${req.amountUSD.toFixed(2)}</p>
+                    <p style="font-size:12px; color:#aaa;"><b>TxID:</b> ${req.txId}</p>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <button class="save-btn" style="background:#238636; padding:6px; margin:0;" onclick="approveDeposit('${req.reqId}')">Approve</button>
+                        <button class="save-btn" style="background:#da3633; padding:6px; margin:0;" onclick="rejectDeposit('${req.reqId}')">Reject</button>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('deposit-req-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No pending requests.</p>';
+        }
+
+        function approveDeposit(reqId) {
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'APPROVED';
+                userBalances[req.userId] = (userBalances[req.userId] || 0) + req.amountUSD;
+
+                localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+                localStorage.setItem('aura_balances', JSON.stringify(userBalances));
+
+                updateUserBalanceUI();
+                alert('Deposit Approved!');
+                renderAdminRequests();
+            }
+        }
+
+        function rejectDeposit(reqId) {
+            let req = depositRequests.find(r => r.reqId === reqId);
+            if(req) {
+                req.status = 'REJECTED';
+                localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
+                alert('Deposit Rejected.');
+                renderAdminRequests();
+            }
+        }
+
         function copyNumber() {
-            const txt = document.getElementById('target-number').innerText;
-            navigator.clipboard.writeText(txt);
-            alert('Copied: ' + txt);
+            navigator.clipboard.writeText(document.getElementById('target-number').innerText);
+            alert('Copied to clipboard!');
         }
     </script>
 </body>
-</html>
+    </html>
