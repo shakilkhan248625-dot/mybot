@@ -94,6 +94,7 @@
       font-size: 16px;
       font-weight: bold;
       width: 100%;
+      cursor: pointer;
     }
 
     .content {
@@ -116,34 +117,33 @@
       background: white;
       border-radius: 20px;
       padding: 20px;
+      min-height: 240px;
       box-shadow: 0 5px 20px rgba(0,0,0,.08);
+      display: flex;
+      flex-direction: column;
     }
 
     .service-icon {
-      font-size: 35px;
-      margin-bottom: 15px;
+      font-size: 42px;
+      margin-bottom: 25px;
     }
 
     .service-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .service-card p {
-      color: #64748b;
-      font-size: 14px;
-      margin-bottom: 15px;
+      font-size: 28px;
+      margin-bottom: auto;
     }
 
     .buy-btn {
-      margin-top: 15px;
+      margin-top: 25px;
       border: none;
       width: 100%;
-      padding: 11px;
+      padding: 12px;
       border-radius: 12px;
       background: #1f2937;
       color: white;
+      font-size: 14px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .bottom-nav {
@@ -156,133 +156,10 @@
       display: flex;
       justify-content: space-around;
       padding: 12px 5px;
+      z-index: 100;
     }
 
     .nav-item {
       text-align: center;
       font-size: 12px;
-      color: #64748b;
-      cursor: pointer;
-    }
-
-    .nav-icon {
-      font-size: 22px;
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .active {
-      color: #2563eb;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <div class="header">
-
-    <div class="top">
-
-      <div class="logo">
-        <div class="logo-icon">⚡</div>
-
-        <div>
-          <h2>AURA STORE</h2>
-          <small>Digital Services</small>
-        </div>
-      </div>
-
-      <div class="notification">🔔</div>
-
-    </div>
-
-    <div class="balance-card">
-
-      <p>Your Balance</p>
-
-      <div class="balance">$0.00</div>
-
-      <button class="add-fund">
-        ➕ ADD FUND
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="content">
-
-    <div class="section-title">
-      🛍 Our Services
-    </div>
-
-    <div class="services">
-
-      <div class="service-card">
-
-        <div class="service-icon">🔐</div>
-
-        <h3>VPN</h3>
-
-        <p>Fast & Secure VPN</p>
-
-        <button class="buy-btn">
-          View Packages
-        </button>
-
-      </div>
-
-      <div class="service-card">
-
-        <div class="service-icon">🌐</div>
-
-        <h3>Proxy</h3>
-
-        <p>High Quality Proxy</p>
-
-        <button class="buy-btn">
-          View Packages
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="bottom-nav">
-
-  <div class="nav-item active">
-    <span class="nav-icon">🏠</span>
-    Home
-  </div>
-
-  <div class="nav-item">
-    <span class="nav-icon">🛍</span>
-    Store
-  </div>
-
-  <div class="nav-item">
-    <span class="nav-icon">➕</span>
-    Add Fund
-  </div>
-
-  <div class="nav-item">
-    <span class="nav-icon">📦</span>
-    Orders
-  </div>
-
-  <div class="nav-item">
-    <span class="nav-icon">👤</span>
-    Profile
-  </div>
-
-</div>
-
-</body>
-</html>
+      color:
