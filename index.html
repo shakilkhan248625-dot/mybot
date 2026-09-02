@@ -25,83 +25,11 @@
             padding: 16px;
         }
 
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .brand-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .brand-text h1 { font-size: 22px; font-weight: 700; }
-        .brand-text p { font-size: 13px; color: #9ca3af; }
-
-        /* Balance Card */
-        .balance-card {
-            background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
-            border: 1px solid #312e81;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .balance-card h2 { font-size: 36px; margin: 6px 0 14px 0; }
-
-        .add-fund-btn {
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
         /* Titles */
         .section-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 14px;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-
-        .service-card {
-            background-color: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 16px;
-            padding: 20px 14px;
-            text-align: center;
-        }
-
-        .btn-view {
-            background-color: #0d1117;
-            color: #e6edf3;
-            border: 1px solid #30363d;
-            width: 100%;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 12px;
-            cursor: pointer;
         }
 
         /* Partners Section */
@@ -137,9 +65,10 @@
             transform: translateY(-2px);
         }
 
-        .svg-icon {
-            width: 34px;
-            height: 34px;
+        .partner-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
         .partner-item span {
@@ -147,98 +76,43 @@
             color: #c9d1d9;
             font-weight: 600;
         }
-
-        /* Bottom Nav */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #161b22;
-            border-top: 1px solid #21262d;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #8b949e;
-            font-size: 11px;
-            text-decoration: none;
-            gap: 4px;
-        }
-
-        .nav-item.active { color: #58a6ff; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Header -->
-        <div class="header">
-            <div class="brand-icon">⚡</div>
-            <div class="brand-text">
-                <h1>AURA STORE</h1>
-                <p>Digital Services</p>
-            </div>
-        </div>
-
-        <!-- Balance Card -->
-        <div class="balance-card">
-            <p>Your Balance</p>
-            <h2>$0.00</h2>
-            <button class="add-fund-btn"><i class="fa-solid fa-plus"></i> ADD FUND</button>
-        </div>
-
-        <!-- Services -->
-        <div class="section-title">🛍️ Our Services</div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div style="font-size:32px; margin-bottom:8px;">🔐</div>
-                <h3 style="margin-bottom:10px;">VPN</h3>
-                <button class="btn-view">View Packages</button>
-            </div>
-            <div class="service-card">
-                <div style="font-size:32px; margin-bottom:8px;">🌐</div>
-                <h3 style="margin-bottom:10px;">Proxy</h3>
-                <button class="btn-view">View Packages</button>
-            </div>
-        </div>
-
-        <!-- Guaranteed SVG Logo Partners Section -->
+        <!-- Partners Section -->
         <div class="partners-section">
             <div class="section-title">🤝 Our Official Partners</div>
             <div class="partners-grid">
                 
-                <!-- bKash Vector Logo -->
+                <!-- Real bKash Bird Logo -->
                 <div class="partner-item">
-                    <svg class="svg-icon" viewBox="0 0 100 100">
-                        <path d="M50 0 C22.4 0 0 22.4 0 50 C0 77.6 22.4 100 50 100 C77.6 100 100 77.6 100 50 C100 22.4 77.6 0 50 0 Z" fill="#E2136E"/>
-                        <path d="M28 30 L45 30 L60 55 L35 70 Z" fill="#FFFFFF"/>
-                        <path d="M48 30 L72 30 L55 52 Z" fill="#FFFFFF"/>
-                        <path d="M48 56 L72 70 L60 70 Z" fill="#FFFFFF"/>
+                    <svg class="partner-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="46" fill="#D81B60"/>
+                        <path d="M22 46L44 26L41 55L22 46Z" fill="white"/>
+                        <path d="M44 26L78 30L52 50L44 26Z" fill="white"/>
+                        <path d="M41 55L78 30L55 74L41 55Z" fill="white"/>
+                        <path d="M55 74L68 56L78 68L55 74Z" fill="white"/>
                     </svg>
                     <span>bKash</span>
                 </div>
 
-                <!-- Nagad Vector Logo -->
+                <!-- Real Nagad Text Logo Icon -->
                 <div class="partner-item">
-                    <svg class="svg-icon" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="48" fill="#F7931E"/>
-                        <path d="M25 65 C 25 35, 40 25, 55 25 C 70 25, 75 35, 75 50 C 75 65, 60 75, 45 75 C 30 75, 25 65, 25 65 Z" fill="#E61C24"/>
-                        <circle cx="50" cy="50" r="14" fill="#FFFFFF"/>
+                    <svg class="partner-img" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="20" fill="#F74B26"/>
+                        <path d="M20 30 C30 20, 70 20, 80 30 C85 45, 80 75, 50 82 C25 75, 15 50, 20 30 Z" fill="#E02A00"/>
+                        <!-- White Bangla Letter Representation -->
+                        <path d="M32 40 C32 35, 42 35, 42 42 L42 62 M42 45 C48 38, 62 38, 62 48 L62 62 M62 48 C68 40, 75 42, 75 50 L75 62" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+                        <circle cx="36" cy="58" r="4" fill="white"/>
                     </svg>
                     <span>Nagad</span>
                 </div>
 
-                <!-- Binance Vector Logo -->
+                <!-- Real Binance Logo -->
                 <div class="partner-item">
-                    <svg class="svg-icon" viewBox="0 0 24 24" fill="#F0B90B">
+                    <svg class="partner-img" viewBox="0 0 24 24" fill="#F0B90B" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L8.35 5.65l2.25 2.25L12 6.5l1.4 1.4 2.25-2.25L12 2zm-6.35 6.35L2 12l3.65 3.65 2.25-2.25L6.5 12l1.4-1.4-2.25-2.25zM12 17.5l-1.4-1.4-2.25 2.25L12 22l3.65-3.65-2.25-2.25-1.4 1.4zm5.65-11.85l-2.25 2.25 1.4 1.4 1.4-1.4 2.25 2.25L22 12l-3.65-3.65zM12 9.5L9.5 12l2.5 2.5 2.5-2.5L12 9.5z"/>
                     </svg>
                     <span>Binance</span>
@@ -246,33 +120,24 @@
 
                 <!-- Telegram -->
                 <div class="partner-item">
-                    <i class="fa-brands fa-telegram" style="font-size: 34px; color: #229ED9;"></i>
+                    <i class="fa-brands fa-telegram" style="font-size: 36px; color: #229ED9;"></i>
                     <span>Telegram</span>
                 </div>
 
                 <!-- OWL Proxy -->
                 <div class="partner-item">
-                    <i class="fa-solid fa-owl" style="font-size: 32px; color: #f59e0b;"></i>
+                    <i class="fa-solid fa-owl" style="font-size: 34px; color: #f59e0b;"></i>
                     <span>OWL Proxy</span>
                 </div>
 
                 <!-- VPN Partner -->
                 <div class="partner-item">
-                    <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: #10b981;"></i>
+                    <i class="fa-solid fa-shield-halved" style="font-size: 34px; color: #10b981;"></i>
                     <span>VPN</span>
                 </div>
 
             </div>
         </div>
-    </div>
-
-    <!-- Navigation -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i>Home</a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-bag-shopping"></i>Store</a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-square-plus"></i>Add Fund</a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-box"></i>Orders</a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-user"></i>Profile</a>
     </div>
 
 </body>
