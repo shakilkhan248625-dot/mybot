@@ -2,86 +2,176 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Digital Services</title>
 <style>
 :root{
-  --bg:#f5f6fb; --card:#ffffff; --text:#1f2937; --muted:#7a8495;
-  --purple:#6847d9; --blue:#2677df; --green:#1ca75a; --shadow:0 10px 28px rgba(50,65,100,.10);
+ --bg:#f3f5fb;--card:#fff;--text:#202b3d;--muted:#778196;
+ --purple:#6545d6;--blue:#2875dc;--green:#199858;
+ --shadow:0 8px 24px rgba(43,58,91,.10);
 }
-*{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
-.app{max-width:620px;margin:auto;padding:18px 14px 105px}
-.top{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 18px}
-.brand{display:flex;gap:12px;align-items:center}.logo{width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#21b8d8,#6338d9);display:grid;place-items:center;color:#fff;font-size:27px;font-weight:900;box-shadow:var(--shadow)}
-.brand h1{font-size:24px;margin:0;letter-spacing:.4px}.brand p{margin:4px 0 0;color:var(--purple);font-size:12px;font-weight:800;letter-spacing:1px}
-.topActions{display:flex;gap:10px}.iconBtn,.balance{background:#fff;border-radius:18px;box-shadow:var(--shadow);border:0}.iconBtn{width:54px;height:54px;font-size:22px;position:relative}.dot{position:absolute;width:10px;height:10px;background:#f04444;border-radius:50%;right:12px;top:11px}.balance{display:flex;align-items:center;gap:8px;padding:0 16px;font-weight:800;color:var(--green);font-size:18px}.wallet{font-size:23px}
-.profile,.card,.service,.addFund{background:var(--card);border-radius:26px;box-shadow:var(--shadow)}
-.profile{display:flex;align-items:center;padding:20px;gap:16px;margin-bottom:18px}.avatar{width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#e7ebf5,#cfd6e6);display:grid;place-items:center;font-size:34px}
-.profileInfo{flex:1}.profileInfo h2{margin:0 0 7px;font-size:23px}.profileInfo p{margin:0;color:#2c67b8;font-size:16px}.verified{display:inline-block;margin-top:10px;padding:7px 12px;border-radius:20px;background:#f0edff;color:#5c46c8;font-weight:700;font-size:13px}
-.arrow{font-size:30px;color:#8d96a6}
-.sliderWrap{padding:14px 0 8px;margin-bottom:22px;overflow:hidden}.slider{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:3px 2px 12px;scrollbar-width:none}.slider::-webkit-scrollbar{display:none}
-.banner{min-width:82%;height:190px;border-radius:24px;padding:22px;color:#fff;scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}.b1{background:linear-gradient(135deg,#28115d,#7041dd)}.b2{background:linear-gradient(135deg,#087a7f,#1c9fbb)}.b3{background:linear-gradient(135deg,#123e91,#2678dc)}
-.banner h3{font-size:27px;margin:0 0 10px;max-width:70%}.banner p{font-size:16px;margin:0 0 18px;max-width:70%;opacity:.9}.banner button{width:max-content;border:0;border-radius:13px;padding:12px 17px;font-weight:800;color:#394a78}.bannerEmoji{position:absolute;right:20px;bottom:20px;font-size:55px}
-.dots{text-align:center}.dots span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d6dbe5;margin:0 4px}.dots span:first-child{background:var(--purple)}
-.services{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service{padding:16px 12px;text-align:center}.service .emoji{width:58px;height:58px;margin:0 auto 12px;border-radius:18px;display:grid;place-items:center;font-size:29px;background:#eef4ff}.service h3{margin:0;font-size:19px}.service p{margin:7px 0 15px;color:var(--muted);font-size:12px;min-height:28px}.service button,.addFund button{width:100%;border:0;border-radius:14px;padding:12px;font-size:14px;font-weight:800;background:#eef3fb;color:#225fae}.service:nth-child(2) button{background:#f0ebff;color:#6439cf}.service:nth-child(3) button{background:#eaf8ef;color:#178348}
-.addFund{display:flex;align-items:center;padding:17px;margin-top:18px;gap:15px}.fundIcon{width:60px;height:60px;border-radius:18px;background:#eaf2ff;display:grid;place-items:center;font-size:28px}.addFund h3{margin:0;font-size:20px}.addFund p{margin:5px 0 0;color:var(--muted);font-size:13px}.addFund .fundArrow{margin-left:auto;font-size:28px;color:#2269c7}
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid #edf0f6;display:flex;justify-content:center;z-index:10}.navInner{width:min(620px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:11px 8px max(11px, env(safe-area-inset-bottom))}.nav button{background:none;border:0;color:#7b8492;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:5px}.nav button b{font-size:23px;font-weight:500}.nav .active{color:var(--purple)}
-.modal{position:fixed;inset:0;background:rgba(15,23,42,.35);display:none;align-items:end;justify-content:center;z-index:20}.sheet{width:min(620px,100%);background:#fff;border-radius:28px 28px 0 0;padding:24px;min-height:240px}.sheet h2{margin-top:0}.close{float:right;border:0;background:#eef1f6;border-radius:50%;width:36px;height:36px}
-@media(max-width:430px){.app{padding-left:10px;padding-right:10px}.brand h1{font-size:20px}.balance{padding:0 11px}.profile{padding:16px}.services{gap:9px}.service{padding:13px 8px}.service h3{font-size:17px}}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);font-family:Arial,system-ui,sans-serif;color:var(--text)}
+body{padding-bottom:86px}
+.app{max-width:560px;margin:auto;padding:14px 12px 20px;overflow:hidden}
+
+/* HEADER */
+.header{height:70px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{min-width:0;display:flex;align-items:center;gap:9px}
+.logo{width:48px;height:48px;flex:none;border-radius:16px;background:linear-gradient(135deg,#28b6d7,#6544d7);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:bold;box-shadow:var(--shadow)}
+.brandText{min-width:0}
+.brandName{font-size:16px;font-weight:900;white-space:nowrap;color:#263246;letter-spacing:.3px}
+.brandSub{font-size:10px;color:#6947d2;font-weight:800;white-space:nowrap;margin-top:4px;letter-spacing:.5px}
+.headerRight{display:flex;gap:8px;align-items:center;flex:none}
+.notify{width:48px;height:48px;border:0;background:#fff;border-radius:16px;box-shadow:var(--shadow);font-size:20px;position:relative}
+.notify:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#f04444;top:9px;right:10px}
+.wallet{height:48px;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:0 12px;display:flex;align-items:center;gap:7px;color:#16864d;font-size:18px;font-weight:900;white-space:nowrap}
+
+/* PROFILE */
+.profile{background:#fff;border-radius:24px;box-shadow:var(--shadow);margin:12px 0 14px;padding:14px;display:flex;align-items:center;gap:13px;min-height:116px}
+.avatar{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#e6eaf4,#d3d9e8);display:grid;place-items:center;font-size:33px;flex:none}
+.profileInfo{min-width:0;flex:1}
+.profileInfo h2{margin:0 0 5px;font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profileInfo p{margin:0;color:#2867b9;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.verified{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:16px;background:#f0edff;color:#5e49c6;font-size:12px;font-weight:800}
+.profileArrow{font-size:30px;color:#8b94a5}
+
+/* BANNER */
+.bannerBox{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:10px;margin-bottom:15px}
+.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.slider::-webkit-scrollbar{display:none}
+.banner{width:100%;min-width:100%;height:160px;border-radius:19px;padding:18px;position:relative;overflow:hidden;color:#fff;scroll-snap-align:start}
+.banner h3{margin:0 0 8px;font-size:23px;max-width:72%}
+.banner p{margin:0;max-width:68%;font-size:14px;line-height:1.45}
+.banner button{position:absolute;left:18px;bottom:17px;border:0;background:#fff;color:#394276;border-radius:11px;padding:10px 15px;font-weight:800}
+.bannerIcon{position:absolute;right:18px;bottom:16px;font-size:48px}
+.b1{background:linear-gradient(135deg,#28105d,#7040d8)}
+.b2{background:linear-gradient(135deg,#087e83,#1b9eb4)}
+.b3{background:linear-gradient(135deg,#17479d,#2875d8)}
+.dots{text-align:center;padding-top:8px}
+.dots i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d6dbe6;margin:0 3px}
+.dots i:first-child{background:#6545d6}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.service{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:12px 7px 10px;text-align:center;min-width:0}
+.serviceIcon{width:46px;height:46px;margin:auto;border-radius:14px;background:#edf3ff;display:grid;place-items:center;font-size:23px}
+.service h3{margin:9px 0 4px;font-size:17px}
+.service p{margin:0;color:var(--muted);font-size:10px;height:28px;line-height:14px}
+.service button{width:100%;margin-top:8px;border:0;border-radius:11px;padding:9px 3px;background:#edf3ff;color:#2565b6;font-weight:800;font-size:11px;white-space:nowrap}
+.service.proxy button{background:#f0ebff;color:#633dcb}
+.service.p2p button{background:#e9f7ee;color:#18824b}
+
+/* ADD FUND */
+.addFund{margin-top:14px;background:#fff;border-radius:21px;box-shadow:var(--shadow);padding:13px;display:flex;align-items:center;gap:12px}
+.fundIcon{width:50px;height:50px;border-radius:15px;background:#eaf2ff;display:grid;place-items:center;font-size:23px;flex:none}
+.addFund h3{margin:0;font-size:18px}.addFund p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.fundArrow{margin-left:auto;width:38px;height:38px;border-radius:50%;background:#eef3fb;display:grid;place-items:center;color:#2468c3;font-size:24px}
+
+/* BOTTOM NAV */
+.bottomNav{position:fixed;left:0;right:0;bottom:0;height:78px;background:rgba(255,255,255,.97);border-top:1px solid #e9edf5;z-index:99;display:flex;justify-content:center}
+.navInner{width:min(560px,100%);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
+.navBtn{border:0;background:transparent;color:#7d8797;height:60px;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.navIcon{font-size:22px;line-height:1}.navBtn.active{color:#6545d6;font-weight:800}
+
+/* small phones */
+@media(max-width:380px){
+ .brandName{font-size:14px}.brandSub{font-size:9px}.logo{width:43px;height:43px}
+ .notify{width:43px;height:43px}.wallet{height:43px;padding:0 8px;font-size:16px}
+ .profileInfo h2{font-size:19px}.avatar{width:68px;height:68px}
+ .service h3{font-size:15px}
+}
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="top">
-    <div class="brand"><div class="logo">✦</div><div><h1>DIGITAL SERVICES</h1><p>✦ DIGITAL SERVICES ✦</p></div></div>
-    <div class="topActions"><button class="iconBtn" onclick="openSheet('Notifications')">🔔<i class="dot"></i></button><div class="balance"><span class="wallet">▣</span> ৳ <span id="balance">0.00</span></div></div>
-  </header>
+<main class="app">
+ <header class="header">
+   <div class="brand">
+     <div class="logo">✦</div>
+     <div class="brandText">
+       <div class="brandName">DIGITAL SERVICES</div>
+       <div class="brandSub">✦ DIGITAL SERVICES ✦</div>
+     </div>
+   </div>
+   <div class="headerRight">
+     <button class="notify" aria-label="Notifications">🔔</button>
+     <div class="wallet">▣ ৳ 0.00</div>
+   </div>
+ </header>
 
-  <section class="profile" onclick="openSheet('Profile')">
-    <div class="avatar">👤</div><div class="profileInfo"><h2 id="name">Telegram User</h2><p id="username">@username</p><span class="verified">✓ Verified User</span></div><div class="arrow">›</div>
-  </section>
+ <section class="profile">
+   <div class="avatar">👤</div>
+   <div class="profileInfo">
+     <h2 id="userName">Telegram User</h2>
+     <p id="userUsername">@username</p>
+     <span class="verified">✓ Verified User</span>
+   </div>
+   <div class="profileArrow">›</div>
+ </section>
 
-  <section class="sliderWrap">
-    <div class="slider" id="slider">
-      <article class="banner b1"><h3>📢 Big Announcement!</h3><p>Admin panel থেকে এই banner পরিবর্তন করা যাবে।</p><button onclick="openSheet('Announcement')">Learn More →</button><span class="bannerEmoji">📣</span></article>
-      <article class="banner b2"><h3>Special Offer!</h3><p>নতুন অফার ও promotion এখানে দেখানো হবে।</p><button onclick="openSheet('Special Offer')">Grab Now →</button><span class="bannerEmoji">🎁</span></article>
-      <article class="banner b3"><h3>Fast & Secure Services</h3><p>Trusted digital services in one place.</p><button onclick="openSheet('Services')">Explore Now →</button><span class="bannerEmoji">🛡️</span></article>
-    </div>
-    <div class="dots"><span></span><span></span><span></span></div>
-  </section>
+ <section class="bannerBox">
+   <div class="slider">
+     <article class="banner b1">
+       <h3>📢 Big Announcement!</h3>
+       <p>Admin panel থেকে নতুন announcement banner যোগ করা যাবে।</p>
+       <button>Learn More →</button><span class="bannerIcon">📣</span>
+     </article>
+     <article class="banner b2">
+       <h3>Special Offer!</h3>
+       <p>নতুন অফার এবং promotion এখানে দেখানো হবে।</p>
+       <button>Grab Now →</button><span class="bannerIcon">🎁</span>
+     </article>
+     <article class="banner b3">
+       <h3>Fast & Secure</h3>
+       <p>সব digital services এক জায়গায়।</p>
+       <button>Explore →</button><span class="bannerIcon">🛡️</span>
+     </article>
+   </div>
+   <div class="dots"><i></i><i></i><i></i></div>
+ </section>
 
-  <section class="services">
-    <article class="service"><div class="emoji">🔐</div><h3>VPN</h3><p>Fast & Secure VPN</p><button onclick="openSheet('VPN Packages')">View Packages →</button></article>
-    <article class="service"><div class="emoji">🌐</div><h3>Proxy</h3><p>High Quality Proxy</p><button onclick="openSheet('Proxy Packages')">View Packages →</button></article>
-    <article class="service"><div class="emoji">💱</div><h3>P2P Dollar</h3><p>Buy & Sell Dollar</p><button onclick="openSheet('P2P Dollar')">Buy / Sell →</button></article>
-  </section>
+ <section class="services">
+   <article class="service">
+     <div class="serviceIcon">🔐</div><h3>VPN</h3><p>Fast & Secure VPN</p>
+     <button onclick="showPage('VPN Packages')">View Packages →</button>
+   </article>
+   <article class="service proxy">
+     <div class="serviceIcon">🌐</div><h3>Proxy</h3><p>High Quality Proxy</p>
+     <button onclick="showPage('Proxy Packages')">View Packages →</button>
+   </article>
+   <article class="service p2p">
+     <div class="serviceIcon">💱</div><h3>P2P Dollar</h3><p>Buy & Sell Dollar</p>
+     <button onclick="showPage('P2P Dollar')">Buy / Sell →</button>
+   </article>
+ </section>
 
-  <section class="addFund" onclick="openSheet('Add Fund')"><div class="fundIcon">💳</div><div><h3>Add Fund</h3><p>Add balance to your account</p></div><div class="fundArrow">→</div></section>
-</div>
+ <section class="addFund" onclick="showPage('Add Fund')">
+   <div class="fundIcon">💳</div>
+   <div><h3>Add Fund</h3><p>Add balance to your account</p></div>
+   <div class="fundArrow">→</div>
+ </section>
+</main>
 
-<nav class="nav"><div class="navInner">
-  <button class="active" onclick="setNav(this,'Home')"><b>⌂</b>Home</button>
-  <button onclick="setNav(this,'Add Fund')"><b>▣</b>Add Fund</button>
-  <button onclick="setNav(this,'Orders')"><b>▢</b>Orders</button>
-  <button onclick="setNav(this,'Profile')"><b>♙</b>Profile</button>
-</div></nav>
-
-<div class="modal" id="modal"><div class="sheet"><button class="close" onclick="closeSheet()">×</button><h2 id="sheetTitle">Title</h2><p id="sheetText">এই অংশটি পরবর্তী ধাপে সম্পূর্ণ functional করা হবে।</p></div></div>
+<nav class="bottomNav">
+ <div class="navInner">
+   <button class="navBtn active"><span class="navIcon">⌂</span>Home</button>
+   <button class="navBtn" onclick="showPage('Add Fund')"><span class="navIcon">▣</span>Add Fund</button>
+   <button class="navBtn" onclick="showPage('Orders')"><span class="navIcon">▢</span>Orders</button>
+   <button class="navBtn" onclick="showPage('Profile')"><span class="navIcon">♙</span>Profile</button>
+ </div>
+</nav>
 
 <script>
-const tg = window.Telegram?.WebApp;
+const tg=window.Telegram?.WebApp;
 if(tg){
-  tg.ready(); tg.expand();
-  const u=tg.initDataUnsafe?.user;
-  if(u){
-    document.getElementById('name').textContent=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Telegram User';
-    document.getElementById('username').textContent=u.username?'@'+u.username:'Telegram User';
-  }
+ tg.ready(); tg.expand();
+ const u=tg.initDataUnsafe?.user;
+ if(u){
+   document.getElementById('userName').textContent=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Telegram User';
+   document.getElementById('userUsername').textContent=u.username?'@'+u.username:'Telegram User';
+ }
 }
-function openSheet(title){document.getElementById('sheetTitle').textContent=title;document.getElementById('sheetText').textContent=title+' page will be connected with the real backend and admin panel.';document.getElementById('modal').style.display='flex'}
-function closeSheet(){document.getElementById('modal').style.display='none'}
-function setNav(el,title){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));el.classList.add('active');if(title!=='Home')openSheet(title)}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeSheet()});
+function showPage(name){ alert(name+' page will be connected next.'); }
 </script>
 </body>
 </html>
