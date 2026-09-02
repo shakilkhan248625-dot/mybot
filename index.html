@@ -1,133 +1,148 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA STORE Mini App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background-color: #0d1117;
-            color: #ffffff;
-            padding-bottom: 80px;
-        }
-
-        .app-container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 16px;
-        }
-
-        /* Titles */
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        /* Partners Section */
-        .partners-section {
-            background-color: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 16px;
-            padding: 18px;
-        }
-
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 14px;
-        }
-
-        .partner-item {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 14px;
-            padding: 14px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .partner-item:hover {
-            border-color: #6366f1;
-            transform: translateY(-2px);
-        }
-
-        .partner-img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .partner-item span {
-            font-size: 12px;
-            color: #c9d1d9;
-            font-weight: 600;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Quick Store Bot</title>
+<style>
+:root{
+  --bg:#0b1420;
+  --panel:#243140;
+  --panel2:#1b2735;
+  --text:#eef4fb;
+  --muted:#9daaba;
+  --green:#328c2d;
+  --blue:#2879b5;
+  --purple:#7044c8;
+  --red:#b64040;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0; min-height:100vh; background:radial-gradient(circle at 15% 5%,#1d3a57 0,#0b1420 34%,#08111c 100%);
+  color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+.app{max-width:680px;margin:auto;min-height:100vh;padding:14px 16px 24px}
+.header{
+  display:flex;align-items:center;gap:12px;padding:10px 4px 16px;border-bottom:1px solid rgba(255,255,255,.06)
+}
+.avatar{
+  width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#fff,#dce5ef);
+  display:grid;place-items:center;color:#174b89;font-size:28px;font-weight:900;box-shadow:0 4px 20px #0007
+}
+.title{flex:1}.title h1{margin:0;font-size:28px;letter-spacing:.2px}.title p{margin:4px 0 0;color:var(--muted);font-size:17px}
+.dotmenu{font-size:34px;color:#fff;padding:8px}
+.status{
+  margin:12px 4px 18px;padding:20px;border-radius:22px;
+  background:linear-gradient(135deg,#1e6395,#3195cf);font-size:22px;font-weight:700;
+  box-shadow:0 10px 28px #0005
+}
+.chat{display:flex;flex-direction:column;gap:10px;padding:0 6px}
+.msg{max-width:82%;padding:18px 20px;border-radius:24px;background:#293745;font-size:22px;font-weight:700;line-height:1.35}
+.msg.right{align-self:flex-end;background:linear-gradient(135deg,#6b3cc0,#8a52dd);border-bottom-right-radius:7px}
+.msg.small{font-size:20px}
+.choice{
+  border:0;color:#fff;width:100%;padding:23px 22px;border-radius:14px;font-size:27px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;gap:14px;cursor:pointer;
+  box-shadow:0 8px 20px #0005;transition:.18s transform,.18s filter
+}
+.choice:active,.action:active{transform:scale(.98);filter:brightness(1.1)}
+.bkash{background:linear-gradient(90deg,#247e32,#3b9039)}
+.nagad{background:linear-gradient(90deg,#236795,#3989bd)}
+.binance{background:linear-gradient(90deg,#24658d,#3689bd)}
+.logo{width:42px;height:42px;border-radius:9px;background:#fff;color:#111;display:grid;place-items:center;font-size:14px;font-weight:900}
+.logo.b{background:#d71364;color:#fff;font-size:25px}.logo.n{background:#f04b22;color:#fff;font-size:11px}.logo.bi{background:#080808;color:#f5c842;font-size:9px}
+.composer{display:flex;align-items:center;gap:12px;margin:24px 0 16px;padding:10px 12px;border:1px solid #425264;border-radius:28px;background:#202c3a}
+.menu{width:58px;height:58px;border:0;border-radius:22px;background:#2d8ac5;color:white;font-size:30px}
+.composer input{flex:1;border:0;outline:0;background:transparent;color:white;font-size:21px;min-width:0}
+.send{width:58px;height:58px;border:0;border-radius:50%;background:#2d8ac5;color:#fff;font-size:28px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action{
+  border:0;border-radius:20px;min-height:92px;padding:15px;color:#eef4fb;font-size:25px;font-weight:800;cursor:pointer;
+  background:var(--green);box-shadow:0 8px 18px #0004;transition:.18s transform
+}
+.action.blue{background:linear-gradient(135deg,#347db5,#3e91c7)}
+.action.red{background:var(--red)}.wide{grid-column:1/-1}
+.notice{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(100px);
+  background:#eef4fb;color:#16202b;padding:13px 20px;border-radius:14px;font-weight:800;box-shadow:0 8px 30px #0008;
+  transition:.25s transform;z-index:10;white-space:nowrap
+}
+.notice.show{transform:translateX(-50%) translateY(0)}
+.modal{
+ display:none;position:fixed;inset:0;background:#0009;z-index:20;align-items:flex-end;justify-content:center
+}
+.modal.show{display:flex}
+.sheet{width:min(680px,100%);background:#172331;border-radius:26px 26px 0 0;padding:24px 18px 32px}
+.sheet h2{margin:0 0 12px;font-size:25px}.sheet p{color:#b8c4d0;line-height:1.5}
+.close{float:right;background:#2b3b4c;border:0;border-radius:50%;color:#fff;width:40px;height:40px;font-size:20px}
+@media(max-width:420px){.choice{font-size:23px}.action{font-size:20px}.msg{font-size:19px}.title h1{font-size:24px}}
+</style>
 </head>
 <body>
+<div class="app">
+  <div class="header">
+    <div class="avatar">QS</div>
+    <div class="title"><h1>Quick Store</h1><p>Telegram Web App</p></div>
+    <div class="dotmenu">⋮</div>
+  </div>
 
-    <div class="app-container">
-        <!-- Official Partners Section -->
-        <div class="partners-section">
-            <div class="section-title">🤝 Our Official Partners</div>
-            <div class="partners-grid">
-                
-                <!-- bKash Image Link -->
-                <div class="partner-item">
-                    <img class="partner-img" src="https://share.google/0UaS2B5dc4PZO4IoH" alt="bKash">
-                    <span>bKash</span>
-                </div>
+  <div class="status">🌐 Clip proxy- 1GB | 140.0৳ | Stock: 0</div>
 
-                <!-- Nagad Image Link -->
-                <div class="partner-item">
-                    <img class="partner-img" src="https://share.google/3NNDBKzhgu8gqvw2T" alt="Nagad">
-                    <span>Nagad</span>
-                </div>
+  <div class="chat">
+    <div class="msg right">/start</div>
+    <div class="msg">💵 স্বাগতম! নিচের মেনু থেকে সিলেক্ট করুন</div>
+    <button class="choice bkash" onclick="openPayment('bKash')"><span class="logo b">✈</span>bKash</button>
+    <button class="choice nagad" onclick="openPayment('Nagad')"><span class="logo n">N</span>Nagad</button>
+    <button class="choice binance" onclick="openPayment('Binance')"><span class="logo bi">◆</span>Binance</button>
+  </div>
 
-                <!-- Binance Logo -->
-                <div class="partner-item">
-                    <svg class="partner-img" viewBox="0 0 24 24" fill="#F0B90B" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L8.35 5.65l2.25 2.25L12 6.5l1.4 1.4 2.25-2.25L12 2zm-6.35 6.35L2 12l3.65 3.65 2.25-2.25L6.5 12l1.4-1.4-2.25-2.25zM12 17.5l-1.4-1.4-2.25 2.25L12 22l3.65-3.65-2.25-2.25-1.4 1.4zm5.65-11.85l-2.25 2.25 1.4 1.4 1.4-1.4 2.25 2.25L22 12l-3.65-3.65zM12 9.5L9.5 12l2.5 2.5 2.5-2.5L12 9.5z"/>
-                    </svg>
-                    <span>Binance</span>
-                </div>
+  <div class="composer">
+    <button class="menu">☰</button>
+    <input id="message" placeholder="Message">
+    <button class="send" onclick="sendMessage()">◉</button>
+  </div>
 
-                <!-- Telegram -->
-                <div class="partner-item">
-                    <i class="fa-brands fa-telegram" style="font-size: 36px; color: #229ED9;"></i>
-                    <span>Telegram</span>
-                </div>
+  <div class="grid">
+    <button class="action" onclick="showNotice('Buy Now clicked')">🆕 Buy Now</button>
+    <button class="action" onclick="showNotice('Mail Code opened')">🔑 Mail Code</button>
+    <button class="action blue wide" onclick="showNotice('2FA Code opened')">🛡️ 2FA Code</button>
+    <button class="action" onclick="openDeposit()">💵 Deposit</button>
+    <button class="action" onclick="showNotice('Dashboard opened')">📊 Dashboard</button>
+    <button class="action red wide" onclick="showNotice('Support opened')">🧑‍💼 Support</button>
+  </div>
+</div>
 
-                <!-- OWL Proxy -->
-                <div class="partner-item">
-                    <i class="fa-solid fa-owl" style="font-size: 34px; color: #f59e0b;"></i>
-                    <span>OWL Proxy</span>
-                </div>
+<div class="notice" id="notice"></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="sheet">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2 id="modalTitle">Payment</h2>
+    <p id="modalText"></p>
+    <button class="action blue wide" onclick="closeModal()">ঠিক আছে</button>
+  </div>
+</div>
 
-                <!-- VPN Partner -->
-                <div class="partner-item">
-                    <i class="fa-solid fa-shield-halved" style="font-size: 34px; color: #10b981;"></i>
-                    <span>VPN</span>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+<script>
+function showNotice(text){
+ const n=document.getElementById('notice'); n.textContent=text; n.classList.add('show');
+ clearTimeout(window.nt); window.nt=setTimeout(()=>n.classList.remove('show'),2200);
+}
+function openPayment(method){
+ document.getElementById('modalTitle').textContent=method+' Payment';
+ document.getElementById('modalText').textContent=method+' payment option selected. Real payment processing requires your own authorized payment account/API and backend verification.';
+ document.getElementById('modal').classList.add('show');
+}
+function openDeposit(){
+ document.getElementById('modalTitle').textContent='Deposit';
+ document.getElementById('modalText').textContent='Choose a payment method above to continue with your deposit flow.';
+ document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function sendMessage(){
+ const i=document.getElementById('message'); const v=i.value.trim();
+ if(!v) return showNotice('আগে একটি মেসেজ লিখুন');
+ showNotice('Message sent: '+v); i.value='';
+}
+</script>
 </body>
 </html>
