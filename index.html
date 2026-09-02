@@ -1,295 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA STORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AURA STORE</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6fb;
+      color: #1f2937;
+      padding-bottom: 90px;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: auto;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #171c35, #292052);
+      color: white;
+      padding: 25px 20px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .notification {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .balance-card {
+      margin-top: 25px;
+      background: rgba(255,255,255,.1);
+      padding: 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .balance-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .balance {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 8px 0 18px;
+    }
+
+    .add-fund {
+      border: none;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      padding: 13px 25px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 21px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .service-icon {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      font-size: 18px;
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .buy-btn {
+      margin-top: 15px;
+      border: none;
+      width: 100%;
+      padding: 11px;
+      border-radius: 12px;
+      background: #1f2937;
+      color: white;
+      font-weight: bold;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 5px;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .nav-icon {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .active {
+      color: #2563eb;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body class="bg-gray-950 text-white font-sans antialiased pb-20 select-none">
 
-    <!-- Header Section -->
-    <header class="flex justify-between items-center px-4 py-3 bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
-        <div class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center font-bold text-white text-base">🛍️</div>
-            <span class="font-bold text-lg tracking-wide text-indigo-400">AURA STORE</span>
+<body>
+
+<div class="app">
+
+  <div class="header">
+
+    <div class="top">
+
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+
+        <div>
+          <h2>AURA STORE</h2>
+          <small>Digital Services</small>
         </div>
-        <div class="flex items-center space-x-3">
-            <div class="flex items-center bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
-                <i class="fa-solid fa-wallet text-green-400 mr-1.5 text-sm"></i>
-                <span id="user-balance" class="font-semibold text-sm text-green-400">$0.00</span>
-            </div>
-            <button class="text-gray-300 hover:text-white"><i class="fa-regular fa-bell text-xl"></i></button>
+      </div>
+
+      <div class="notification">
+        🔔
+      </div>
+
+    </div>
+
+
+    <div class="balance-card">
+
+      <p>Your Balance</p>
+
+      <div class="balance">
+        $0.00
+      </div>
+
+      <button class="add-fund">
+        ➕ ADD FUND
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="content">
+
+    <div class="section-title">
+      🛍 Our Services
+    </div>
+
+
+    <div class="services">
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          🔐
         </div>
-    </header>
 
-    <!-- MAIN VIEW CONTAINER -->
-    <main id="app-content" class="p-4">
-        
-        <!-- HOME PAGE -->
-        <section id="view-home" class="space-y-5">
-            <div class="bg-indigo-950/50 border border-indigo-500/30 rounded-xl p-3 flex items-center justify-between shadow-lg">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-indigo-600 p-2.5 rounded-xl text-white">
-                        <i class="fa-solid fa-bolt text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-indigo-200">Instant Delivery</h3>
-                        <p class="text-xs text-gray-400">All products are auto-delivered 24/7</p>
-                    </div>
-                </div>
-            </div>
+        <h3>VPN</h3>
 
-            <div class="bg-gray-900/80 rounded-lg p-2.5 text-xs flex items-center space-x-2 border border-gray-800">
-                <span class="bg-yellow-500/20 text-yellow-400 p-1 rounded"><i class="fa-solid fa-cart-shopping"></i></span>
-                <p class="text-gray-300 truncate"><span class="font-bold text-white">L€g€nd</span> bought 7days HMA <span class="text-gray-500">29m ago</span></p>
-            </div>
+        <p>
+          Fast & Secure VPN
+        </p>
 
-            <div>
-                <h2 class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">Categories</h2>
-                <div class="grid grid-cols-1 gap-3">
-                    <!-- VPN Card -->
-                    <div id="btn-cat-vpn" class="bg-gray-900 hover:bg-gray-850 p-4 rounded-xl border border-gray-800 flex justify-between items-center cursor-pointer transition">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
-                                <i class="fa-solid fa-shield-halved"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-base">VPN Services</h3>
-                                <p class="text-xs text-gray-400">Fast & Secure VPN Accounts</p>
-                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">Starting $0.25</span>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
-                    </div>
+        <div class="price">
+          Starting $0.50
+        </div>
 
-                    <!-- Proxy Card -->
-                    <div id="btn-cat-proxy" class="bg-gray-900 hover:bg-gray-850 p-4 rounded-xl border border-gray-800 flex justify-between items-center cursor-pointer transition">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-lg bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 text-xl">
-                                <i class="fa-solid fa-network-wired"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-base">Proxy Services</h3>
-                                <p class="text-xs text-gray-400">High Quality Proxies</p>
-                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">Starting $1.25</span>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
-                    </div>
-
-                    <!-- Mail Card -->
-                    <div id="btn-cat-mail" class="bg-gray-900 hover:bg-gray-850 p-4 rounded-xl border border-gray-800 flex justify-between items-center cursor-pointer transition">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-base">Mail Accounts</h3>
-                                <p class="text-xs text-gray-400">Gmail, Outlook & Webmail</p>
-                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">Starting $0.10</span>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATEGORY PRODUCTS VIEW -->
-        <section id="view-products" class="hidden space-y-4">
-            <div class="flex items-center space-x-3 mb-2">
-                <button id="btn-back-products" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-arrow-left text-lg"></i></button>
-                <h2 id="category-title" class="text-lg font-bold">Products</h2>
-            </div>
-            <div id="product-list" class="space-y-3"></div>
-        </section>
-
-        <!-- ADD FUND VIEW -->
-        <section id="view-deposit" class="hidden space-y-4">
-            <h2 class="text-base font-bold">Add Funds to Wallet</h2>
-            
-            <div id="deposit-step-1" class="space-y-4">
-                <p class="text-xs text-gray-400">Choose your preferred payment method:</p>
-                <div class="grid grid-cols-3 gap-3">
-                    <button id="gw-bkash" class="bg-pink-900/30 border border-pink-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-pink-900/50">
-                        <div class="w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center font-bold text-white">bK</div>
-                        <span class="text-xs font-semibold text-pink-300">bKash</span>
-                    </button>
-                    <button id="gw-nagad" class="bg-orange-900/30 border border-orange-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-orange-900/50">
-                        <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center font-bold text-white">Ng</div>
-                        <span class="text-xs font-semibold text-orange-300">Nagad</span>
-                    </button>
-                    <button id="gw-binance" class="bg-yellow-900/30 border border-yellow-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-yellow-900/50">
-                        <div class="w-10 h-10 rounded-full bg-yellow-600 flex items-center justify-center font-bold text-white"><i class="fa-solid fa-coins"></i></div>
-                        <span class="text-xs font-semibold text-yellow-300">Binance</span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="deposit-step-2" class="hidden space-y-4">
-                <div class="flex justify-between items-center">
-                    <p class="text-xs text-gray-400">Selected: <span id="selected-gateway-name" class="font-bold text-white"></span></p>
-                    <button id="btn-change-gw" class="text-xs text-indigo-400 underline">Change Method</button>
-                </div>
-                <p class="text-xs font-bold text-gray-300">Select Amount Preset:</p>
-                <div class="grid grid-cols-2 gap-3" id="chip-container"></div>
-            </div>
-
-            <div id="deposit-step-3" class="hidden bg-pink-700 rounded-2xl p-4 text-white space-y-4">
-                <div class="bg-pink-800/60 rounded-full px-4 py-1.5 flex items-center justify-center space-x-2 text-xs font-semibold w-max mx-auto border border-pink-400/30">
-                    <i class="fa-regular fa-clock"></i>
-                    <span>Session Expires in: <strong id="timer">14:56</strong></span>
-                </div>
-
-                <ol class="space-y-3 text-xs">
-                    <li class="flex items-start space-x-2">
-                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">1</span>
-                        <span>Open your <strong id="instruction-gateway">bKash App</strong> or Dial USSD.</span>
-                    </li>
-                    <li class="flex items-start space-x-2">
-                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">2</span>
-                        <span>Select <strong>"Send Money"</strong> option.</span>
-                    </li>
-                    <li class="flex items-start space-x-2">
-                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">3</span>
-                        <span>Send money to the number below:</span>
-                    </li>
-                </ol>
-
-                <div class="bg-pink-800/80 p-3 rounded-xl flex justify-between items-center border border-pink-400/30">
-                    <div>
-                        <div class="text-[10px] opacity-75">Receiver Number</div>
-                        <div id="payment-number" class="text-base font-bold tracking-wider">01784280517</div>
-                    </div>
-                    <button id="btn-copy-num" class="bg-pink-600 hover:bg-pink-500 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1">
-                        <i class="fa-regular fa-copy"></i> <span>Copy</span>
-                    </button>
-                </div>
-
-                <div class="text-xs flex items-center space-x-2">
-                    <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px]">4</span>
-                    <span>Amount to send: <strong id="checkout-bdt">৳ 50</strong> (<span id="checkout-usd">$0.41</span>)</span>
-                </div>
-
-                <div class="space-y-2">
-                    <div class="flex items-center space-x-2 text-xs">
-                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px]">5</span>
-                        <span>Enter Transaction ID (TxID) below:</span>
-                    </div>
-                    <input type="text" id="txid-input" placeholder="Enter Transaction ID" class="w-full bg-white text-gray-900 px-4 py-2.5 rounded-xl font-bold uppercase tracking-wider text-sm focus:outline-none">
-                </div>
-
-                <div class="flex space-x-2 pt-2">
-                    <button id="btn-back-step2" class="bg-pink-900 hover:bg-pink-950 px-4 py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button id="btn-submit-deposit" class="w-full bg-red-800 hover:bg-red-700 text-white py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-lg uppercase">Verify Payment</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ORDERS VIEW -->
-        <section id="view-orders" class="hidden space-y-4">
-            <h2 class="text-base font-bold">Transaction & Order History</h2>
-            <div id="orders-list" class="space-y-3"></div>
-        </section>
-
-        <!-- PROFILE VIEW -->
-        <section id="view-profile" class="hidden space-y-4">
-            <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 text-center space-y-2">
-                <div class="w-16 h-16 rounded-full bg-indigo-600 mx-auto flex items-center justify-center text-2xl font-bold">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <h2 id="user-name" class="font-bold text-lg">Telegram User</h2>
-                <p id="user-id" class="text-xs text-gray-400">ID: --</p>
-            </div>
-            
-            <div class="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800">
-                <div class="p-3 flex justify-between items-center text-xs">
-                    <span class="text-gray-400">Wallet Balance</span>
-                    <span id="profile-balance" class="font-bold text-green-400">$0.00</span>
-                </div>
-                <div class="p-3 flex justify-between items-center text-xs">
-                    <span class="text-gray-400">Currency</span>
-                    <span class="font-bold text-white">USD ($)</span>
-                </div>
-            </div>
-
-            <!-- Admin Section Button (Hidden for normal users) -->
-            <div id="admin-panel-access" class="hidden">
-                <button id="btn-open-admin" class="w-full bg-purple-700 hover:bg-purple-600 text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span>Open Admin Stock Manager</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- ADMIN PANEL VIEW -->
-        <section id="view-admin" class="hidden space-y-4">
-            <div class="flex items-center space-x-3 mb-2">
-                <button id="btn-back-admin" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-arrow-left text-lg"></i></button>
-                <h2 class="text-lg font-bold text-purple-400">Admin Stock Panel</h2>
-            </div>
-
-            <!-- Add Product Form -->
-            <div class="bg-gray-900 p-4 rounded-xl border border-purple-500/30 space-y-3">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-purple-300">Add New Product</h3>
-                <div>
-                    <label class="text-[10px] text-gray-400">Category</label>
-                    <select id="admin-prod-cat" class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-lg text-xs mt-1">
-                        <option value="vpn">VPN Services</option>
-                        <option value="proxy">Proxy Services</option>
-                        <option value="mail">Mail Accounts</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-400">Product Title</label>
-                    <input type="text" id="admin-prod-name" placeholder="e.g. ExpressVPN 1 Month" class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-lg text-xs mt-1">
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-400">Description/Spec</label>
-                    <input type="text" id="admin-prod-spec" placeholder="e.g. Fast & Secure VPN" class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-lg text-xs mt-1">
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-400">Price ($ USD)</label>
-                    <input type="number" step="0.01" id="admin-prod-price" placeholder="0.50" class="w-full bg-gray-800 border border-gray-700 text-white p-2 rounded-lg text-xs mt-1">
-                </div>
-                <button id="btn-add-product" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-lg text-xs">Add Product to Stock</button>
-            </div>
-
-            <!-- Stock List -->
-            <div class="space-y-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Current Stock</h3>
-                <div id="admin-stock-list" class="space-y-2"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex justify-around items-center py-2 z-50">
-        <button id="nav-home" class="nav-btn text-indigo-400 flex flex-col items-center space-y-1">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span class="text-[10px] font-medium">Home</span>
+        <button class="buy-btn">
+          View Packages
         </button>
-        <button id="nav-orders" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
-            <i class="fa-solid fa-receipt text-lg"></i>
-            <span class="text-[10px] font-medium">Orders</span>
-        </button>
-        <button id="nav-deposit" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
-            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white -mt-3 shadow-lg">
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <span class="text-[10px] font-medium">Add Fund</span>
-        </button>
-        <button id="nav-profile" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
-            <i class="fa-solid fa-user text-lg"></i>
-            <span class="text-[10px] font-medium">Profile</span>
-        </button>
-    </nav>
 
-    <script src="app.js"></script>
+      </div>
+
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          🌐
+        </div>
+
+        <h3>Proxy</h3>
+
+        <p>
+          High Quality Proxy
+        </p>
+
+        <div class="price">
+          Starting $0.10
+        </div>
+
+        <button class="buy-btn">
+          View Packages
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="bottom-nav">
+
+  <div class="nav-item active">
+    <span class="nav-icon">🏠</span>
+    Home
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">🛍</span>
+    Store
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">➕</span>
+    Add Fund
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">📦</span>
+    Orders
+  </div>
+
+  <div class="nav-item">
+    <span class="nav-icon">👤</span>
+    Profile
+  </div>
+
+</div>
+
 </body>
 </html>
