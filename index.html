@@ -1,183 +1,43 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AURA STORE</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AURA STORE</title>
 <style>
-:root{--bg:#f4f6fb;--dark:#171c35;--dark2:#292052;--purple:#7c3aed;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--text:#1f2937;--muted:#64748b;--card:#fff}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,"Noto Sans Bengali",sans-serif}
-body{background:var(--bg);color:var(--text);padding-bottom:88px}
-.app{max-width:650px;margin:auto;min-height:100vh}
-.header{background:linear-gradient(135deg,var(--dark),var(--dark2));color:#fff;padding:24px 20px 32px;border-radius:0 0 30px 30px}
-.top{display:flex;justify-content:space-between;align-items:center}.brand{display:flex;gap:12px;align-items:center}
-.logo{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,#7c3aed,#2563eb)}
-.brand h1{font-size:27px}.brand p{opacity:.75;margin-top:4px}
-.iconbtn{border:0;background:rgba(255,255,255,.12);color:#fff;width:52px;height:52px;border-radius:50%;font-size:23px;position:relative;cursor:pointer}
-.badge{position:absolute;right:1px;top:1px;background:#ef4444;border-radius:99px;min-width:18px;height:18px;font-size:11px;display:grid;place-items:center}
-.balance-card{margin-top:24px;background:rgba(255,255,255,.11);border-radius:24px;padding:24px}.label{color:#d5d9e7;font-size:16px}
-.balance{font-size:48px;font-weight:800;margin:8px 0 18px}.primary{border:0;color:#fff;font-weight:800;font-size:17px;border-radius:14px;padding:15px;width:100%;cursor:pointer;background:linear-gradient(135deg,#7c3aed,#2563eb)}
-.content{padding:22px 18px}.section-title{font-size:24px;font-weight:800;margin:8px 0 16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#fff;border-radius:22px;padding:20px;box-shadow:0 8px 28px rgba(15,23,42,.08)}
-.service-icon{font-size:43px;margin-bottom:18px}.card h3{font-size:28px;margin-bottom:24px}.darkbtn,.outlinebtn{width:100%;padding:13px;border-radius:13px;font-weight:700;cursor:pointer;font-size:15px}
-.darkbtn{background:#1f2937;color:#fff;border:0}.outlinebtn{background:#fff;border:1px solid #d7dce5;color:#1f2937}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:10px 4px;z-index:30;box-shadow:0 -3px 18px rgba(0,0,0,.06)}
-.nav button{border:0;background:none;color:#64748b;font-size:12px;cursor:pointer}.nav .ni{font-size:23px;display:block;margin-bottom:4px}.nav button.active{color:#2563eb;font-weight:800}
-.page{display:none}.page.active{display:block}.back{border:0;background:#e9edf5;border-radius:12px;padding:10px 15px;font-size:16px;cursor:pointer;margin-bottom:15px}
-.packages{display:grid;gap:12px}.package{background:#fff;padding:18px;border-radius:18px;box-shadow:0 5px 18px rgba(0,0,0,.06);display:flex;justify-content:space-between;align-items:center;gap:10px}
-.package h4{font-size:18px}.package p{color:var(--muted);font-size:13px;margin-top:5px}.price{font-size:20px;font-weight:800;color:#2563eb}
-.smallbtn{border:0;background:#2563eb;color:#fff;border-radius:11px;padding:10px 14px;font-weight:700;cursor:pointer}
-.deposit-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.method{border:2px solid #e5e7eb;background:#fff;border-radius:15px;padding:14px 7px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.method.selected{border-color:#2563eb;background:#eff6ff}.method-logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:12px}.bkash-logo{background:#e2136e}.nagad-logo{background:#f58220}.binance-logo{background:#f3ba2f;color:#1f2937;font-size:22px}
-.chips{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}.chip{border:1px solid #d8dee9;background:#fff;border-radius:999px;padding:10px 12px;cursor:pointer;font-weight:700}.chip.selected{background:#2563eb;color:#fff;border-color:#2563eb}
-.paymentbox{background:linear-gradient(135deg,#9d174d,#db2777);color:#fff;border-radius:22px;padding:22px;margin-top:16px}.paymentbox h3{margin-bottom:15px}.number{background:rgba(255,255,255,.16);padding:15px;border-radius:14px;font-size:22px;font-weight:800;word-break:break-all}.copy{margin-top:10px;background:#fff;color:#9d174d;border:0;padding:11px 15px;border-radius:10px;font-weight:800;cursor:pointer}
-.input{width:100%;padding:14px;border:1px solid #d8dee9;border-radius:12px;font-size:16px;margin-top:12px}.notice{padding:15px;border-radius:15px;background:#eff6ff;color:#1d4ed8;line-height:1.6;margin:14px 0}.status{display:inline-block;padding:6px 10px;border-radius:99px;font-size:12px;font-weight:800}.pending{background:#fff7ed;color:#c2410c}.approved,.delivered{background:#ecfdf5;color:#15803d}.rejected{background:#fef2f2;color:#b91c1c}
-.list{display:grid;gap:12px}.item{background:#fff;padding:16px;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.05)}.itemtop{display:flex;justify-content:space-between;gap:10px}.muted{color:#64748b;font-size:13px;margin-top:6px}.empty{text-align:center;color:#64748b;padding:45px 10px}
-.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;display:none;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{background:#f7f8fc;width:min(650px,100%);max-height:92vh;overflow:auto;border-radius:28px 28px 0 0;padding:22px}.sheethead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{border:0;background:#e8ebf2;border-radius:50%;width:40px;height:40px;font-size:22px;cursor:pointer}
-.adminlogin{display:grid;gap:12px}.danger{background:#dc2626;color:#fff;border:0;padding:13px;border-radius:12px;font-weight:800;cursor:pointer}
-.adminbar{display:flex;gap:8px;margin:12px 0}.adminbar button{flex:1;border:0;padding:10px;border-radius:10px;background:#e7eaf1;cursor:pointer;font-weight:700}
-.adminrow{display:grid;gap:9px;margin-top:12px}.adminrow textarea{min-height:90px;resize:vertical}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;background:#111827;color:#fff;padding:13px 18px;border-radius:13px;z-index:200;display:none;max-width:90%}
-@media(max-width:380px){.brand h1{font-size:22px}.grid{gap:10px}.card{padding:15px}.card h3{font-size:24px}.deposit-methods{grid-template-columns:1fr}.balance{font-size:42px}}
-</style>
-</head>
-<body>
-<div class="app">
-
-<section id="homePage" class="page active">
-<div class="header">
-<div class="top"><div class="brand"><div class="logo">⚡</div><div><h1>AURA STORE</h1><p>Digital Services</p></div></div>
-<button class="iconbtn" onclick="showPage('ordersPage')">🔔<span class="badge" id="notifBadge" style="display:none">0</span></button></div>
-<div class="balance-card"><div class="label">Your Balance</div><div class="balance" id="balance">$0.00</div><button class="primary" onclick="showPage('fundPage')">➕ ADD FUND</button></div>
+*{box-sizing:border-box}body{margin:0;background:#f4f6fb;font-family:Arial,sans-serif;color:#1f2937;padding-bottom:78px}.app{max-width:650px;margin:auto}.header{background:linear-gradient(135deg,#171c35,#292052);color:#fff;padding:22px;border-radius:0 0 28px 28px}.top{display:flex;justify-content:space-between;align-items:center}.brand{display:flex;gap:12px;align-items:center}.logo{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#2563eb);font-size:28px}.brand h1{margin:0}.brand p{margin:5px 0 0;opacity:.75}.balancebox{margin-top:22px;padding:22px;border-radius:22px;background:#ffffff18}.balance{font-size:46px;font-weight:800;margin:8px 0 16px}.primary,.order{border:0;color:#fff;background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:14px;padding:14px;font-weight:800;cursor:pointer}.primary{width:100%;font-size:16px}.content{padding:20px}.title{font-size:27px;font-weight:800;margin:8px 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card,.item,.package{background:#fff;border-radius:20px;padding:18px;box-shadow:0 5px 20px #00000010}.service{font-size:42px}.card h3{font-size:28px}.dark{width:100%;border:0;background:#1f2937;color:#fff;padding:12px;border-radius:12px;font-weight:bold}.page{display:none}.page.active{display:block}.back{border:0;background:#e9edf5;padding:11px 16px;border-radius:12px;font-size:16px;margin-bottom:14px}.package{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.price{color:#2563eb;font-size:20px;font-weight:800;margin-top:6px}.methods{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.method{background:#fff;border:2px solid #ddd;padding:14px 6px;border-radius:15px;font-weight:bold;cursor:pointer}.method.selected{border-color:#2563eb;background:#eff6ff}.chips{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0}.chip{background:#fff;border:1px solid #d8dee9;padding:12px;border-radius:15px;text-align:left;font-weight:800;cursor:pointer}.chip small{display:block;color:#2563eb;margin-top:4px}.chip.selected{border:2px solid #2563eb;background:#eff6ff}.paybox,.notice{margin-top:14px;padding:16px;border-radius:16px}.paybox{background:linear-gradient(135deg,#9d174d,#db2777);color:#fff}.notice{background:#eff6ff;color:#1d4ed8;line-height:1.55}.input,textarea{width:100%;padding:14px;border:1px solid #d8dee9;border-radius:12px;margin-top:12px;font-size:16px}.status{padding:6px 10px;border-radius:99px;font-size:12px;font-weight:bold}.pending{background:#fff7ed;color:#c2410c}.approved,.delivered{background:#ecfdf5;color:#15803d}.rejected{background:#fef2f2;color:#b91c1c}.row{display:flex;justify-content:space-between;gap:8px}.muted{color:#64748b;font-size:13px;line-height:1.5}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 4px;border-top:1px solid #ddd}.nav button{border:0;background:none;color:#64748b;font-size:12px}.nav .active{color:#2563eb;font-weight:bold}.modal{display:none;position:fixed;inset:0;background:#0008;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{background:#f7f8fc;width:min(650px,100%);padding:22px;border-radius:28px 28px 0 0;max-height:92vh;overflow:auto}.close{float:right;border:0;border-radius:50%;width:40px;height:40px;font-size:22px}.danger{background:#dc2626;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:bold}.adminbar{display:flex;gap:8px;margin:12px 0}.adminbar button{flex:1;border:0;padding:11px;border-radius:10px}.empty{text-align:center;color:#64748b;padding:35px}
+</style></head><body><div class="app">
+<section id="home" class="page active"><div class="header"><div class="top"><div class="brand"><div class="logo">⚡</div><div><h1>AURA STORE</h1><p>Digital Services</p></div></div></div><div class="balancebox"><div>Your Balance</div><div class="balance" id="balance">$0.00</div><button class="primary" onclick="show('fund')">➕ ADD FUND</button></div></div><div class="content"><div class="title">🛍 Our Services</div><div class="grid"><div class="card"><div class="service">🔐</div><h3>VPN</h3><button class="dark" onclick="openPackages('VPN')">View Packages</button></div><div class="card"><div class="service">🌐</div><h3>Proxy</h3><button class="dark" onclick="openPackages('Proxy')">View Packages</button></div></div></div></section>
+<section id="store" class="page"><div class="content"><button class="back" onclick="show('home')">← Back</button><div class="title">🛍 Store</div><div class="grid"><div class="card"><div class="service">🔐</div><h3>VPN</h3><button class="dark" onclick="openPackages('VPN')">View Packages</button></div><div class="card"><div class="service">🌐</div><h3>Proxy</h3><button class="dark" onclick="openPackages('Proxy')">View Packages</button></div></div></div></section>
+<section id="packages" class="page"><div class="content"><button class="back" onclick="show('store')">← Back</button><div class="title" id="packTitle">Packages</div><div id="packList"></div></div></section>
+<section id="fund" class="page"><div class="content"><button class="back" onclick="show('home')">← Back</button><div class="title">💳 Add Fund</div><div class="card"><h3>Choose Payment Method</h3><div class="methods"><button class="method selected" data-m="bKash" onclick="method('bKash')">💗<br>bKash</button><button class="method" data-m="Nagad" onclick="method('Nagad')">🟠<br>Nagad</button><button class="method" data-m="Binance" onclick="method('Binance')">🔶<br>Binance</button></div><div class="chips" id="chips"></div><div id="payarea"></div><input class="input" id="txid" placeholder="Enter Transaction ID (TxID)"><button class="primary" style="margin-top:12px" onclick="deposit()">VERIFY / SUBMIT REQUEST</button><div class="notice">⚠️ Your payment request will remain Pending until verified. Your balance will be updated after admin approval.</div></div></div></section>
+<section id="orders" class="page"><div class="content"><button class="back" onclick="show('home')">← Back</button><div class="title">📦 Orders & History</div><div id="ordersList"></div><div class="title" style="margin-top:24px">💳 Deposit History</div><div id="depositList"></div></div></section>
+<section id="profile" class="page"><div class="content"><div class="title">👤 Profile</div><div class="card"><h3>AURA STORE User</h3><p class="muted">Digital services account</p><button class="primary" style="margin-top:15px" onclick="openAdmin()">⚙️ Admin Panel</button></div></div></section>
 </div>
-<div class="content"><div class="section-title">🛍 Our Services</div>
-<div class="grid">
-<div class="card"><div class="service-icon">🔐</div><h3>VPN</h3><button class="darkbtn" onclick="openPackages('VPN')">View Packages</button></div>
-<div class="card"><div class="service-icon">🌐</div><h3>Proxy</h3><button class="darkbtn" onclick="openPackages('Proxy')">View Packages</button></div>
-</div></div>
-</section>
-
-<section id="storePage" class="page"><div class="content"><button class="back" onclick="showPage('homePage')">← Back</button><div class="section-title">🛍 Store</div><div class="grid">
-<div class="card"><div class="service-icon">🔐</div><h3>VPN</h3><button class="darkbtn" onclick="openPackages('VPN')">View Packages</button></div>
-<div class="card"><div class="service-icon">🌐</div><h3>Proxy</h3><button class="darkbtn" onclick="openPackages('Proxy')">View Packages</button></div>
-</div></div></section>
-
-<section id="packagesPage" class="page"><div class="content"><button class="back" onclick="showPage('storePage')">← Back</button><div class="section-title" id="packageTitle">Packages</div><div id="packageList" class="packages"></div></div></section>
-
-<section id="fundPage" class="page"><div class="content"><button class="back" onclick="showPage('homePage')">← Back</button><div class="section-title">💳 Add Fund</div>
-<div class="card"><h3 style="font-size:20px;margin-bottom:15px">Choose Method</h3>
-<div class="deposit-methods">
-<button class="method selected" data-method="bKash" onclick="selectMethod('bKash')"><span class="method-logo bkash-logo">bK</span><span>bKash</span></button>
-<button class="method" data-method="Nagad" onclick="selectMethod('Nagad')"><span class="method-logo nagad-logo">N</span><span>Nagad</span></button>
-<button class="method" data-method="Binance" onclick="selectMethod('Binance')"><span class="method-logo binance-logo">◆</span><span>Binance</span></button>
-</div>
-<div class="chips" id="amountChips"></div>
-<div id="paymentArea"></div>
-<input id="txid" class="input" placeholder="Transaction ID (TxID) লিখুন">
-<button class="primary" style="margin-top:12px" onclick="submitDeposit()">VERIFY / SUBMIT REQUEST</button>
-<div class="notice">⚠️ Payment request প্রথমে Pending থাকবে। Admin approve করার পরে balance add হবে।</div>
-</div></div></section>
-
-<section id="ordersPage" class="page"><div class="content"><button class="back" onclick="showPage('homePage')">← Back</button><div class="section-title">📦 Orders & History</div><div id="ordersList" class="list"></div><div style="height:16px"></div><div class="section-title">💳 Deposit History</div><div id="depositList" class="list"></div></div></section>
-
-<section id="profilePage" class="page"><div class="content"><div class="section-title">👤 Profile</div><div class="card"><h3 style="font-size:20px;margin-bottom:10px">AURA STORE User</h3><p class="muted">Telegram Web App prototype profile</p><button class="outlinebtn" style="margin-top:15px" onclick="openAdmin()">⚙️ Admin Panel</button></div></div></section>
-
-<div class="nav">
-<button class="active" onclick="navTo('homePage',this)"><span class="ni">🏠</span>Home</button>
-<button onclick="navTo('storePage',this)"><span class="ni">🛍</span>Store</button>
-<button onclick="navTo('fundPage',this)"><span class="ni">➕</span>Add Fund</button>
-<button onclick="navTo('ordersPage',this)"><span class="ni">📦</span>Orders</button>
-<button onclick="navTo('profilePage',this)"><span class="ni">👤</span>Profile</button>
-</div>
-</div>
-
-<div id="buyModal" class="modal"><div class="sheet"><div class="sheethead"><h2 id="buyTitle">Order</h2><button class="close" onclick="closeModal('buyModal')">×</button></div>
-<div id="buyInfo" class="notice"></div><button class="primary" onclick="placeOrder()">CONFIRM ORDER</button></div></div>
-
-<div id="adminModal" class="modal"><div class="sheet"><div class="sheethead"><h2>⚙️ Admin Panel</h2><button class="close" onclick="closeModal('adminModal')">×</button></div>
-<div id="adminLoginBox" class="adminlogin"><div class="notice">⚠️ এটি single-file demo version। Password ছাড়া Admin Panel খোলা যাবে না, তবে production security-এর জন্য server-side authentication লাগবে।</div>
-<input id="adminPass" class="input" placeholder="Admin password">
-<button class="primary" onclick="adminLogin()">Login</button></div>
-<div id="adminContent" style="display:none"><div class="adminbar"><button onclick="renderAdmin('deposits')">Deposits</button><button onclick="renderAdmin('orders')">Orders</button></div><div id="adminList"></div></div>
-</div></div>
-<div id="toast" class="toast"></div>
-
+<div class="nav"><button onclick="nav('home',this)" class="active">🏠<br>Home</button><button onclick="nav('store',this)">🛍<br>Store</button><button onclick="nav('fund',this)">➕<br>Add Fund</button><button onclick="nav('orders',this)">📦<br>Orders</button><button onclick="nav('profile',this)">👤<br>Profile</button></div>
+<div id="buyModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('buyModal')">×</button><h2 id="buyTitle">Order</h2><div id="buyInfo" class="notice"></div><button class="primary" onclick="placeOrder()">CONFIRM ORDER</button></div></div>
+<div id="adminModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('adminModal')">×</button><h2>⚙️ Admin Panel</h2><div id="loginBox"><div class="notice">Single-file demo: use a secure backend for real public production use.</div><input id="adminPass" class="input" placeholder="Admin password"><button class="primary" style="margin-top:12px" onclick="adminLogin()">Login</button></div><div id="adminContent" style="display:none"><div class="adminbar"><button onclick="admin('deposits')">Deposits</button><button onclick="admin('orders')">Orders</button></div><div id="adminList"></div></div></div></div>
 <script>
-/* ===== CONFIG: নিজের production payment তথ্য বসানোর আগে backend ব্যবহার করুন ===== */
-const PAYMENT = {
-  bKash:{number:"017XXXXXXXX",name:"bKash Personal"},
-  Nagad:{number:"018XXXXXXXX",name:"Nagad Personal"},
-  Binance:{number:"YOUR_BINANCE_UID_OR_ADDRESS",name:"Binance"}
-};
-/* Demo only: এই password public source-এ রাখলে নিরাপদ নয় */
 const ADMIN_PASSWORD="326614";
-
-let state=JSON.parse(localStorage.getItem("auraState")||'{"balance":0,"deposits":[],"orders":[]}');
-let selectedMethod="bKash",selectedAmount=null,pendingOrder=null,adminAuthed=false;
-
-const bdtAmounts=[15,30,50,100,200,300,500,700,1000];
-const usdAmounts=[0.10,0.20,0.50,1,2,3,5,7,10];
-
-function save(){localStorage.setItem("auraState",JSON.stringify(state));renderBalance();updateBadge()}
-function money(n){return "$"+Number(n).toFixed(2)}
-function showPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="ordersPage")renderHistory();window.scrollTo(0,0)}
-function navTo(id,btn){showPage(id);document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}
-function toast(t){let x=document.getElementById("toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",2600)}
-function renderBalance(){document.getElementById("balance").textContent=money(state.balance)}
-function updateBadge(){let n=state.orders.filter(x=>x.status==="Pending").length+state.deposits.filter(x=>x.status==="Pending").length;let b=document.getElementById("notifBadge");b.textContent=n;b.style.display=n?"grid":"none"}
-
-function openPackages(type){
- document.getElementById("packageTitle").textContent=type+" Packages";
- const list=document.getElementById("packageList");list.innerHTML="";
- const packs=type==="VPN"?[
-  ["1 Day VPN"],
-  ["7 Days VPN"],
-  ["30 Days VPN"]
- ]:[
-  ["1 Proxy"],
-  ["5 Proxies"],
-  ["Custom Proxy"]
- ];
- packs.forEach((p,i)=>{let d=document.createElement("div");d.className="package";d.innerHTML=`<div><h4>${p[0]}</h4></div><button class="smallbtn">Order</button>`;d.querySelector("button").onclick=()=>openBuy(type,p[0],i);list.appendChild(d)});
- showPage("packagesPage");
-}
-function openBuy(type,pkg,index){pendingOrder={type,pkg,index};document.getElementById("buyTitle").textContent=type+" Order";document.getElementById("buyInfo").innerHTML=`<b>${pkg}</b><br>✅ আপনার অর্ডার এডমিনের কাছে পাঠানো হবে।<br>⏳ Delivery হতে ১০ মিনিট–১ ঘণ্টা সময় লাগতে পারে।`;document.getElementById("buyModal").classList.add("show")}
-function invoice(){return "INV-"+Math.random().toString(16).slice(2,10).toUpperCase()}
-function placeOrder(){if(!pendingOrder)return;let inv=invoice();state.orders.unshift({id:Date.now(),invoice:inv,type:pendingOrder.type,package:pendingOrder.pkg,status:"Pending",created:new Date().toLocaleString(),delivery:""});save();closeModal("buyModal");renderHistory();toast("Order request sent");alert(`✅ আপনার অর্ডার এডমিনের কাছে পাঠানো হয়েছে। ✨\n📝 INV No: ${inv}\n⏳ অনুগ্রহ করে অপেক্ষা করুন। ডেলিভারি হতে ১০ মিনিট-১ঘন্টা সময় লাগবে। ✨`);showPage("ordersPage")}
+const PAYMENT={bKash:"017XXXXXXXX",Nagad:"018XXXXXXXX",Binance:"YOUR_BINANCE_UID_OR_ADDRESS"};
+const PACKAGES={VPN:[["1 Day VPN",0.50],["7 Days VPN",2.50],["30 Days VPN",8.00]],Proxy:[["1 Proxy",0.50],["5 Proxies",2.00],["Custom Proxy",5.00]]};
+const BDT=[{b:15,u:.13},{b:30,u:.26},{b:50,u:.43},{b:100,u:.87},{b:200,u:1.74},{b:300,u:2.61},{b:500,u:4.35},{b:700,u:6.09},{b:1000,u:8.70}];
+const USDT=[.13,.26,.43,.87,1.74,2.61,4.35,6.09,8.70];
+let state=JSON.parse(localStorage.getItem("auraState")||'{"balance":0,"deposits":[],"orders":[]}'),M="bKash",S=null,P=null;
+const money=n=>"$"+Number(n).toFixed(2);
+function save(){localStorage.setItem("auraState",JSON.stringify(state));document.getElementById("balance").textContent=money(state.balance)}
+function show(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="orders")history();scrollTo(0,0)}
+function nav(id,b){show(id);document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
+function openPackages(t){packTitle.textContent=t+" Packages";packList.innerHTML=PACKAGES[t].map((p,i)=>`<div class="package"><div><h3>${p[0]}</h3><div class="price">${money(p[1])}</div></div><button class="order" onclick="buy('${t}',${i})">Order</button></div>`).join("");show("packages")}
+function buy(t,i){let p=PACKAGES[t][i];P={t,p:p[0],price:p[1]};buyTitle.textContent=t+" Order";buyInfo.innerHTML=`<b>${p[0]}</b><br><b>Price: ${money(p[1])}</b><br><br>Your order will be processed after confirmation.`;buyModal.classList.add("show")}
 function closeModal(id){document.getElementById(id).classList.remove("show")}
-
-function selectMethod(m){selectedMethod=m;selectedAmount=null;document.querySelectorAll(".method").forEach(x=>x.classList.toggle("selected",x.dataset.method===m));renderChips()}
-function renderChips(){let a=selectedMethod==="Binance"?usdAmounts:bdtAmounts;let c=document.getElementById("amountChips");c.innerHTML=a.map(v=>`<button class="chip" onclick="pickAmount(${v})">${selectedMethod==="Binance"?money(v):v+"৳"}</button>`).join("");document.getElementById("paymentArea").innerHTML=""}
-function pickAmount(v){selectedAmount=v;document.querySelectorAll(".chip").forEach(x=>x.classList.remove("selected"));[...document.querySelectorAll(".chip")].find(x=>x.textContent.includes(selectedMethod==="Binance"?Number(v).toFixed(2):v+"৳"))?.classList.add("selected");
- let credited=selectedMethod==="Binance"?Number(v):Math.round(v/120*100)/100;
- let p=PAYMENT[selectedMethod];
- document.getElementById("paymentArea").innerHTML=`<div class="paymentbox"><h3>${p.name}</h3><p>Selected: <b>${selectedMethod==="Binance"?money(v):v+"৳ → "+money(credited)}</b></p><div class="number">${p.number}</div><button class="copy" onclick="copyText('${p.number}')">📋 Copy</button><p style="margin-top:12px;line-height:1.5">Payment করার পরে নিচে আপনার Transaction ID দিন।</p></div>`;
-}
-function copyText(t){navigator.clipboard?.writeText(t);toast("Copied")}
-function submitDeposit(){
- if(!selectedAmount)return toast("আগে একটি amount select করুন");
- let tx=document.getElementById("txid").value.trim();if(!tx)return toast("Transaction ID দিন");
- let credited=selectedMethod==="Binance"?Number(selectedAmount):Math.round(selectedAmount/120*100)/100;
- state.deposits.unshift({id:Date.now(),method:selectedMethod,paid:selectedAmount,credit:credited,txid:tx,status:"Pending",created:new Date().toLocaleString()});
- save();document.getElementById("txid").value="";selectedAmount=null;document.getElementById("paymentArea").innerHTML="";renderChips();toast("Deposit request submitted");showPage("ordersPage")
-}
-function renderHistory(){
- let o=document.getElementById("ordersList"),d=document.getElementById("depositList");
- o.innerHTML=state.orders.length?state.orders.map(x=>`<div class="item"><div class="itemtop"><b>${x.type} • ${x.package}</b><span class="status ${x.status.toLowerCase()}">${x.status}</span></div><div class="muted">📝 ${x.invoice}<br>🕒 ${x.created}</div>${x.delivery?`<div class="notice"><b>✅ আপনার অর্ডার ম্যানুয়ালি ডেলিভারি করা হয়েছে ✨</b><br><br>${escapeHtml(x.delivery)}</div>`:""}</div>`).join(""):`<div class="empty">এখনো কোনো order নেই</div>`;
- d.innerHTML=state.deposits.length?state.deposits.map(x=>`<div class="item"><div class="itemtop"><b>${x.method} • ${x.method==="Binance"?money(x.paid):x.paid+"৳"}</b><span class="status ${x.status.toLowerCase()}">${x.status}</span></div><div class="muted">Credit: ${money(x.credit)}<br>TxID: ${escapeHtml(x.txid)}<br>🕒 ${x.created}</div></div>`).join(""):`<div class="empty">এখনো কোনো deposit নেই</div>`;
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-
-function openAdmin(){document.getElementById("adminModal").classList.add("show")}
-function adminLogin(){if(document.getElementById("adminPass").value===ADMIN_PASSWORD && ADMIN_PASSWORD!=="CHANGE_THIS_PASSWORD"){adminAuthed=true;document.getElementById("adminLoginBox").style.display="none";document.getElementById("adminContent").style.display="block";renderAdmin("deposits")}else toast("Admin password ভুল বা এখনো সেট করা হয়নি")}
-function renderAdmin(tab){
- let box=document.getElementById("adminList");
- if(tab==="deposits"){box.innerHTML=state.deposits.length?state.deposits.map(x=>`<div class="item"><b>${x.method} • ${x.method==="Binance"?money(x.paid):x.paid+"৳"}</b><div class="muted">Credit ${money(x.credit)} • TxID: ${escapeHtml(x.txid)}</div><div class="adminrow"><span class="status ${x.status.toLowerCase()}">${x.status}</span>${x.status==="Pending"?`<button class="primary" onclick="approveDeposit(${x.id})">Approve & Add Balance</button><button class="danger" onclick="rejectDeposit(${x.id})">Reject</button>`:""}</div></div>`).join(""):`<div class="empty">No deposits</div>`}
- else {box.innerHTML=state.orders.length?state.orders.map(x=>`<div class="item"><b>${x.invoice}</b><div class="muted">${x.type} • ${x.package}</div><div class="adminrow"><span class="status ${x.status.toLowerCase()}">${x.status}</span>${x.status==="Pending"?`<textarea id="delivery${x.id}" class="input" placeholder="VPN/Proxy delivery details লিখুন..."></textarea><button class="primary" onclick="deliverOrder(${x.id})">Manual Deliver</button>`:""}</div></div>`).join(""):`<div class="empty">No orders</div>`}
-}
-function approveDeposit(id){let x=state.deposits.find(x=>x.id===id);if(!x||x.status!=="Pending")return;x.status="Approved";state.balance=Number((state.balance+x.credit).toFixed(2));save();renderAdmin("deposits");toast("Deposit approved")}
-function rejectDeposit(id){let x=state.deposits.find(x=>x.id===id);if(!x)return;x.status="Rejected";save();renderAdmin("deposits");toast("Deposit rejected")}
-function deliverOrder(id){let x=state.orders.find(x=>x.id===id),v=document.getElementById("delivery"+id)?.value.trim();if(!v)return toast("Delivery details লিখুন");x.status="Delivered";x.delivery=v;save();renderAdmin("orders");toast("Order delivered")}
-renderBalance();renderChips();updateBadge();
-</script>
-</body>
-</html>
+function placeOrder(){if(!P)return;if(state.balance<P.price){alert("Insufficient balance. Please add funds.");closeModal("buyModal");show("fund");return}let inv="INV-"+Math.random().toString(16).slice(2,10).toUpperCase();state.balance=+(state.balance-P.price).toFixed(2);state.orders.unshift({id:Date.now(),invoice:inv,type:P.t,package:P.p,price:P.price,status:"Pending",created:new Date().toLocaleString(),delivery:""});save();closeModal("buyModal");alert("Order confirmed! Invoice: "+inv);show("orders")}
+function method(m){M=m;S=null;document.querySelectorAll(".method").forEach(x=>x.classList.toggle("selected",x.dataset.m===m));chips()}
+function chips(){payarea.innerHTML="";chips.innerHTML=(M==="Binance"?USDT.map((u,i)=>`<button class="chip" onclick="pick(${i})">${money(u)} USDT<small>Add Balance ${money(u)}</small></button>`):BDT.map((o,i)=>`<button class="chip" onclick="pick(${i})">${o.b}৳<small>Add Balance ${money(o.u)}</small></button>`)).join("")}
+function pick(i){S=i;document.querySelectorAll(".chip").forEach((x,n)=>x.classList.toggle("selected",n===i));let paid=M==="Binance"?USDT[i]:BDT[i].b,credit=M==="Binance"?USDT[i]:BDT[i].u;payarea.innerHTML=`<div class="paybox"><h3>${M}</h3><p>Payment: <b>${M==="Binance"?money(paid)+" USDT":paid+"৳"}</b></p><p>Balance Credit: <b>${money(credit)}</b></p><div style="background:#ffffff22;padding:13px;border-radius:12px;margin-top:12px;font-weight:bold">${PAYMENT[M]}</div><p>After payment, enter your Transaction ID below.</p></div>`}
+function deposit(){if(S===null)return alert("Please select an amount.");let tx=txid.value.trim();if(!tx)return alert("Please enter Transaction ID.");let paid=M==="Binance"?USDT[S]:BDT[S].b,credit=M==="Binance"?USDT[S]:BDT[S].u;state.deposits.unshift({id:Date.now(),method:M,paid,credit,txid:tx,status:"Pending",created:new Date().toLocaleString()});save();txid.value="";S=null;chips();alert("Payment request submitted.");show("orders")}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function history(){ordersList.innerHTML=state.orders.length?state.orders.map(x=>`<div class="item"><div class="row"><b>${x.type} • ${x.package}</b><span class="status ${x.status.toLowerCase()}">${x.status}</span></div><div class="muted">Price: ${money(x.price)}<br>Invoice: ${x.invoice}<br>${x.created}</div>${x.delivery?`<div class="notice"><b>Delivery Details</b><br>${esc(x.delivery)}</div>`:""}</div>`).join(""):`<div class="empty">No orders yet.</div>`;depositList.innerHTML=state.deposits.length?state.deposits.map(x=>`<div class="item"><div class="row"><b>${x.method}</b><span class="status ${x.status.toLowerCase()}">${x.status}</span></div><div class="muted">Paid: ${x.method==="Binance"?money(x.paid)+" USDT":x.paid+"৳"}<br>Balance Credit: ${money(x.credit)}<br>TxID: ${esc(x.txid)}<br>${x.created}</div></div>`).join(""):`<div class="empty">No deposits yet.</div>`}
+function openAdmin(){adminModal.classList.add("show")}
+function adminLogin(){if(adminPass.value===ADMIN_PASSWORD){loginBox.style.display="none";adminContent.style.display="block";admin("deposits")}else alert("Incorrect admin password.")}
+function admin(tab){adminList.innerHTML=tab==="deposits"?(state.deposits.length?state.deposits.map(x=>`<div class="item"><b>${x.method}</b><div class="muted">Credit ${money(x.credit)} • TxID: ${esc(x.txid)}</div><p><span class="status ${x.status.toLowerCase()}">${x.status}</span></p>${x.status==="Pending"?`<button class="primary" onclick="approve(${x.id})">Approve & Add Balance</button><button class="danger" style="margin-top:8px;width:100%" onclick="reject(${x.id})">Reject</button>`:""}</div>`).join(""):`<div class="empty">No deposits.</div>`):(state.orders.length?state.orders.map(x=>`<div class="item"><b>${x.invoice}</b><div class="muted">${x.type} • ${x.package} • ${money(x.price)}</div><p><span class="status ${x.status.toLowerCase()}">${x.status}</span></p>${x.status==="Pending"?`<textarea id="d${x.id}" placeholder="Enter VPN/Proxy delivery details..."></textarea><button class="primary" onclick="deliver(${x.id})">Deliver Order</button>`:""}</div>`).join(""):`<div class="empty">No orders.</div>`)}
+function approve(id){let x=state.deposits.find(x=>x.id===id);if(x&&x.status==="Pending"){x.status="Approved";state.balance=+(state.balance+x.credit).toFixed(2);save();admin("deposits")}}
+function reject(id){let x=state.deposits.find(x=>x.id===id);if(x){x.status="Rejected";save();admin("deposits")}}
+function deliver(id){let x=state.orders.find(x=>x.id===id),v=document.getElementById("d"+id).value.trim();if(!v)return alert("Enter delivery details.");x.status="Delivered";x.delivery=v;save();admin("orders")}
+save();chips();
+</script></body></html>
