@@ -1,177 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Digital Services</title>
 <style>
-:root{
- --bg:#f3f5fb;--card:#fff;--text:#202b3d;--muted:#778196;
- --purple:#6545d6;--blue:#2875dc;--green:#199858;
- --shadow:0 8px 24px rgba(43,58,91,.10);
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);font-family:Arial,system-ui,sans-serif;color:var(--text)}
-body{padding-bottom:86px}
-.app{max-width:560px;margin:auto;padding:14px 12px 20px;overflow:hidden}
-
-/* HEADER */
-.header{height:70px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.brand{min-width:0;display:flex;align-items:center;gap:9px}
-.logo{width:48px;height:48px;flex:none;border-radius:16px;background:linear-gradient(135deg,#28b6d7,#6544d7);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:bold;box-shadow:var(--shadow)}
-.brandText{min-width:0}
-.brandName{font-size:16px;font-weight:900;white-space:nowrap;color:#263246;letter-spacing:.3px}
-.brandSub{font-size:10px;color:#6947d2;font-weight:800;white-space:nowrap;margin-top:4px;letter-spacing:.5px}
-.headerRight{display:flex;gap:8px;align-items:center;flex:none}
-.notify{width:48px;height:48px;border:0;background:#fff;border-radius:16px;box-shadow:var(--shadow);font-size:20px;position:relative}
-.notify:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#f04444;top:9px;right:10px}
-.wallet{height:48px;background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:0 12px;display:flex;align-items:center;gap:7px;color:#16864d;font-size:18px;font-weight:900;white-space:nowrap}
-
-/* PROFILE */
-.profile{background:#fff;border-radius:24px;box-shadow:var(--shadow);margin:12px 0 14px;padding:14px;display:flex;align-items:center;gap:13px;min-height:116px}
-.avatar{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#e6eaf4,#d3d9e8);display:grid;place-items:center;font-size:33px;flex:none}
-.profileInfo{min-width:0;flex:1}
-.profileInfo h2{margin:0 0 5px;font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.profileInfo p{margin:0;color:#2867b9;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.verified{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:16px;background:#f0edff;color:#5e49c6;font-size:12px;font-weight:800}
-.profileArrow{font-size:30px;color:#8b94a5}
-
-/* BANNER */
-.bannerBox{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:10px;margin-bottom:15px}
-.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-.slider::-webkit-scrollbar{display:none}
-.banner{width:100%;min-width:100%;height:160px;border-radius:19px;padding:18px;position:relative;overflow:hidden;color:#fff;scroll-snap-align:start}
-.banner h3{margin:0 0 8px;font-size:23px;max-width:72%}
-.banner p{margin:0;max-width:68%;font-size:14px;line-height:1.45}
-.banner button{position:absolute;left:18px;bottom:17px;border:0;background:#fff;color:#394276;border-radius:11px;padding:10px 15px;font-weight:800}
-.bannerIcon{position:absolute;right:18px;bottom:16px;font-size:48px}
-.b1{background:linear-gradient(135deg,#28105d,#7040d8)}
-.b2{background:linear-gradient(135deg,#087e83,#1b9eb4)}
-.b3{background:linear-gradient(135deg,#17479d,#2875d8)}
-.dots{text-align:center;padding-top:8px}
-.dots i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d6dbe6;margin:0 3px}
-.dots i:first-child{background:#6545d6}
-
-/* SERVICES */
-.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.service{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:12px 7px 10px;text-align:center;min-width:0}
-.serviceIcon{width:46px;height:46px;margin:auto;border-radius:14px;background:#edf3ff;display:grid;place-items:center;font-size:23px}
-.service h3{margin:9px 0 4px;font-size:17px}
-.service p{margin:0;color:var(--muted);font-size:10px;height:28px;line-height:14px}
-.service button{width:100%;margin-top:8px;border:0;border-radius:11px;padding:9px 3px;background:#edf3ff;color:#2565b6;font-weight:800;font-size:11px;white-space:nowrap}
-.service.proxy button{background:#f0ebff;color:#633dcb}
-.service.p2p button{background:#e9f7ee;color:#18824b}
-
-/* ADD FUND */
-.addFund{margin-top:14px;background:#fff;border-radius:21px;box-shadow:var(--shadow);padding:13px;display:flex;align-items:center;gap:12px}
-.fundIcon{width:50px;height:50px;border-radius:15px;background:#eaf2ff;display:grid;place-items:center;font-size:23px;flex:none}
-.addFund h3{margin:0;font-size:18px}.addFund p{margin:4px 0 0;color:var(--muted);font-size:12px}
-.fundArrow{margin-left:auto;width:38px;height:38px;border-radius:50%;background:#eef3fb;display:grid;place-items:center;color:#2468c3;font-size:24px}
-
-/* BOTTOM NAV */
-.bottomNav{position:fixed;left:0;right:0;bottom:0;height:78px;background:rgba(255,255,255,.97);border-top:1px solid #e9edf5;z-index:99;display:flex;justify-content:center}
-.navInner{width:min(560px,100%);display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
-.navBtn{border:0;background:transparent;color:#7d8797;height:60px;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.navIcon{font-size:22px;line-height:1}.navBtn.active{color:#6545d6;font-weight:800}
-
-/* small phones */
-@media(max-width:380px){
- .brandName{font-size:14px}.brandSub{font-size:9px}.logo{width:43px;height:43px}
- .notify{width:43px;height:43px}.wallet{height:43px;padding:0 8px;font-size:16px}
- .profileInfo h2{font-size:19px}.avatar{width:68px;height:68px}
- .service h3{font-size:15px}
-}
+:root{--bg:#f4f6fb;--card:#fff;--text:#1e293b;--muted:#778399;--p:#6846d8;--b:#2677db;--g:#159052;--shadow:0 10px 28px rgba(45,58,90,.11)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,system-ui,sans-serif;color:var(--text);padding-bottom:98px}.app{max-width:620px;margin:auto;padding:14px}
+.page{display:none}.page.active{display:block}.header{display:flex;justify-content:space-between;align-items:center;gap:8px}.brand{display:flex;gap:10px;align-items:center}.logo{width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#26b7d6,#6845d8);display:grid;place-items:center;color:#fff;font-size:27px;font-weight:900;box-shadow:var(--shadow)}.brand h1{font-size:20px;margin:0}.brand p{font-size:10px;color:var(--p);font-weight:900;letter-spacing:1px;margin:5px 0}.right{display:flex;gap:8px}.bell,.wallet{height:54px;background:#fff;border:0;border-radius:18px;box-shadow:var(--shadow)}.bell{width:54px;font-size:21px}.wallet{padding:0 13px;display:flex;align-items:center;color:var(--g);font-weight:900}
+.profile,.box,.service,.fund,.pkg,.order{background:var(--card);border-radius:25px;box-shadow:var(--shadow)}.profile{display:flex;align-items:center;gap:15px;padding:17px;margin:16px 0}.avatar{width:78px;height:78px;border-radius:50%;background:#e2e7f0;display:grid;place-items:center;font-size:35px}.profile h2{margin:0 0 6px;font-size:23px}.profile p{margin:0;color:#2869bb}.badge{display:inline-block;margin-top:9px;padding:7px 11px;border-radius:16px;background:#f0edff;color:#5e48c6;font-size:12px;font-weight:800}
+.sliderBox{padding:10px;margin-bottom:17px}.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.slider::-webkit-scrollbar{display:none}.banner{min-width:100%;height:175px;border-radius:20px;padding:20px;color:#fff;scroll-snap-align:start;position:relative}.banner h2{margin:0 0 9px;font-size:25px;max-width:68%}.banner p{margin:0;max-width:68%;font-size:14px;line-height:1.5}.banner button{position:absolute;bottom:18px;border:0;border-radius:12px;background:#fff;padding:10px 15px;font-weight:900}.banner span{position:absolute;right:20px;bottom:24px;font-size:52px}.one{background:linear-gradient(135deg,#28105e,#7142db)}.two{background:linear-gradient(135deg,#087e83,#1d9eb6)}.three{background:linear-gradient(135deg,#17469b,#2878dc)}.dots{text-align:center;padding:8px 0 2px}.dots i{display:inline-block;width:7px;height:7px;background:#d8deea;border-radius:50%;margin:0 3px}.dots i:first-child{background:var(--p)}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.service{padding:13px 7px;text-align:center}.sicon{width:52px;height:52px;border-radius:16px;background:#edf3ff;display:grid;place-items:center;font-size:26px;margin:auto}.service h3{margin:9px 0 4px;font-size:17px}.service p{margin:0;color:var(--muted);font-size:10px;height:27px}.service button,.primary{width:100%;border:0;border-radius:12px;padding:10px 5px;margin-top:8px;background:#edf3ff;color:#2765b5;font-size:11px;font-weight:900}.proxy button{background:#f0ebff;color:#603dca}.p2p button{background:#e9f7ee;color:#16824b}.fund{margin-top:15px;padding:15px;display:flex;align-items:center;gap:13px}.fundIcon{width:56px;height:56px;border-radius:18px;background:#eeeaff;display:grid;place-items:center;font-size:26px}.fund h3{margin:0;font-size:19px}.fund p{margin:5px 0 0;color:var(--muted);font-size:12px}.go{margin-left:auto;font-size:28px}
+.pageHead{display:flex;gap:12px;align-items:center;margin:6px 0 18px}.back{width:48px;height:48px;border:0;border-radius:16px;background:#fff;box-shadow:var(--shadow);font-size:27px}.pageHead h1{margin:0;font-size:24px}.pkg,.order,.box{padding:18px;margin-bottom:13px}.pkgTop{display:flex;justify-content:space-between}.pkg h2,.order h2{margin:0;font-size:20px}.price{color:var(--p);font-size:21px;font-weight:900}.pkg ul{color:var(--muted);line-height:1.8;font-size:14px;padding-left:20px}.buy{width:100%;border:0;border-radius:13px;background:linear-gradient(135deg,#6846d8,#815ee5);color:#fff;padding:13px;font-weight:900}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.tab{border:0;border-radius:14px;padding:13px;background:#fff;box-shadow:var(--shadow);font-weight:900}.tab.active{background:var(--p);color:#fff}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field select{width:100%;padding:14px;border:1px solid #e2e6ef;border-radius:13px;font-size:15px;background:#fafbfe}.method{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.method button{border:0;padding:15px;border-radius:14px;background:#eef3ff;color:#245fae;font-weight:900}.small{font-size:12px;color:var(--muted);line-height:1.6}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;justify-content:center;padding:0 10px 10px;background:linear-gradient(transparent,rgba(244,246,251,.96) 30%)}.nav{width:min(620px,100%);height:78px;background:rgba(255,255,255,.97);box-shadow:var(--shadow);border-radius:27px;display:grid;grid-template-columns:repeat(4,1fr);padding:7px}.nav button{border:0;background:transparent;border-radius:19px;color:#778195;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.nav b{font-size:24px}.nav button.active{background:#f0edff;color:#6242cf;font-weight:900}.toast{position:fixed;z-index:50;bottom:96px;left:50%;transform:translateX(-50%);background:#202a3c;color:#fff;border-radius:18px;padding:11px 16px;display:none;font-size:13px}
+@media(max-width:420px){.app{padding:10px}.brand h1{font-size:16px}.logo{width:48px;height:48px}.bell{width:48px;height:48px}.wallet{height:48px;padding:0 9px}.profile h2{font-size:20px}}
 </style>
 </head>
 <body>
-<main class="app">
- <header class="header">
-   <div class="brand">
-     <div class="logo">✦</div>
-     <div class="brandText">
-       <div class="brandName">DIGITAL SERVICES</div>
-       <div class="brandSub">✦ DIGITAL SERVICES ✦</div>
-     </div>
-   </div>
-   <div class="headerRight">
-     <button class="notify" aria-label="Notifications">🔔</button>
-     <div class="wallet">▣ ৳ 0.00</div>
-   </div>
- </header>
+<div id="toast" class="toast"></div>
 
- <section class="profile">
-   <div class="avatar">👤</div>
-   <div class="profileInfo">
-     <h2 id="userName">Telegram User</h2>
-     <p id="userUsername">@username</p>
-     <span class="verified">✓ Verified User</span>
-   </div>
-   <div class="profileArrow">›</div>
- </section>
+<section id="home" class="page active"><main class="app">
+<header class="header"><div class="brand"><div class="logo">✦</div><div><h1>DIGITAL SERVICES</h1><p>✦ DIGITAL SERVICES ✦</p></div></div><div class="right"><button class="bell" onclick="toast('Notifications')">🔔</button><div class="wallet">▣ ৳ <span id="balance">0.00</span></div></div></header>
+<div class="profile" onclick="go('profile')"><div class="avatar" id="avatar">👤</div><div><h2 id="name">Telegram User</h2><p id="username">@username</p><span class="badge">✓ Verified User</span></div><div class="go">›</div></div>
+<div class="box sliderBox"><div class="slider"><article class="banner one"><h2>📢 Big Announcement!</h2><p>Admin Panel থেকে নতুন banner ও announcement যোগ করা যাবে।</p><button onclick="toast('Announcement')">Learn More →</button><span>📣</span></article><article class="banner two"><h2>Special Offer!</h2><p>নতুন অফার ও promotion এখানে দেখানো হবে।</p><button onclick="toast('Offer')">Grab Now →</button><span>🎁</span></article><article class="banner three"><h2>Fast & Secure</h2><p>সব Digital Services এক জায়গায়।</p><button onclick="toast('Services')">Explore →</button><span>🛡️</span></article></div><div class="dots"><i></i><i></i><i></i></div></div>
+<div class="services"><div class="service"><div class="sicon">🔐</div><h3>VPN</h3><p>Fast & Secure VPN</p><button onclick="go('vpn')">View Packages →</button></div><div class="service proxy"><div class="sicon">🌐</div><h3>Proxy</h3><p>High Quality Proxy</p><button onclick="go('proxy')">View Packages →</button></div><div class="service p2p"><div class="sicon">💱</div><h3>P2P Dollar</h3><p>Buy & Sell Dollar</p><button onclick="go('p2p')">Buy / Sell →</button></div></div>
+<div class="fund" onclick="go('fund')"><div class="fundIcon">💳</div><div><h3>Add Fund</h3><p>Add balance to your account</p></div><div class="go">›</div></div>
+</main></section>
 
- <section class="bannerBox">
-   <div class="slider">
-     <article class="banner b1">
-       <h3>📢 Big Announcement!</h3>
-       <p>Admin panel থেকে নতুন announcement banner যোগ করা যাবে।</p>
-       <button>Learn More →</button><span class="bannerIcon">📣</span>
-     </article>
-     <article class="banner b2">
-       <h3>Special Offer!</h3>
-       <p>নতুন অফার এবং promotion এখানে দেখানো হবে।</p>
-       <button>Grab Now →</button><span class="bannerIcon">🎁</span>
-     </article>
-     <article class="banner b3">
-       <h3>Fast & Secure</h3>
-       <p>সব digital services এক জায়গায়।</p>
-       <button>Explore →</button><span class="bannerIcon">🛡️</span>
-     </article>
-   </div>
-   <div class="dots"><i></i><i></i><i></i></div>
- </section>
+<section id="vpn" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>VPN Packages</h1></div>
+<div class="pkg"><div class="pkgTop"><h2>Basic VPN</h2><b class="price">৳30</b></div><ul><li>7 Days Access</li><li>Fast Connection</li><li>Secure Service</li></ul><button class="buy" onclick="buy('Basic VPN')">Buy Now</button></div>
+<div class="pkg"><div class="pkgTop"><h2>Premium VPN</h2><b class="price">৳100</b></div><ul><li>30 Days Access</li><li>High Speed Server</li><li>Priority Support</li></ul><button class="buy" onclick="buy('Premium VPN')">Buy Now</button></div>
+<div class="pkg"><div class="pkgTop"><h2>Pro VPN</h2><b class="price">৳250</b></div><ul><li>90 Days Access</li><li>Premium Servers</li><li>Priority Support</li></ul><button class="buy" onclick="buy('Pro VPN')">Buy Now</button></div></main></section>
 
- <section class="services">
-   <article class="service">
-     <div class="serviceIcon">🔐</div><h3>VPN</h3><p>Fast & Secure VPN</p>
-     <button onclick="showPage('VPN Packages')">View Packages →</button>
-   </article>
-   <article class="service proxy">
-     <div class="serviceIcon">🌐</div><h3>Proxy</h3><p>High Quality Proxy</p>
-     <button onclick="showPage('Proxy Packages')">View Packages →</button>
-   </article>
-   <article class="service p2p">
-     <div class="serviceIcon">💱</div><h3>P2P Dollar</h3><p>Buy & Sell Dollar</p>
-     <button onclick="showPage('P2P Dollar')">Buy / Sell →</button>
-   </article>
- </section>
+<section id="proxy" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>Proxy Packages</h1></div>
+<div class="pkg"><div class="pkgTop"><h2>Basic Proxy</h2><b class="price">৳50</b></div><ul><li>1 Dedicated Proxy</li><li>7 Days Validity</li><li>High Quality IP</li></ul><button class="buy" onclick="buy('Basic Proxy')">Buy Now</button></div>
+<div class="pkg"><div class="pkgTop"><h2>Premium Proxy</h2><b class="price">৳150</b></div><ul><li>Premium IP</li><li>30 Days Validity</li><li>Fast & Stable</li></ul><button class="buy" onclick="buy('Premium Proxy')">Buy Now</button></div></main></section>
 
- <section class="addFund" onclick="showPage('Add Fund')">
-   <div class="fundIcon">💳</div>
-   <div><h3>Add Fund</h3><p>Add balance to your account</p></div>
-   <div class="fundArrow">→</div>
- </section>
-</main>
+<section id="p2p" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>P2P Dollar</h1></div>
+<div class="tabs"><button id="buyTab" class="tab active" onclick="setP2P('buy')">Buy Dollar</button><button id="sellTab" class="tab" onclick="setP2P('sell')">Sell Dollar</button></div>
+<div class="box"><h2 id="p2pTitle">Buy USDT / Dollar</h2><div class="field"><label>Amount</label><input id="p2pAmount" type="number" placeholder="Enter amount"></div><div class="field"><label>Payment Method</label><select><option>bKash</option><option>Nagad</option><option>Binance Pay</option></select></div><button class="buy" onclick="p2pOrder()">Create Request</button><p class="small">এটি এখন demo request system। বাস্তব P2P transaction-এর জন্য নিরাপদ payment, verification এবং compliance ব্যবস্থা প্রয়োজন।</p></div></main></section>
 
-<nav class="bottomNav">
- <div class="navInner">
-   <button class="navBtn active"><span class="navIcon">⌂</span>Home</button>
-   <button class="navBtn" onclick="showPage('Add Fund')"><span class="navIcon">▣</span>Add Fund</button>
-   <button class="navBtn" onclick="showPage('Orders')"><span class="navIcon">▢</span>Orders</button>
-   <button class="navBtn" onclick="showPage('Profile')"><span class="navIcon">♙</span>Profile</button>
- </div>
-</nav>
+<section id="fund" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>Add Fund</h1></div>
+<div class="box"><h2>Choose Payment Method</h2><div class="method"><button onclick="selectMethod('bKash')">bKash</button><button onclick="selectMethod('Nagad')">Nagad</button><button onclick="selectMethod('Binance Pay')">Binance Pay</button><button onclick="selectMethod('Manual')">Manual</button></div><div class="field"><label>Amount (৳)</label><input id="fundAmount" type="number" placeholder="Enter amount"></div><button class="buy" onclick="fundRequest()">Submit Add Fund Request</button><p class="small">Admin Panel থেকে payment request approve হলে balance update করা যাবে।</p></div></main></section>
+
+<section id="orders" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>My Orders</h1></div><div id="ordersList"></div></main></section>
+
+<section id="profile" class="page"><main class="app"><div class="pageHead"><button class="back" onclick="go('home')">‹</button><h1>Profile</h1></div><div class="profile"><div class="avatar">👤</div><div><h2 id="profileName">Telegram User</h2><p id="profileUsername">@username</p><span class="badge">✓ Verified User</span></div></div><div class="box"><h2>Account</h2><p class="small">Balance: ৳ <span id="profileBalance">0.00</span></p><button class="primary" onclick="toast('Support system can be added next')">Support</button></div></main></section>
+
+<nav class="bottom"><div class="nav"><button class="active" data-nav="home" onclick="go('home')"><b>⌂</b>Home</button><button data-nav="fund" onclick="go('fund')"><b>▣</b>Add Fund</button><button data-nav="orders" onclick="go('orders')"><b>▤</b>Orders</button><button data-nav="profile" onclick="go('profile')"><b>♙</b>Profile</button></div></nav>
 
 <script>
+const state={balance:0,method:'bKash',orders:[],p2p:'buy'};
 const tg=window.Telegram?.WebApp;
-if(tg){
- tg.ready(); tg.expand();
- const u=tg.initDataUnsafe?.user;
- if(u){
-   document.getElementById('userName').textContent=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Telegram User';
-   document.getElementById('userUsername').textContent=u.username?'@'+u.username:'Telegram User';
- }
-}
-function showPage(name){ alert(name+' page will be connected next.'); }
+if(tg){tg.ready();tg.expand();const u=tg.initDataUnsafe?.user;if(u){const n=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Telegram User';const un=u.username?'@'+u.username:'Telegram User';name.textContent=n;username.textContent=un;profileName.textContent=n;profileUsername.textContent=un;}}
+function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===id));if(id==='orders')renderOrders();window.scrollTo(0,0)}
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',1800)}
+function buy(item){state.orders.unshift({item,status:'Pending',time:new Date().toLocaleString()});toast(item+' order created');go('orders')}
+function renderOrders(){const d=document.getElementById('ordersList');d.innerHTML=state.orders.length?state.orders.map(o=>`<div class="order"><h2>${o.item}</h2><p class="small">Status: ${o.status}<br>${o.time}</p></div>`).join(''):`<div class="box"><h2>No Orders Yet</h2><p class="small">VPN বা Proxy package কিনলে এখানে দেখা যাবে।</p></div>`}
+function selectMethod(m){state.method=m;toast(m+' selected')}
+function fundRequest(){const a=Number(document.getElementById('fundAmount').value);if(!a||a<=0)return toast('Enter a valid amount');state.orders.unshift({item:'Add Fund Request - '+state.method+' ৳'+a,status:'Pending Admin Approval',time:new Date().toLocaleString()});toast('Fund request submitted');go('orders')}
+function setP2P(x){state.p2p=x;buyTab.classList.toggle('active',x==='buy');sellTab.classList.toggle('active',x==='sell');p2pTitle.textContent=x==='buy'?'Buy USDT / Dollar':'Sell USDT / Dollar'}
+function p2pOrder(){const a=Number(document.getElementById('p2pAmount').value);if(!a||a<=0)return toast('Enter amount');state.orders.unshift({item:(state.p2p==='buy'?'Buy':'Sell')+' Dollar Request: '+a,status:'Pending',time:new Date().toLocaleString()});toast('P2P request created');go('orders')}
 </script>
-</body>
-</html>
+</body></html>
