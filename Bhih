@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA STORE Mini App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .partners-section {
+            background-color: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .partner-item {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 14px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .partner-item:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .partner-img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .partner-item span {
+            font-size: 12px;
+            color: #c9d1d9;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Official Partners Section -->
+        <div class="partners-section">
+            <div class="section-title">🤝 Our Official Partners</div>
+            <div class="partners-grid">
+                
+                <!-- Official bKash Bird Logo (SVG Vector) -->
+                <div class="partner-item">
+                    <svg class="partner-img" viewBox="0 0 100 100">
+                        <path d="M12,45 L42,22 L40,56 L12,45 Z" fill="#E2136E"/>
+                        <path d="M42,22 L88,28 L56,52 L42,22 Z" fill="#E2136E"/>
+                        <path d="M40,56 L88,28 L60,82 L40,56 Z" fill="#E2136E"/>
+                        <path d="M60,82 L76,60 L88,74 L60,82 Z" fill="#E2136E"/>
+                    </svg>
+                    <span>bKash</span>
+                </div>
+
+                <!-- Official Nagad Emblem Logo (SVG Vector) -->
+                <div class="partner-item">
+                    <svg class="partner-img" viewBox="0 0 100 100">
+                        <rect width="100" height="100" rx="20" fill="#F74225"/>
+                        <path d="M20 30 C 30 15, 70 15, 80 30 C 90 50, 80 75, 50 85 C 20 75, 10 50, 20 30 Z" fill="#D32F2F"/>
+                        <circle cx="50" cy="48" r="22" fill="#FFFFFF"/>
+                        <circle cx="50" cy="48" r="14" fill="#F74225"/>
+                    </svg>
+                    <span>Nagad</span>
+                </div>
+
+                <!-- Binance Logo -->
+                <div class="partner-item">
+                    <i class="fa-brands fa-binance" style="font-size: 34px; color: #F0B90B;"></i>
+                    <span>Binance</span>
+                </div>
+
+                <!-- Telegram -->
+                <div class="partner-item">
+                    <i class="fa-brands fa-telegram" style="font-size: 34px; color: #229ED9;"></i>
+                    <span>Telegram</span>
+                </div>
+
+                <!-- OWL Proxy -->
+                <div class="partner-item">
+                    <i class="fa-solid fa-owl" style="font-size: 32px; color: #f59e0b;"></i>
+                    <span>OWL Proxy</span>
+                </div>
+
+                <!-- VPN Partner -->
+                <div class="partner-item">
+                    <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: #10b981;"></i>
+                    <span>VPN</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
