@@ -3,675 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA STORE</title>
+    <title>AyNo Store - Digital Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent-glow: #00d2ff;
-            --text-color: #ffffff;
-            --text-sub: #8b949e;
-            --border-color: #30363d;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 90px; }
-
-        .page { display: none; }
-        .page.active { display: block; }
-
-        /* Header */
-        .header {
-            padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(22, 27, 34, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .brand-info { display: flex; align-items: center; gap: 12px; }
-        .brand-logo { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #8a2be2, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        .brand-text h2 { font-size: 16px; font-weight: 700; }
-        .brand-text p { font-size: 11px; color: var(--text-sub); }
-        .balance-badge { background: #21262d; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 15px; color: #3fb950; font-weight: bold; }
-
-        /* Banner */
-        .banner-container { padding: 15px 20px; }
-        .banner { background: linear-gradient(135deg, #2a0845 0%, #6441a5 100%); border-radius: 18px; padding: 22px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .banner-tag { background: #ff4757; color: #fff; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
-        .banner h3 { font-size: 22px; margin-bottom: 6px; }
-        .banner p { font-size: 13px; opacity: 0.85; margin-bottom: 14px; }
-        .banner-btn { background: #fff; color: #000; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer; }
-
-        /* Cards Grid */
-        .section-title { padding: 10px 20px 5px; font-size: 14px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
-        .grid-container { display: grid; grid-template-columns: repeat(1, 1fr); gap: 15px; padding: 10px 20px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .card-left { display: flex; align-items: center; gap: 15px; }
-        .card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #a78bfa; }
-        .card h4 { font-size: 16px; margin-bottom: 2px; }
-        .card p { font-size: 12px; color: var(--text-sub); }
-        .click-arrow { background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #22c55e; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
-
-        /* Deposit UI */
-        .deposit-container { padding: 15px 20px; }
-        .balance-card { background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 18px; padding: 22px; color: white; margin-bottom: 20px; }
-        .methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-        .method-card { background: #fff; color: #000; border-radius: 14px; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: bold; border: 3px solid transparent; }
-        .method-card.selected { border-color: #00d2ff; }
-
-        .pkg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
-        .pkg-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .pkg-card:active { transform: scale(0.98); border-color: var(--accent-glow); }
-        .pkg-bdt { font-size: 16px; font-weight: bold; color: #fff; }
-        .pkg-usd { font-size: 13px; color: #3fb950; font-weight: bold; margin-top: 4px; }
-
-        /* Payment Screen */
-        .pay-screen { border-radius: 20px; padding: 22px; color: white; margin: 15px 20px; }
-        .number-box { background: rgba(255,255,255,0.2); padding: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 12px 0; word-break: break-all; }
-        .copy-btn { background: #fff; color: #000; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; flex-shrink: 0; margin-left: 10px; }
-        .tx-input { width: 100%; padding: 15px; border-radius: 12px; border: none; outline: none; margin-top: 12px; font-size: 15px; text-align: center; }
-        .verify-btn { width: 100%; padding: 16px; background: #22c55e; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 15px; cursor: pointer; }
-
-        /* Profile & History */
-        .profile-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px; text-align: center; margin: 20px; }
-        .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #00d2ff); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 15px; }
-        .premium-badge { background: linear-gradient(90deg, #f59e0b, #d97706); color: #fff; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 15px; display: inline-block; margin-top: 10px; letter-spacing: 0.5px; }
-        
-        .history-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
-        .status-PENDING { background: #d97706; color: white; }
-        .status-APPROVED { background: #059669; color: white; }
-        .status-REJECTED { background: #dc2626; color: white; }
-
-        /* Bottom Nav Bar */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22, 27, 34, 0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 12px; cursor: pointer; font-weight: 600; width: 25%; }
-        .nav-item i { font-size: 20px; }
-        .nav-item.active { color: var(--accent-glow); }
-
-        /* Modal Inputs */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 100%; max-width: 420px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; }
-        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-sub); font-size: 20px; cursor: pointer; }
-        
-        .input-box { width: 100%; padding: 12px; margin: 8px 0; background: #0d1117; border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 14px; }
-        .save-btn { width: 100%; padding: 12px; background: #7c3aed; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 14px; }
-        .prod-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); }
-        .req-card { background: #0d1117; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 10px; }
-
-        /* Red Notification Badge Style */
-        .red-badge { background: #ef4444; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: bold; margin-left: 8px; }
-        
-        /* Delivery Item Style */
-        .del-box { background: #0d1117; border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; }
-        .del-box label { font-size: 11px; color: var(--text-sub); display: block; }
-        .del-box span { font-size: 14px; font-weight: bold; color: #00d2ff; font-family: monospace; }
-        .mini-btn { background: #238636; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-gray-900 text-white font-sans antialiased pb-20 select-none">
 
-    <div class="header">
-        <div class="brand-info">
-            <div class="brand-logo">🛍️</div>
-            <div class="brand-text">
-                <h2>AURA STORE</h2>
-                <p>Digital Access Hub</p>
+    <header class="flex justify-between items-center px-4 py-3 bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-lg">A</div>
+            <span class="font-bold text-lg tracking-wide text-indigo-400">AyNo Store</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center bg-gray-700 px-3 py-1 rounded-full border border-gray-600">
+                <i class="fa-solid fa-wallet text-green-400 mr-1.5 text-sm"></i>
+                <span id="user-balance" class="font-semibold text-sm text-green-400">$0.00</span>
             </div>
+            <button class="text-gray-300 hover:text-white"><i class="fa-regular fa-bell text-xl"></i></button>
         </div>
-        <div class="balance-badge"><i class="fas fa-wallet"></i> $<span id="user-balance">0.00</span></div>
-    </div>
+    </header>
 
-    <div id="page-home" class="page active">
-        <div class="banner-container">
-            <div class="banner">
-                <span class="banner-tag">⚡ INSTANT TOP-UP</span>
-                <h3>Deposit Funds</h3>
-                <p>bKash, Nagad & Binance Supported</p>
-                <button class="banner-btn" onclick="showPage('addfund')">Deposit Now</button>
-            </div>
-        </div>
-
-        <div style="padding: 0 20px 10px;">
-            <button class="save-btn" style="background:#238636; display: flex; align-items: center; justify-content: center;" onclick="openAdminModal()">
-                <i class="fas fa-user-shield"></i> &nbsp; Open Admin Panel
-                <span id="home-admin-badge" class="red-badge">0</span>
-            </button>
-        </div>
-
-        <div class="section-title">Categories</div>
-        <div class="grid-container">
-            <div class="card" onclick="openProductList('VPN')">
-                <div class="card-left">
-                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+    <main id="app-content" class="p-4">
+        
+        <section id="view-home" class="space-y-5">
+            <div class="bg-indigo-900/40 border border-indigo-500/30 rounded-xl p-3 flex items-center justify-between shadow-lg">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 p-2 rounded-lg text-white">
+                        <i class="fa-solid fa-bolt text-lg"></i>
+                    </div>
                     <div>
-                        <h4>VPN</h4>
-                        <p>Premium VPN Accounts</p>
+                        <h3 class="text-sm font-bold text-indigo-200">Instant Delivery</h3>
+                        <p class="text-xs text-gray-400">All products are auto-delivered 24/7</p>
                     </div>
                 </div>
-                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
             </div>
 
-            <div class="card" onclick="openProductList('Proxy')">
-                <div class="card-left">
-                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                    <div>
-                        <h4>Proxy</h4>
-                        <p>Residential & HTTP Stock</p>
-                    </div>
-                </div>
-                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
+            <div class="bg-gray-800/80 rounded-lg p-2.5 text-xs flex items-center space-x-2 border border-gray-700">
+                <span class="bg-yellow-500/20 text-yellow-400 p-1 rounded"><i class="fa-solid fa-cart-shopping"></i></span>
+                <p class="text-gray-300 truncate"><span class="font-bold text-white">L€g€nd</span> bought 7days HMA <span class="text-gray-500">29m ago</span></p>
             </div>
 
-            <div class="card" onclick="openProductList('Mails')">
-                <div class="card-left">
-                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                    <div>
-                        <h4>Hotmail / Outlook</h4>
-                        <p>Fresh Mails</p>
-                    </div>
-                </div>
-                <div class="click-arrow">View <i class="fas fa-arrow-right"></i></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="page-addfund" class="page">
-        <div class="deposit-container">
-            <div class="balance-card">
-                <p>Current Balance</p>
-                <h1 style="font-size:36px; margin-top:5px;">$<span id="deposit-balance">0.00</span></h1>
-            </div>
-
-            <p style="font-size:14px; color:var(--text-sub);">Step 1: Select Payment Method</p>
-            <div class="methods-grid">
-                <div class="method-card" id="m-bKash" onclick="selectMethod('bKash', '#e2136e')">
-                    <i class="fas fa-mobile-alt" style="color:#e2136e; font-size:22px;"></i>
-                    <p style="margin-top:4px;">bKash</p>
-                </div>
-                <div class="method-card" id="m-Nagad" onclick="selectMethod('Nagad', '#f7921e')">
-                    <i class="fas fa-wallet" style="color:#f7921e; font-size:22px;"></i>
-                    <p style="margin-top:4px;">Nagad</p>
-                </div>
-                <div class="method-card" id="m-Binance" onclick="selectMethod('Binance', '#f0b90b')">
-                    <i class="fab fa-bitcoin" style="color:#f0b90b; font-size:22px;"></i>
-                    <p style="margin-top:4px;">Binance</p>
-                </div>
-            </div>
-
-            <div id="pkg-section" style="display:none; margin-top:20px;">
-                <p style="font-size:14px; color:var(--text-sub);">Step 2: Choose Deposit Package (Auto Direct)</p>
-                <div class="pkg-grid" id="pkg-container"></div>
-            </div>
-
-            <div style="margin-top:30px;">
-                <div class="section-title" style="padding:0 0 10px 0;"><i class="fas fa-history"></i> Deposit History</div>
-                <div id="user-deposit-history"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="page-profile" class="page">
-        <div class="profile-box">
-            <div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div>
-            <h2 id="prof-user-name">User Name</h2>
-            <p style="font-size:13px; color:var(--text-sub); margin-top:4px;">Telegram ID: <span id="prof-user-id">00000000</span></p>
-            <div class="premium-badge"><i class="fas fa-crown"></i> Premium User</div>
-            
-            <div style="background:#0d1117; border:1px solid var(--border-color); border-radius:14px; padding:15px; margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:var(--text-sub); font-size:14px;">Available Balance</span>
-                <b style="font-size:18px; color:#3fb950;">$<span id="prof-user-bal">0.00</span></b>
-            </div>
-        </div>
-    </div>
-
-    <div id="page-pay-process" class="page">
-        <div id="pay-screen-box" class="pay-screen">
-            <div style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">
-                <i class="fas fa-clock"></i> Session Expires in: <span id="timer-display" style="font-weight:bold; color:#00ffff;">15:00</span>
-            </div>
-            
-            <div style="font-size:14px; line-height:1.8;" id="pay-instructions"></div>
-
-            <div class="number-box">
-                <span id="target-number" style="font-size:16px; font-weight:bold;">Loading...</span>
-                <button class="copy-btn" onclick="copyNumber()">Copy</button>
-            </div>
-
-            <div style="font-size:14px; line-height:1.8;">
-                <p id="amount-details-text"></p>
-                <p>Enter Transaction ID / Pay ID below to verify.</p>
-            </div>
-
-            <input type="text" id="tx-id" class="tx-input" placeholder="Enter Transaction ID / Pay ID">
-            <button class="verify-btn" onclick="submitDeposit()">VERIFY PAYMENT</button>
-            <button style="width:100%; padding:12px; background:transparent; border:none; color:white; margin-top:10px; cursor:pointer;" onclick="showPage('addfund')">← Back</button>
-        </div>
-    </div>
-
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <i class="fas fa-times close-btn" onclick="closeModal('product-modal')"></i>
-            <h3 id="modal-cat-title" style="margin-bottom:15px;">Category</h3>
-            <div id="products-container"></div>
-        </div>
-    </div>
-
-    <div id="delivery-modal" class="modal">
-        <div class="modal-content">
-            <i class="fas fa-times close-btn" onclick="closeModal('delivery-modal')"></i>
-            <h3 style="color:#22c55e; margin-bottom:5px;"><i class="fas fa-check-circle"></i> অর্ডার সম্পন্ন ✨</h3>
-            <p style="font-size:12px; color:var(--text-sub); margin-bottom:15px;" id="del-time">Time: --</p>
-
-            <p style="font-size:13px; color:#a78bfa; font-weight:bold; margin-bottom:10px;" id="del-pkg-title">Package Name</p>
-
-            <div id="del-items-container"></div>
-
-            <button class="save-btn" style="background:#22c55e; margin-top:15px;" onclick="closeModal('delivery-modal')">ঠিক আছে</button>
-        </div>
-    </div>
-
-    <div id="admin-modal" class="modal">
-        <div class="modal-content">
-            <i class="fas fa-times close-btn" onclick="closeModal('admin-modal')"></i>
-            <h3 style="color:#388bfd; margin-bottom:15px;"><i class="fas fa-user-shield"></i> Admin Management</h3>
-            
-            <div style="display:flex; gap:6px; margin-bottom:15px;">
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('numbers')">Numbers</button>
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px;" onclick="showAdminTab('stock')">Add Stock</button>
-                <button class="save-btn" style="margin:0; flex:1; padding:8px; font-size:11px; background:#d97706; display:flex; align-items:center; justify-content:center;" onclick="showAdminTab('requests')">
-                    Requests <span id="tab-admin-badge" class="red-badge">0</span>
-                </button>
-            </div>
-
-            <div id="admin-tab-numbers">
-                <label style="font-size:12px;">bKash Number:</label>
-                <input type="text" id="adm-bkash" class="input-box" placeholder="017xxxxxxxx">
-                <label style="font-size:12px;">Nagad Number:</label>
-                <input type="text" id="adm-nagad" class="input-box" placeholder="017xxxxxxxx">
-                <label style="font-size:12px;">Binance Pay ID / USDT Address:</label>
-                <input type="text" id="adm-binance" class="input-box" placeholder="Binance ID / Wallet">
-                <button class="save-btn" style="background:#238636;" onclick="saveAdminNumbers()">Save Settings</button>
-            </div>
-
-            <div id="admin-tab-stock" style="display:none;">
-                <label style="font-size:12px;">Category:</label>
-                <select id="adm-cat-select" class="input-box">
-                    <option value="Proxy">Proxy</option>
-                    <option value="VPN">VPN</option>
-                    <option value="Mails">Hotmail / Outlook</option>
-                </select>
-                <label style="font-size:12px;">Title (e.g. Residential Proxy):</label>
-                <input type="text" id="adm-prod-title" class="input-box" placeholder="Title">
-                <label style="font-size:12px;">Price ($ USD):</label>
-                <input type="number" step="0.01" id="adm-prod-price" class="input-box" placeholder="0.50">
-                <label style="font-size:12px;">Bulk Stock Data (Each item in new line):</label>
-                <textarea id="adm-prod-stock" class="input-box" style="height:90px;" placeholder="ip:port:user:pass"></textarea>
-                <button class="save-btn" style="background:#238636; margin-bottom:20px;" onclick="addNewProduct()">Add / Append Stock</button>
-
-                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Existing Products Stock:</p>
-                <div id="admin-product-list"></div>
-            </div>
-
-            <div id="admin-tab-requests" style="display:none;">
-                <p style="font-size:13px; color:var(--text-sub); margin-bottom:10px;">Pending Deposits:</p>
-                <div id="deposit-req-list"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" id="nav-orders" onclick="alert('No Orders Yet!')"><i class="fas fa-shopping-bag"></i><span>Orders</span></div>
-        <div class="nav-item" id="nav-addfund" onclick="showPage('addfund')"><i class="fas fa-plus-circle"></i><span>Deposit</span></div>
-        <div class="nav-item" id="nav-profile" onclick="showPage('profile')"><i class="fas fa-user"></i><span>Profile</span></div>
-    </div>
-
-    <script>
-        const tg = window.Telegram ? window.Telegram.WebApp : null;
-        if (tg) { try { tg.expand(); } catch(e){} }
-
-        const currentUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : { id: "7753794493", first_name: "Demo User" };
-        const userId = String(currentUser.id);
-
-        let paymentInfo = JSON.parse(localStorage.getItem('aura_payments')) || { bkash: '01784280517', nagad: '01784280517', binance: 'AURA_PAY_ID' };
-        let productsDB = JSON.parse(localStorage.getItem('aura_products')) || { VPN: [], Proxy: [], Mails: [] };
-        let userBalances = JSON.parse(localStorage.getItem('aura_balances')) || {};
-        let depositRequests = JSON.parse(localStorage.getItem('aura_requests')) || [];
-
-        if (userBalances[userId] === undefined) { userBalances[userId] = 0.00; }
-        updateUserBalanceUI();
-        updateAdminBadges();
-
-        let selectedMethodName = '';
-        let selectedColor = '#e2136e';
-        let selectedBDT = 0;
-        let selectedUSD = 0;
-        let timerInterval = null;
-
-        function updateUserBalanceUI() {
-            const bal = (userBalances[userId] || 0).toFixed(2);
-            document.getElementById('user-balance').innerText = bal;
-            document.getElementById('deposit-balance').innerText = bal;
-            document.getElementById('prof-user-bal').innerText = bal;
-            document.getElementById('prof-user-name').innerText = currentUser.first_name + (currentUser.last_name ? ' ' + currentUser.last_name : '');
-            document.getElementById('prof-user-id').innerText = userId;
-        }
-
-        // Update Red Badges for Pending Requests
-        function updateAdminBadges() {
-            const pendingCount = depositRequests.filter(r => r.status === 'PENDING').length;
-            const homeBadge = document.getElementById('home-admin-badge');
-            const tabBadge = document.getElementById('tab-admin-badge');
-
-            if (pendingCount > 0) {
-                homeBadge.innerText = pendingCount;
-                homeBadge.style.display = 'inline-flex';
-                tabBadge.innerText = pendingCount;
-                tabBadge.style.display = 'inline-flex';
-            } else {
-                homeBadge.style.display = 'none';
-                tabBadge.style.display = 'none';
-            }
-        }
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
-
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if(document.getElementById('nav-' + pageId)) document.getElementById('nav-' + pageId).classList.add('active');
-
-            if(pageId === 'addfund') renderUserHistory();
-            if(pageId === 'profile') updateUserBalanceUI();
-        }
-
-        function selectMethod(method, color) {
-            selectedMethodName = method;
-            selectedColor = color;
-            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
-            document.getElementById('m-' + method).classList.add('selected');
-
-            const pkgContainer = document.getElementById('pkg-container');
-            pkgContainer.innerHTML = '';
-
-            if (method === 'Binance') {
-                const binancePkgs = [{ usd: 0.10 }, { usd: 0.25 }, { usd: 0.50 }, { usd: 1.00 }, { usd: 2.50 }, { usd: 5.00 }];
-                binancePkgs.forEach(pkg => {
-                    pkgContainer.innerHTML += `
-                        <div class="pkg-card" onclick="autoProceedPayment(0, ${pkg.usd})">                             <div class="pkg-bdt" style="color:#f0b90b;">$${pkg.usd.toFixed(2)} USD</div>
-                            <div class="pkg-usd" style="color:#8b949e; font-size:11px;">Binance Pay</div>
-                        </div>`;
-                });
-            } else {
-                const localPkgs = [
-                    { bdt: 15, usd: 0.12 },
-                    { bdt: 30, usd: 0.25 },
-                    { bdt: 50, usd: 0.45 },
-                    { bdt: 100, usd: 0.85 },
-                    { bdt: 200, usd: 1.70 },
-                    { bdt: 300, usd: 2.50 },
-                    { bdt: 600, usd: 5.00 },
-                    { bdt: 1000, usd: 8.50 }
-                ];
-                localPkgs.forEach(pkg => {
-                    pkgContainer.innerHTML += `
-                        <div class="pkg-card" onclick="autoProceedPayment(${pkg.bdt},${pkg.usd})">
-                            <div class="pkg-bdt">৳${pkg.bdt}</div>                             <div class="pkg-usd">+ $${pkg.usd.toFixed(2)} Add</div>
-                        </div>`;
-                });
-            }
-
-            document.getElementById('pkg-section').style.display = 'block';
-        }
-
-        function autoProceedPayment(bdt, usd) {
-            selectedBDT = bdt;
-            selectedUSD = usd;
-
-            document.getElementById('pay-screen-box').style.backgroundColor = selectedColor;
-
-            let num = paymentInfo.bkash;
-            let instrHtml = '';
-            let amountTxt = '';
-
-            if(selectedMethodName === 'Nagad') {
-                num = paymentInfo.nagad;
-                instrHtml = `<p>1. Open <b>Nagad App</b> or Dial *167#.</p><p>2. Send Money to number below:</p>`;
-                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
-            } else if(selectedMethodName === 'Binance') {
-                num = paymentInfo.binance;
-                instrHtml = `<p>1. Open <b>Binance App</b> -> Pay / Wallet.</p><p>2. Send USDT to ID / Address below:</p>`;
-                amountTxt = `Send Amount: <b>$${selectedUSD.toFixed(2)} USDT</b>`;
-            } else {
-                instrHtml = `<p>1. Open <b>bKash App</b> or Dial *247#.</p><p>2. Send Money to number below:</p>`;
-                amountTxt = `Send Amount: <b>৳${selectedBDT}</b> (Balance: <b>$${selectedUSD.toFixed(2)}</b>)`;
-            }
-
-            document.getElementById('pay-instructions').innerHTML = instrHtml;
-            document.getElementById('target-number').innerText = num;
-            document.getElementById('amount-details-text').innerHTML = amountTxt;
-
-            startCountdownTimer(15 * 60);
-            showPage('pay-process');
-        }
-
-        function startCountdownTimer(seconds) {
-            clearInterval(timerInterval);
-            let timer = seconds;
-            const timerDisplay = document.getElementById('timer-display');
-
-            timerInterval = setInterval(() => {
-                let minutes = parseInt(timer / 60, 10);
-                let secs = parseInt(timer % 60, 10);
-
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                secs = secs < 10 ? "0" + secs : secs;
-
-                timerDisplay.innerText = minutes + ":" + secs;
-
-                if (--timer < 0) {
-                    clearInterval(timerInterval);
-                    alert("Session Expired! Please try again.");
-                    showPage('addfund');
-                }
-            }, 1000);
-        }
-
-        function submitDeposit() {
-            const tx = document.getElementById('tx-id').value.trim();
-            if(!tx) { alert('Please enter Transaction ID!'); return; }
-
-            depositRequests.push({
-                reqId: 'REQ' + Date.now(),
-                userId: userId,
-                user: currentUser.first_name,
-                method: selectedMethodName,
-                amountUSD: selectedUSD,
-                txId: tx,
-                status: 'PENDING'
-            });
-
-            localStorage.setItem('aura_requests', JSON.stringify(depositRequests));
-            updateAdminBadges();
-            alert('Deposit Request Submitted! Waiting for Admin verification.');
-            document.getElementById('tx-id').value = '';
-            clearInterval(timerInterval);
-            showPage('addfund');
-        }
-
-        function renderUserHistory() {
-            const userHistory = depositRequests.filter(r => r.userId === userId);
-            let html = '';
-            userHistory.slice().reverse().forEach(req => {
-                html += `
-                <div class="history-card">
-                    <div>
-                        <b style="font-size:13px;">${req.method} Deposit</b>                         <p style="font-size:12px; color:#3fb950; font-weight:bold;">+$${req.amountUSD.toFixed(2)}</p>
-                        <p style="font-size:10px; color:#888;">TxID: ${req.txId}</p>
-                    </div>
-                    <span class="status-badge status-${req.status}">${req.status}</span>
-                </div>`;
-            });
-            document.getElementById('user-deposit-history').innerHTML = html || '<p style="font-size:12px; color:#888;">No deposit history found.</p>';
-        }
-
-        function openProductList(cat) {
-            document.getElementById('modal-cat-title').innerText = cat + ' Stock';
-            const list = productsDB[cat] || [];
-            let html = '';
-
-            list.forEach((p, idx) => {
-                const stockCount = p.items ? p.items.length : 0;
-                html += `
-                <div class="prod-item">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <b>${p.name}</b>                             <p style="font-size:13px; color:#3fb950; font-weight:bold;">$${p.price.toFixed(2)}</p>
+            <div>
+                <h2 class="text-xs uppercase font-bold text-gray-400 tracking-wider mb-3">Categories</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <div onclick="openCategory('vpn')" class="bg-gray-800 hover:bg-gray-750 p-4 rounded-xl border border-gray-700 flex justify-between items-center cursor-pointer transition">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-base">VPN Services</h3>
+                                <p class="text-xs text-gray-400">Fast & Secure VPN Accounts</p>
+                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded">Starting $0.25</span>
+                            </div>
                         </div>
-                        <button class="save-btn" style="width:auto; padding:8px 16px; margin:0; ${stockCount === 0 ? 'background:#555;' : ''}" ${stockCount === 0 ? 'disabled' : ''} onclick="buyProduct('${cat}',${idx})">
-                            ${stockCount === 0 ? 'Out of Stock' : 'Buy Now'}
-                        </button>
+                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
                     </div>
-                </div>`;
-            });
 
-            document.getElementById('products-container').innerHTML = html || '<p style="color:#888; font-size:13px;">No items currently available.</p>';
-            document.getElementById('product-modal').style.display = 'flex';
-        }
-
-        function buyProduct(cat, idx) {
-            const product = productsDB[cat][idx];
-            if ((userBalances[userId] || 0) < product.price) {
-                alert('Insufficient USD Balance! Please Deposit.');
-                return;
-            }
-
-            if (!product.items || product.items.length === 0) {
-                alert('Out of Stock!');
-                return;
-            }
-
-            const deliveredItem = product.items.shift();
-            userBalances[userId] -= product.price;
-
-            localStorage.setItem('aura_products', JSON.stringify(productsDB));
-            localStorage.setItem('aura_balances', JSON.stringify(userBalances));
-
-            updateUserBalanceUI();
-            closeModal('product-modal');
-
-            // Show Purchased Proxy / Account Modal
-            displayDeliveryModal(product.name, deliveredItem);
-        }
-
-        function displayDeliveryModal(pkgName, itemData) {
-            const now = new Date();
-            document.getElementById('del-time').innerText = "Time: " + now.toLocaleTimeString();
-            document.getElementById('del-pkg-title').innerText = "Package: " + pkgName;
-
-            let html = '';
-            if(itemData.includes(':')) {
-                const parts = itemData.split(':');
-                const ip = parts[0] || '';
-                const port = parts[1] || '';
-                const user = parts[2] || '';
-                const pass = parts[3] || '';
-
-                if(ip) html += `<div class="del-box"><div><label>🌐 IP</label><span>${ip}</span></div><button class="mini-btn" onclick="copyStr('${ip}')">Copy</button></div>`;
-                if(port) html += `<div class="del-box"><div><label>🔌 Port</label><span>${port}</span></div><button class="mini-btn" onclick="copyStr('${port}')">Copy</button></div>`;
-                if(user) html += `<div class="del-box"><div><label>👤 Username</label><span>${user}</span></div><button class="mini-btn" onclick="copyStr('${user}')">Copy</button></div>`;
-                if(pass) html += `<div class="del-box"><div><label>🔑 Password</label><span>${pass}</span></div><button class="mini-btn" onclick="copyStr('${pass}')">Copy</button></div>`;
-            } else {
-                html = `<div class="del-box"><div><label>🔑 Product Key / Data</label><span>${itemData}</span></div><button class="mini-btn" onclick="copyStr('${itemData}')">Copy</button></div>`;
-            }
-
-            document.getElementById('del-items-container').innerHTML = html;
-            document.getElementById('delivery-modal').style.display = 'flex';
-        }
-
-        // ADMIN FUNCTIONS
-        function openAdminModal() {
-            document.getElementById('adm-bkash').value = paymentInfo.bkash;
-            document.getElementById('adm-nagad').value = paymentInfo.nagad;
-            document.getElementById('adm-binance').value = paymentInfo.binance;
-            renderAdminProducts();
-            renderAdminRequests();
-            document.getElementById('admin-modal').style.display = 'flex';
-        }
-
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        function showAdminTab(tab) {
-            document.getElementById('admin-tab-numbers').style.display = tab === 'numbers' ? 'block' : 'none';
-            document.getElementById('admin-tab-stock').style.display = tab === 'stock' ? 'block' : 'none';
-            document.getElementById('admin-tab-requests').style.display = tab === 'requests' ? 'block' : 'none';
-            if(tab === 'stock') renderAdminProducts();
-            if(tab === 'requests') renderAdminRequests();
-        }
-
-        function saveAdminNumbers() {
-            paymentInfo.bkash = document.getElementById('adm-bkash').value;
-            paymentInfo.nagad = document.getElementById('adm-nagad').value;
-            paymentInfo.binance = document.getElementById('adm-binance').value;
-            localStorage.setItem('aura_payments', JSON.stringify(paymentInfo));
-            alert('Settings Saved Successfully!');
-            closeModal('admin-modal');
-        }
-
-        function addNewProduct() {
-            const cat = document.getElementById('adm-cat-select').value;
-            const title = document.getElementById('adm-prod-title').value.trim();
-            const price = parseFloat(document.getElementById('adm-prod-price').value);
-            const rawStock = document.getElementById('adm-prod-stock').value.trim();
-
-            if (!title || isNaN(price)) { alert('Enter valid title and price!'); return; }
-
-            const newItems = rawStock ? rawStock.split('\n').map(s => s.trim()).filter(s => s.length > 0) : [];
-
-            if (!productsDB[cat]) productsDB[cat] = [];
-
-            let existingProd = productsDB[cat].find(p => p.name.toLowerCase() === title.toLowerCase());
-            if (existingProd) {
-                existingProd.items = existingProd.items.concat(newItems);
-            } else {
-                productsDB[cat].push({ name: title, price: price, items: newItems });
-            }
-
-            localStorage.setItem('aura_products', JSON.stringify(productsDB));
-            alert(`Added ${newItems.length} stock items to${title}!`);
-            document.getElementById('adm-prod-stock').value = '';
-            renderAdminProducts();
-        }
-
-        function renderAdminProducts() {
-            let html = '';
-            for (let cat in productsDB) {
-                productsDB[cat].forEach((p, idx) => {
-                    const count = p.items ? p.items.length : 0;
-                    html += `
-                    <div class="prod-item" style="display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <b>[${cat}] ${p.name}</b>                             <p style="font-size:12px; color:#3fb950;">$${p.price.toFixed(2)} \vert{} Stock:${count}</p>
+                    <div onclick="openCategory('proxy')" class="bg-gray-800 hover:bg-gray-750 p-4 rounded-xl border border-gray-700 flex justify-between items-center cursor-pointer transition">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 text-xl">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-base">Proxy Services</h3>
+                                <p class="text-xs text-gray-400">High Quality Proxies</p>
+                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded">Starting $1.25</span>
+                            </div>
                         </div>
-                        <button class="save-btn" style="background:#dc2626; width:auto; padding:6px 10px; margin:0; font-size:12px;" onclick="deleteProduct('${cat}',${idx})">Delete</button>
-                    </div>`;
-                });
-            }
-            document.getElementById('admin-product-list').innerHTML = html || '<p style="font-size:12px; color:#888;">No products found.</p>';
-        }
+                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
+                    </div>
 
-        function deleteProduct(cat, idx) {
-            if(confirm('Are you sure you want to delete this product?')) {
-                productsDB[cat].splice(idx, 1);
-                localStorage.setItem('aura_products', JSON.stringify(productsDB));
-                renderAdminProducts();
-            }
-        }
+                    <div onclick="openCategory('mail')" class="bg-gray-800 hover:bg-gray-750 p-4 rounded-xl border border-gray-700 flex justify-between items-center cursor-pointer transition">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-base">Mail Accounts</h3>
+                                <p class="text-xs text-gray-400">Gmail, Outlook & Webmail</p>
+                                <span class="inline-block mt-1 text-xs bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded">Starting $0.10</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        function renderAdminRequests() {
-            let html = '';
-            const pendingReqs = depositRequests.filter(r => r.status === 'PENDING');
-            pendingReqs.forEach((req) => {
-                html += `
-                <div
+        <section id="view-products" class="hidden space-y-4">
+            <div class="flex items-center space-x-3 mb-2">
+                <button onclick="switchTab('home')" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+                <h2 id="category-title" class="text-lg font-bold">Products</h2>
+            </div>
+            <div id="product-list" class="space-y-3">
+                </div>
+        </section>
+
+        <section id="view-deposit" class="hidden space-y-4">
+            <h2 class="text-base font-bold">Add Funds to Wallet</h2>
+            
+            <div id="deposit-step-1" class="space-y-4">
+                <p class="text-xs text-gray-400">Choose your preferred payment method:</p>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="selectGateway('bKash')" class="bg-pink-900/30 border border-pink-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-pink-900/50">
+                        <div class="w-10 h-10 rounded-full bg-pink-600 flex items-center justify-center font-bold text-white">bK</div>
+                        <span class="text-xs font-semibold text-pink-300">bKash</span>
+                    </button>
+                    <button onclick="selectGateway('Nagad')" class="bg-orange-900/30 border border-orange-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-orange-900/50">
+                        <div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center font-bold text-white">Ng</div>
+                        <span class="text-xs font-semibold text-orange-300">Nagad</span>
+                    </button>
+                    <button onclick="selectGateway('Binance')" class="bg-yellow-900/30 border border-yellow-500/40 p-3 rounded-xl flex flex-col items-center justify-center text-center space-y-2 hover:bg-yellow-900/50">
+                        <div class="w-10 h-10 rounded-full bg-yellow-600 flex items-center justify-center font-bold text-white"><i class="fa-solid fa-coins"></i></div>
+                        <span class="text-xs font-semibold text-yellow-300">Binance</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="deposit-step-2" class="hidden space-y-4">
+                <div class="flex justify-between items-center">
+                    <p class="text-xs text-gray-400">Selected: <span id="selected-gateway-name" class="font-bold text-white"></span></p>
+                    <button onclick="backToStep1()" class="text-xs text-indigo-400 underline">Change Method</button>
+                </div>
+                <p class="text-xs font-bold text-gray-300">Select Amount Preset:</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="selectChip(15, 0.12)" class="bg-gray-800 border border-gray-700 p-3 rounded-xl text-left hover:border-indigo-500">
+                        <div class="text-lg font-bold text-white">৳ 15 BDT</div>
+                        <div class="text-xs text-indigo-400">+$0.12 USD</div>
+                    </button>
+                    <button onclick="selectChip(30, 0.25)" class="bg-gray-800 border border-gray-700 p-3 rounded-xl text-left hover:border-indigo-500">
+                        <div class="text-lg font-bold text-white">৳ 30 BDT</div>
+                        <div class="text-xs text-indigo-400">+$0.25 USD</div>
+                    </button>
+                    <button onclick="selectChip(100, 0.83)" class="bg-gray-800 border border-gray-700 p-3 rounded-xl text-left hover:border-indigo-500">
+                        <div class="text-lg font-bold text-white">৳ 100 BDT</div>
+                        <div class="text-xs text-indigo-400">+$0.83 USD</div>
+                    </button>
+                    <button onclick="selectChip(1000, 8.33)" class="bg-gray-800 border border-gray-700 p-3 rounded-xl text-left hover:border-indigo-500">
+                        <div class="text-lg font-bold text-white">৳ 1000 BDT</div>
+                        <div class="text-xs text-indigo-400">+$8.33 USD</div>
+                    </button>
+                </div>
+            </div>
+
+            <div id="deposit-step-3" class="hidden bg-pink-700 rounded-2xl p-4 text-white space-y-4">
+                <div class="bg-pink-800/60 rounded-full px-4 py-1.5 flex items-center justify-center space-x-2 text-xs font-semibold w-max mx-auto border border-pink-400/30">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>Session Expires in: <strong id="timer">14:56</strong></span>
+                </div>
+
+                <ol class="space-y-3 text-xs">
+                    <li class="flex items-start space-x-2">
+                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">1</span>
+                        <span>Open your <strong id="instruction-gateway">bKash App</strong> or Dial USSD (*247#).</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">2</span>
+                        <span>Select <strong>"Send Money"</strong> option.</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px] shrink-0 mt-0.5">3</span>
+                        <span>Send money to the number below:</span>
+                    </li>
+                </ol>
+
+                <div class="bg-pink-800/80 p-3 rounded-xl flex justify-between items-center border border-pink-400/30">
+                    <div>
+                        <div class="text-[10px] opacity-75">Receiver Number</div>
+                        <div id="payment-number" class="text-base font-bold tracking-wider">01784280517</div>
+                    </div>
+                    <button onclick="copyNumber()" class="bg-pink-600 hover:bg-pink-500 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1">
+                        <i class="fa-regular fa-copy"></i> <span>Copy</span>
+                    </button>
+                </div>
+
+                <div class="text-xs flex items-center space-x-2">
+                    <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px]">4</span>
+                    <span>Amount to send: <strong id="checkout-bdt">৳ 50</strong> (<span id="checkout-usd">$0.41</span>)</span>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span class="bg-pink-900 rounded-full w-4 h-4 flex items-center justify-center text-[10px]">5</span>
+                        <span>Enter Transaction ID (TxID) below:</span>
+                    </div>
+                    <input type="text" id="txid-input" placeholder="Enter Transaction ID" class="w-full bg-white text-gray-900 px-4 py-2.5 rounded-xl font-bold uppercase tracking-wider text-sm focus:outline-none placeholder-gray-400">
+                </div>
+
+                <div class="flex space-x-2 pt-2">
+                    <button onclick="backToStep2()" class="bg-pink-900 hover:bg-pink-950 px-4 py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button onclick="submitDeposit()" class="w-full bg-red-800 hover:bg-red-700 text-white py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-lg uppercase">Verify Payment</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-orders" class="hidden space-y-4">
+            <h2 class="text-base font-bold">Transaction & Order History</h2>
+            <div id="orders-list" class="space-y-3">
+                </div>
+        </section>
+
+        <section id="view-profile" class="hidden space-y-4">
+            <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 text-center space-y-2">
+                <div class="w-16 h-16 rounded-full bg-indigo-600 mx-auto flex items-center justify-center text-2xl font-bold">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h2 id="user-name" class="font-bold text-lg">Telegram User</h2>
+                <p id="user-id" class="text-xs text-gray-400">ID: --</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl border border-gray-700 divide-y divide-gray-700">
+                <div class="p-3 flex justify-between items-center text-xs">
+                    <span class="text-gray-400">Wallet Balance</span>
+                    <span id="profile-balance" class="font-bold text-green-400">$0.00</span>
+                </div>
+                <div class="p-3 flex justify-between items-center text-xs">
+                    <span class="text-gray-400">Currency</span>
+                    <span class="font-bold text-white">USD ($)</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex justify-around items-center py-2 z-50">
+        <button onclick="switchTab('home')" id="nav-home" class="nav-btn text-indigo-400 flex flex-col items-center space-y-1">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-medium">Home</span>
+        </button>
+        <button onclick="switchTab('orders')" id="nav-orders" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
+            <i class="fa-solid fa-receipt text-lg"></i>
+            <span class="text-[10px] font-medium">Orders</span>
+        </button>
+        <button onclick="switchTab('deposit')" id="nav-deposit" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
+            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white -mt-3 shadow-lg">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <span class="text-[10px] font-medium">Add Fund</span>
+        </button>
+        <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn text-gray-400 flex flex-col items-center space-y-1">
+            <i class="fa-solid fa-user text-lg"></i>
+            <span class="text-[10px] font-medium">Profile</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+                        </html>
