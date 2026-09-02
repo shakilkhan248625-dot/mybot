@@ -50,7 +50,9 @@ body{
 .nagad{background:linear-gradient(90deg,#236795,#3989bd)}
 .binance{background:linear-gradient(90deg,#24658d,#3689bd)}
 .logo{width:42px;height:42px;border-radius:9px;background:#fff;color:#111;display:grid;place-items:center;font-size:14px;font-weight:900}
-.logo.b{background:#d71364;color:#fff;font-size:25px}.logo.n{background:#f04b22;color:#fff;font-size:11px}.logo.bi{background:#080808;color:#f5c842;font-size:9px}
+.logo.b{background:#fff;color:#d71364}.logo.n{background:#fff;color:#f04b22}.logo.bi{background:#080808;color:#f5c842}
+.logo img{width:100%;height:100%;object-fit:contain;border-radius:9px;display:block}
+.logo svg{width:75%;height:75%;display:block}
 .composer{display:flex;align-items:center;gap:12px;margin:24px 0 16px;padding:10px 12px;border:1px solid #425264;border-radius:28px;background:#202c3a}
 .menu{width:58px;height:58px;border:0;border-radius:22px;background:#2d8ac5;color:white;font-size:30px}
 .composer input{flex:1;border:0;outline:0;background:transparent;color:white;font-size:21px;min-width:0}
@@ -91,9 +93,9 @@ body{
   <div class="chat">
     <div class="msg right">/start</div>
     <div class="msg">💵 স্বাগতম! নিচের মেনু থেকে সিলেক্ট করুন</div>
-    <button class="choice bkash" onclick="openPayment('bKash')"><span class="logo b">✈</span>bKash</button>
-    <button class="choice nagad" onclick="openPayment('Nagad')"><span class="logo n">N</span>Nagad</button>
-    <button class="choice binance" onclick="openPayment('Binance')"><span class="logo bi">◆</span>Binance</button>
+    <button class="choice bkash" onclick="openPayment('bKash')"><span class="logo b"><img src="https://www.google.com/s2/favicons?domain=bkash.com&sz=128" alt="bKash logo" onerror="this.style.display='none';this.parentNode.innerHTML='bK'"></span>bKash</button>
+    <button class="choice nagad" onclick="openPayment('Nagad')"><span class="logo n"><img src="https://www.google.com/s2/favicons?domain=nagad.com.bd&sz=128" alt="Nagad logo" onerror="this.style.display='none';this.parentNode.innerHTML='N'"></span>Nagad</button>
+    <button class="choice binance" onclick="openPayment('Binance')"><span class="logo bi"><svg viewBox="0 0 24 24" aria-label="Binance logo" role="img"><path fill="#F3BA2F" d="m16.624 13.92 2.717 2.716-7.353 7.353-7.352-7.352 2.717-2.717 4.636 4.66 4.635-4.66zm4.637-4.636L24 12l-2.715 2.716L18.568 12l2.693-2.716zm-9.272 0 2.716 2.692-2.717 2.717L9.272 12l2.716-2.715zm-9.273 0L5.41 12l-2.692 2.692L0 12l2.716-2.716zM11.99.01l7.352 7.33-2.717 2.715-4.636-4.636-4.635 4.66-2.717-2.716L11.989.011z"/></svg></span>Binance</button>
   </div>
 
   <div class="composer">
@@ -145,4 +147,4 @@ function sendMessage(){
 }
 </script>
 </body>
-</html>
+                                                                                         </html>
