@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AURA STORE Mini App</title>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
             background-color: #0d1117;
             color: #ffffff;
-            padding-bottom: 70px; /* Space for bottom nav */
+            padding-bottom: 80px;
         }
 
-        /* Container */
         .app-container {
             max-width: 480px;
             margin: 0 auto;
@@ -44,40 +42,22 @@
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: #fff;
         }
 
-        .brand-text h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .brand-text p {
-            font-size: 13px;
-            color: #9ca3af;
-        }
+        .brand-text h1 { font-size: 22px; font-weight: 700; }
+        .brand-text p { font-size: 13px; color: #9ca3af; }
 
         /* Balance Card */
         .balance-card {
             background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
             border: 1px solid #312e81;
             border-radius: 20px;
-            padding: 24px 20px;
+            padding: 20px;
             text-align: center;
             margin-bottom: 24px;
         }
 
-        .balance-card p {
-            color: #94a3b8;
-            font-size: 14px;
-        }
-
-        .balance-card h2 {
-            font-size: 40px;
-            font-weight: 800;
-            margin: 8px 0 16px 0;
-        }
+        .balance-card h2 { font-size: 36px; margin: 6px 0 14px 0; }
 
         .add-fund-btn {
             background: linear-gradient(90deg, #4f46e5, #7c3aed);
@@ -87,22 +67,14 @@
             padding: 12px;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 15px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
-        /* Section Titles */
+        /* Titles */
         .section-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         /* Services Grid */
@@ -121,16 +93,6 @@
             text-align: center;
         }
 
-        .service-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .service-card h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
-
         .btn-view {
             background-color: #0d1117;
             color: #e6edf3;
@@ -139,7 +101,6 @@
             padding: 8px;
             border-radius: 8px;
             font-size: 12px;
-            font-weight: 600;
             cursor: pointer;
         }
 
@@ -149,54 +110,44 @@
             border: 1px solid #21262d;
             border-radius: 16px;
             padding: 18px;
-            margin-bottom: 20px;
         }
 
         .partners-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .partner-item {
             background: #0d1117;
             border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 12px 8px;
+            border-radius: 14px;
+            padding: 14px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            transition: transform 0.2s, border-color 0.2s;
+            gap: 8px;
+            transition: all 0.2s ease;
         }
 
         .partner-item:hover {
+            border-color: #6366f1;
             transform: translateY(-2px);
-            border-color: #58a6ff;
         }
 
         .partner-img {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
-            border-radius: 6px;
         }
 
         .partner-item span {
-            font-size: 11px;
-            color: #8b949e;
+            font-size: 12px;
+            color: #c9d1d9;
             font-weight: 600;
-            text-align: center;
         }
-
-        /* Custom Colors for Icons/Text */
-        .icon-tg { color: #229ED9; }
-        .icon-owl { color: #f59e0b; }
-        .icon-bkash { color: #e2136e; }
-        .icon-nagad { color: #f7931e; }
-        .icon-vpn { color: #10b981; }
 
         /* Bottom Nav */
         .bottom-nav {
@@ -223,13 +174,7 @@
             gap: 4px;
         }
 
-        .nav-item.active {
-            color: #58a6ff;
-        }
-
-        .nav-item i {
-            font-size: 18px;
-        }
+        .nav-item.active { color: #58a6ff; }
     </style>
 </head>
 <body>
@@ -248,98 +193,77 @@
         <div class="balance-card">
             <p>Your Balance</p>
             <h2>$0.00</h2>
-            <button class="add-fund-btn">
-                <i class="fa-solid fa-plus"></i> ADD FUND
-            </button>
+            <button class="add-fund-btn"><i class="fa-solid fa-plus"></i> ADD FUND</button>
         </div>
 
-        <!-- Our Services -->
+        <!-- Services -->
         <div class="section-title">🛍️ Our Services</div>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">🔐</div>
-                <h3>VPN</h3>
+                <div style="font-size:32px; margin-bottom:8px;">🔐</div>
+                <h3 style="margin-bottom:10px;">VPN</h3>
                 <button class="btn-view">View Packages</button>
             </div>
             <div class="service-card">
-                <div class="service-icon">🌐</div>
-                <h3>Proxy</h3>
+                <div style="font-size:32px; margin-bottom:8px;">🌐</div>
+                <h3 style="margin-bottom:10px;">Proxy</h3>
                 <button class="btn-view">View Packages</button>
             </div>
         </div>
 
-        <!-- Official Partners Section -->
+        <!-- Real Logo Partners Section -->
         <div class="partners-section">
-            <div class="section-title" style="margin-bottom:0;">🤝 Our Official Partners</div>
+            <div class="section-title">🤝 Our Official Partners</div>
             <div class="partners-grid">
                 
-                <!-- Telegram Partner -->
+                <!-- bKash -->
                 <div class="partner-item">
-                    <i class="fa-brands fa-telegram icon-tg" style="font-size: 28px;"></i>
-                    <span>Telegram</span>
-                </div>
-
-                <!-- Owl Proxy Partner -->
-                <div class="partner-item">
-                    <i class="fa-solid fa-owl icon-owl" style="font-size: 26px;"></i>
-                    <span>OWL Proxy</span>
-                </div>
-
-                <!-- bKash Partner -->
-                <div class="partner-item">
-                    <!-- Image link replace with your bKash logo if needed -->
-                    <img src="https://img.icons8.com/color/48/bkash.png" class="partner-img" alt="bKash" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <i class="fa-solid fa-wallet icon-bkash" style="font-size: 24px; display:none;"></i>
+                    <img src="https://raw.githubusercontent.com/ziad-c/bd-payment-icons/main/bkash.png" class="partner-img" alt="bKash">
                     <span>bKash</span>
                 </div>
 
-                <!-- Nagad Partner -->
+                <!-- Nagad -->
                 <div class="partner-item">
-                    <!-- Image link replace with your Nagad logo if needed -->
-                    <img src="https://img.icons8.com/color/48/nagad.png" class="partner-img" alt="Nagad" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <i class="fa-solid fa-money-bill-wave icon-nagad" style="font-size: 24px; display:none;"></i>
+                    <img src="https://raw.githubusercontent.com/ziad-c/bd-payment-icons/main/nagad.png" class="partner-img" alt="Nagad">
                     <span>Nagad</span>
+                </div>
+
+                <!-- Binance -->
+                <div class="partner-item">
+                    <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" class="partner-img" alt="Binance">
+                    <span>Binance</span>
+                </div>
+
+                <!-- Telegram -->
+                <div class="partner-item">
+                    <i class="fa-brands fa-telegram" style="font-size: 34px; color: #229ED9;"></i>
+                    <span>Telegram</span>
+                </div>
+
+                <!-- OWL Proxy -->
+                <div class="partner-item">
+                    <i class="fa-solid fa-owl" style="font-size: 32px; color: #f59e0b;"></i>
+                    <span>OWL Proxy</span>
                 </div>
 
                 <!-- VPN Partner -->
                 <div class="partner-item">
-                    <i class="fa-solid fa-shield-halved icon-vpn" style="font-size: 26px;"></i>
-                    <span>VPN Partner</span>
-                </div>
-
-                <!-- Extra Proxy/Service -->
-                <div class="partner-item">
-                    <i class="fa-solid fa-server" style="color: #a855f7; font-size: 24px;"></i>
-                    <span>SOCKS5</span>
+                    <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: #10b981;"></i>
+                    <span>VPN</span>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Navigation -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="fa-solid fa-house"></i>
-            Home
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-bag-shopping"></i>
-            Store
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-square-plus"></i>
-            Add Fund
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-box"></i>
-            Orders
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-user"></i>
-            Profile
-        </a>
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i>Home</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-bag-shopping"></i>Store</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-square-plus"></i>Add Fund</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-box"></i>Orders</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-user"></i>Profile</a>
     </div>
 
 </body>
-</html>
+    </html>
