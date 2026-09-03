@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NEXORA - DIGITAL SERVICES</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #f4f6fb;
@@ -18,7 +18,7 @@
             --text-muted: #64748b;
             --radius-lg: 20px;
             --radius-md: 16px;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -41,48 +41,47 @@
             max-width: 430px;
             background: var(--bg-color);
             min-height: 100vh;
-            padding: 16px;
+            padding: 14px;
             padding-bottom: 90px;
             position: relative;
         }
 
-        /* Top Bar */
+        /* 1. Header & One-Line Balance Fix */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #7c3aed, #06b6d4);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         }
 
         .brand-text h1 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
-            letter-spacing: 0.5px;
             color: #0f172a;
             line-height: 1;
         }
 
         .brand-text span {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 700;
             color: #7c3aed;
             letter-spacing: 0.5px;
@@ -91,12 +90,12 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .icon-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: var(--card-bg);
             border-radius: 50%;
             display: flex;
@@ -106,97 +105,97 @@
             box-shadow: var(--shadow);
             color: #475569;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .notification-dot {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 8px;
-            height: 8px;
+            top: 8px;
+            right: 8px;
+            width: 7px;
+            height: 7px;
             background-color: #ef4444;
             border-radius: 50%;
             border: 2px solid white;
         }
 
+        /* Fixed One-Line Balance */
         .balance-badge {
             background: var(--card-bg);
-            padding: 8px 14px;
-            border-radius: 30px;
+            padding: 6px 12px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 6px;
             box-shadow: var(--shadow);
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             color: #0f172a;
+            white-space: nowrap;
         }
 
         .balance-badge i {
             color: #7c3aed;
-            font-size: 16px;
+            font-size: 14px;
         }
 
-        /* Profile Card */
-        .profile-card {
-            background: var(--card-bg);
+        /* 2. Main Balance Card (Replaced User Profile) */
+        .main-balance-card {
+            background: linear-gradient(135deg, #6c5ce7, #4834d4);
             border-radius: var(--radius-lg);
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow: var(--shadow);
+            padding: 18px 20px;
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.4);
             margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: relative;
+            overflow: hidden;
         }
 
-        .avatar {
-            width: 54px;
-            height: 54px;
-            background: #f1f5f9;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #94a3b8;
-            font-size: 24px;
-        }
-
-        .user-details h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .username {
-            font-size: 13px;
-            color: #2563eb;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin: 2px 0 6px;
-        }
-
-        .badge-verified {
-            background: #f1f5f9;
-            color: #7c3aed;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .arrow-right {
+        .main-balance-card::after {
+            content: '';
             position: absolute;
-            right: 16px;
-            color: #94a3b8;
+            right: -20px;
+            bottom: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
 
-        /* Banner Carousel */
+        .balance-info p {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+
+        .balance-info h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .add-balance-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1;
+        }
+
+        /* Carousel Banner */
         .carousel-container {
             display: flex;
             gap: 12px;
@@ -210,9 +209,9 @@
 
         .banner-card {
             min-width: 260px;
-            height: 125px;
+            height: 110px;
             border-radius: var(--radius-md);
-            padding: 14px;
+            padding: 12px 14px;
             color: white;
             position: relative;
             scroll-snap-align: start;
@@ -227,21 +226,18 @@
         .banner-2 { background: linear-gradient(135deg, #0d9488, #14b8a6); }
         .banner-3 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
 
-        .banner-card h4 { font-size: 15px; font-weight: 700; }
-        .banner-card p { font-size: 10px; opacity: 0.9; margin-top: 2px; }
+        .banner-card h4 { font-size: 14px; font-weight: 700; }
+        .banner-card p { font-size: 10px; opacity: 0.9; }
 
         .banner-btn {
             background: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: 700;
             cursor: pointer;
             width: fit-content;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .banner-1 .banner-btn { color: #4338ca; }
@@ -251,16 +247,16 @@
         .banner-icon {
             position: absolute;
             right: 10px;
-            bottom: 10px;
-            font-size: 50px;
+            bottom: 5px;
+            font-size: 45px;
             opacity: 0.25;
         }
 
         .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            margin-bottom: 16px;
+            gap: 5px;
+            margin-bottom: 18px;
         }
 
         .dot {
@@ -272,14 +268,21 @@
 
         .dot.active {
             background: #7c3aed;
-            width: 18px;
+            width: 16px;
             border-radius: 10px;
         }
 
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        /* 3. Separate Clean Service Cards */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
             gap: 10px;
             margin-bottom: 16px;
         }
@@ -287,55 +290,67 @@
         .service-card {
             background: var(--card-bg);
             border-radius: var(--radius-md);
-            padding: 12px 6px;
-            text-align: center;
+            padding: 12px 14px;
             box-shadow: var(--shadow);
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
+        }
+
+        .service-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .service-icon {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 18px;
-            margin-bottom: 8px;
+            flex-shrink: 0;
         }
 
         .vpn-icon { background: #e0f2fe; color: #0284c7; }
         .proxy-icon { background: #f3e8ff; color: #9333ea; }
         .p2p-icon { background: #dcfce7; color: #16a34a; }
 
-        .service-card h4 { font-size: 12px; font-weight: 700; color: #0f172a; }
-        .service-card p { font-size: 9px; color: var(--text-muted); margin: 2px 0 8px; }
+        .service-text h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .service-text p {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
 
         .action-btn {
-            width: 100%;
-            padding: 6px 0;
-            border-radius: 8px;
-            font-size: 10px;
+            padding: 7px 12px;
+            border-radius: 10px;
+            font-size: 11px;
             font-weight: 700;
             text-decoration: none;
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 4px;
-            border: 1px solid transparent;
+            white-space: nowrap;
         }
 
-        .vpn-btn { border-color: #bae6fd; color: #0284c7; }
-        .proxy-btn { border-color: #e9d5ff; color: #9333ea; }
-        .p2p-btn { background: #e0f2fe; color: #0284c7; }
+        .vpn-btn { background: #e0f2fe; color: #0284c7; }
+        .proxy-btn { background: #f3e8ff; color: #9333ea; }
+        .p2p-btn { background: #dcfce7; color: #16a34a; }
 
-        /* Add Fund Bar */
+        /* Add Fund Section Bar */
         .add-fund-card {
             background: var(--card-bg);
             border-radius: var(--radius-md);
-            padding: 14px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -349,30 +364,30 @@
         }
 
         .fund-icon {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: #e0f2fe;
             color: #0284c7;
             border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .fund-text h4 { font-size: 13px; font-weight: 700; color: #0f172a; }
         .fund-text p { font-size: 10px; color: var(--text-muted); }
 
         .fund-arrow {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             background: #f1f5f9;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #0284c7;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         /* Navigation Bar */
@@ -425,6 +440,7 @@
                     <i class="fa-regular fa-bell"></i>
                     <span class="notification-dot"></span>
                 </div>
+                <!-- 1-Line Fixed Balance Badge -->
                 <div class="balance-badge">
                     <i class="fa-solid fa-wallet"></i>
                     <span>৳ 0.00</span>
@@ -432,17 +448,15 @@
             </div>
         </header>
 
-        <!-- User Profile Card -->
-        <div class="profile-card">
-            <div class="avatar">
-                <i class="fa-solid fa-user"></i>
+        <!-- Main Wallet Balance Card (Replaced Profile Card) -->
+        <div class="main-balance-card">
+            <div class="balance-info">
+                <p>Available Balance</p>
+                <h2>৳ 0.00</h2>
             </div>
-            <div class="user-details">
-                <h3>Shakil Hassan</h3>
-                <a href="#" class="username">@shakil_hassan <i class="fa-regular fa-copy"></i></a>
-                <span class="badge-verified"><i class="fa-solid fa-check"></i> Verified User</span>
-            </div>
-            <i class="fa-solid fa-chevron-right arrow-right"></i>
+            <a href="#" class="add-balance-btn">
+                <i class="fa-solid fa-plus"></i> Add Fund
+            </a>
         </div>
 
         <!-- Banner Carousel -->
@@ -475,7 +489,7 @@
             </div>
         </div>
 
-        <!-- Carousel Dots Indicator -->
+        <!-- Carousel Dots -->
         <div class="carousel-dots">
             <div class="dot active"></div>
             <div class="dot"></div>
@@ -484,32 +498,48 @@
             <div class="dot"></div>
         </div>
 
-        <!-- Services Grid -->
-        <div class="services-grid">
+        <!-- Clean Separated Services -->
+        <h3 class="section-title">Our Services</h3>
+        <div class="services-list">
+            <!-- VPN -->
             <div class="service-card">
-                <div class="service-icon vpn-icon">
-                    <i class="fa-solid fa-lock"></i>
+                <div class="service-left">
+                    <div class="service-icon vpn-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="service-text">
+                        <h4>VPN</h4>
+                        <p>Fast & Secure VPN</p>
+                    </div>
                 </div>
-                <h4>VPN</h4>
-                <p>Fast & Secure VPN</p>
                 <a href="#" class="action-btn vpn-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
+            <!-- Proxy -->
             <div class="service-card">
-                <div class="service-icon proxy-icon">
-                    <i class="fa-solid fa-globe"></i>
+                <div class="service-left">
+                    <div class="service-icon proxy-icon">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div class="service-text">
+                        <h4>Proxy</h4>
+                        <p>High Quality Proxy</p>
+                    </div>
                 </div>
-                <h4>Proxy</h4>
-                <p>High Quality Proxy</p>
                 <a href="#" class="action-btn proxy-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
+            <!-- P2P Dollar -->
             <div class="service-card">
-                <div class="service-icon p2p-icon">
-                    <i class="fa-solid fa-rotate"></i>
+                <div class="service-left">
+                    <div class="service-icon p2p-icon">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <div class="service-text">
+                        <h4>P2P Dollar</h4>
+                        <p>Buy & Sell Dollar</p>
+                    </div>
                 </div>
-                <h4>P2P Dollar</h4>
-                <p>Buy & Sell Dollar</p>
                 <a href="#" class="action-btn p2p-btn">Buy / Sell <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
@@ -552,4 +582,4 @@
     </div>
 
 </body>
-            </html>
+                        </html>
