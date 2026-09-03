@@ -1,722 +1,414 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA STORE</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f6f8fc;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --primary-purple: #6c5ce7;
-            --radius-lg: 20px;
-            --radius-md: 16px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 430px;
-            background: var(--bg-color);
-            min-height: 100vh;
-            padding: 14px;
-            padding-bottom: 90px;
-            position: relative;
-        }
-
-        /* Top Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #6c5ce7, #00d2d3);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 18px;
-            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.25);
-        }
-
-        .brand-text h1 {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-dark);
-            line-height: 1;
-            letter-spacing: -0.3px;
-        }
-
-        .brand-text span {
-            font-size: 8px;
-            font-weight: 700;
-            color: var(--primary-purple);
-            letter-spacing: 0.5px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .icon-btn {
-            width: 36px;
-            height: 36px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            box-shadow: var(--shadow);
-            color: #475569;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .notification-dot {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 7px;
-            height: 7px;
-            background-color: #ef4444;
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-
-        /* Balance Badge (One Line Fixed) */
-        .balance-badge {
-            background: var(--card-bg);
-            padding: 6px 14px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: var(--shadow);
-            font-weight: 800;
-            font-size: 13px;
-            color: var(--text-dark);
-            white-space: nowrap;
-        }
-
-        .balance-badge i {
-            color: var(--primary-purple);
-            font-size: 14px;
-        }
-
-        /* Main Balance Card */
-        .main-balance-card {
-            background: linear-gradient(135deg, #6c5ce7, #4834d4);
-            border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            color: white;
-            box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.35);
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .balance-info p {
-            font-size: 12px;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        .balance-info h2 {
-            font-size: 26px;
-            font-weight: 800;
-            margin-top: 2px;
-        }
-
-        .add-balance-btn {
-            background: rgba(255, 255, 255, 0.22);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        /* Carousel Banner */
-        .carousel-container {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            margin-bottom: 8px;
-        }
-
-        .carousel-container::-webkit-scrollbar { display: none; }
-
-        .banner-card {
-            min-width: 270px;
-            height: 115px;
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            color: white;
-            position: relative;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-
-        .banner-1 { background: linear-gradient(135deg, #4338ca, #6366f1); }
-        .banner-2 { background: linear-gradient(135deg, #0d9488, #14b8a6); }
-        .banner-3 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
-
-        .banner-card h4 { font-size: 14px; font-weight: 700; }
-        .banner-card p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
-
-        .banner-btn {
-            background: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            width: fit-content;
-        }
-
-        .banner-1 .banner-btn { color: #4338ca; }
-        .banner-2 .banner-btn { color: #0d9488; }
-        .banner-3 .banner-btn { color: #0284c7; }
-
-        .banner-icon {
-            position: absolute;
-            right: 12px;
-            bottom: 8px;
-            font-size: 48px;
-            opacity: 0.25;
-        }
-
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 18px;
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background: #cbd5e1;
-            border-radius: 50%;
-        }
-
-        .dot.active {
-            background: var(--primary-purple);
-            width: 16px;
-            border-radius: 10px;
-        }
-
-        /* 3 Services Grid Layout (Restored & Fixed) */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .service-box {
-            background: var(--card-bg);
-            border-radius: var(--radius-md);
-            padding: 14px 8px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .service-box-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .vpn-bg { background: #e0f2fe; color: #0284c7; }
-        .proxy-bg { background: #f3e8ff; color: #9333ea; }
-        .p2p-bg { background: #dcfce7; color: #16a34a; }
-
-        .service-box h4 {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--text-dark);
-        }
-
-        .service-box p {
-            font-size: 9px;
-            color: var(--text-muted);
-            margin-top: 2px;
-            margin-bottom: 10px;
-            line-height: 1.1;
-        }
-
-        .service-action-btn {
-            width: 100%;
-            padding: 6px 0;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 700;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-        }
-
-        .vpn-btn { background: #e0f2fe; color: #0284c7; }
-        .proxy-btn { background: #f3e8ff; color: #9333ea; }
-        .p2p-btn { background: #dcfce7; color: #16a34a; }
-
-        /* Add Fund Section Bar */
-        .add-fund-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-        }
-
-        .add-fund-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .fund-icon {
-            width: 40px;
-            height: 40px;
-            background: #e0f2fe;
-            color: #0284c7;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-        }
-
-        .fund-text h4 { font-size: 13px; font-weight: 800; color: var(--text-dark); }
-        .fund-text p { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
-
-        .fund-arrow {
-            width: 32px;
-            height: 32px;
-            background: #f1f5f9;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #0284c7;
-            font-size: 12px;
-        }
-
-        /* Bottom Nav */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 430px;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
-            border-top: 1px solid #f1f5f9;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            text-decoration: none;
-            color: #94a3b8;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .nav-item i { font-size: 18px; }
-        .nav-item.active { color: var(--primary-purple); }
-
-        /* Deposit Modal Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            display: none;
-            justify-content: center;
-            align-items: flex-end;
-            z-index: 1000;
-        }
-
-        .modal-card {
-            background: white;
-            width: 100%;
-            max-width: 430px;
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-            padding: 20px;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .modal-header h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .close-btn {
-            background: #f1f5f9;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #64748b;
-            cursor: pointer;
-        }
-
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .payment-option {
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 700;
-            color: #334155;
-        }
-
-        .payment-option.selected {
-            border-color: var(--primary-purple);
-            background: #f3e8ff;
-            color: var(--primary-purple);
-        }
-
-        .input-group {
-            margin-bottom: 14px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #475569;
-            margin-bottom: 6px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1.5px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none;
-            font-weight: 600;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-purple);
-        }
-
-        .submit-deposit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #6c5ce7, #4834d4);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA STORE Mini App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #f8fafc; font-family: sans-serif; user-select: none; }
+    .bg-purple-gradient { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    .active-tab { color: #7c3aed; font-weight: bold; }
+  </style>
 </head>
-<body>
+<body class="pb-20 text-gray-800">
 
-    <div class="app-container">
-        <header class="header">
-            <div class="brand-logo">
-                <div class="logo-icon"><i class="fa-solid fa-shapes"></i></div>
-                <div class="brand-text">
-                    <h1>NEXORA</h1>
-                    <span>✦ DIGITAL SERVICES ✦</span>
-                </div>
-            </div>
-            <div class="header-actions">
-                <div class="icon-btn">
-                    <i class="fa-regular fa-bell"></i>
-                    <span class="notification-dot"></span>
-                </div>
-                <div class="balance-badge">
-                    <i class="fa-solid fa-wallet"></i>
-                    <span>৳ 0.00</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="main-balance-card">
-            <div class="balance-info">
-                <p>Available Balance</p>
-                <h2>৳ 0.00</h2>
-            </div>
-            <div class="add-balance-btn" onclick="openDepositModal()">
-                <i class="fa-solid fa-plus"></i> Add Fund
-            </div>
-        </div>
-
-        <div class="carousel-container">
-            <div class="banner-card banner-1">
-                <div>
-                    <h4>Big Announcement!</h4>
-                    <p>We have something new for you</p>
-                </div>
-                <button class="banner-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
-                <i class="fa-solid fa-bullhorn banner-icon"></i>
-            </div>
-            <div class="banner-card banner-2">
-                <div>
-                    <h4>Special Offer!</h4>
-                    <p>Get up to 20% OFF on all services</p>
-                </div>
-                <button class="banner-btn">Grab Now <i class="fa-solid fa-arrow-right"></i></button>
-                <i class="fa-solid fa-gift banner-icon"></i>
-            </div>
-            <div class="banner-card banner-3">
-                <div>
-                    <h4>Fast & Secure Services</h4>
-                    <p>Trusted by thousands of happy users</p>
-                </div>
-                <button class="banner-btn">Explore Now <i class="fa-solid fa-arrow-right"></i></button>
-                <i class="fa-solid fa-shield-halved banner-icon"></i>
-            </div>
-        </div>
-
-        <div class="carousel-dots">
-            <div class="dot active"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-box">
-                <div class="service-box-icon vpn-bg">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h4>VPN</h4>
-                <p>Fast & Secure VPN</p>
-                <a href="#" class="service-action-btn vpn-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <div class="service-box">
-                <div class="service-box-icon proxy-bg">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
-                <h4>Proxy</h4>
-                <p>High Quality Proxy</p>
-                <a href="#" class="service-action-btn proxy-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <div class="service-box">
-                <div class="service-box-icon p2p-bg">
-                    <i class="fa-solid fa-rotate"></i>
-                </div>
-                <h4>P2P Dollar</h4>
-                <p>Buy & Sell Dollar</p>
-                <a href="#" class="service-action-btn p2p-btn">Buy / Sell <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-        <div class="add-fund-card" onclick="openDepositModal()">
-            <div class="add-fund-left">
-                <div class="fund-icon"><i class="fa-solid fa-wallet"></i></div>
-                <div class="fund-text">
-                    <h4>Add Fund</h4>
-                    <p>Add balance to your account</p>
-                </div>
-            </div>
-            <div class="fund-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-
-        <nav class="bottom-nav">
-            <a href="#" class="nav-item active">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <div class="nav-item" onclick="openDepositModal()">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Add Fund</span>
-            </div>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-clipboard-list"></i>
-                <span>Orders</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Profile</span>
-            </a>
-        </nav>
+  <!-- Header -->
+  <div class="flex justify-between items-center px-4 py-3 bg-white shadow-sm sticky top-0 z-40">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xs">▲</div>
+      <div>
+        <h1 class="font-bold text-sm tracking-wide text-gray-900 leading-none">NEXORA</h1>
+        <span class="text-[9px] text-purple-600 tracking-widest uppercase font-semibold">✦ DIGITAL SERVICES ✦</span>
+      </div>
     </div>
-
-    <div class="modal-overlay" id="depositModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3>Deposit Money</h3>
-                <button class="close-btn" onclick="closeDepositModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div class="payment-methods">
-                <div class="payment-option selected" onclick="selectMethod(this, 'bKash')">bKash</div>
-                <div class="payment-option" onclick="selectMethod(this, 'Nagad')">Nagad</div>
-                <div class="payment-option" onclick="selectMethod(this, 'Binance')">Binance</div>
-            </div>
-
-            <div class="input-group">
-                <label>Amount (BDT)</label>
-                <input type="number" id="depositAmount" placeholder="e.g. 500">
-            </div>
-
-            <div class="input-group">
-                <label>Transaction ID (TrxID)</label>
-                <input type="text" id="trxId" placeholder="e.g. 9J8A7K2L">
-            </div>
-
-            <button class="submit-deposit-btn" onclick="submitDeposit()">Submit Deposit</button>
-        </div>
+    <div class="flex items-center gap-3">
+      <i class="fa-regular fa-bell text-gray-600 text-lg"></i>
+      <div class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+        <span>৳</span><span id="header-balance">0.00</span>
+      </div>
     </div>
+  </div>
 
-    <script>
-        const tg = window.Telegram?.WebApp;
-        if (tg) tg.expand();
+  <!-- Main Container -->
+  <div id="app-content" class="p-4 max-w-md mx-auto">
+    <!-- Pages render here dynamically -->
+  </div>
 
-        let selectedPaymentMethod = 'bKash';
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2 z-40 max-w-md mx-auto">
+    <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-xs text-gray-500 active-tab">
+      <i class="fa-solid fa-house text-lg"></i><span>Home</span>
+    </button>
+    <button onclick="switchTab('add-fund')" id="nav-add-fund" class="flex flex-col items-center text-xs text-gray-500">
+      <i class="fa-solid fa-wallet text-lg"></i><span>Add Fund</span>
+    </button>
+    <button onclick="switchTab('orders')" id="nav-orders" class="flex flex-col items-center text-xs text-gray-500">
+      <i class="fa-solid fa-clipboard-list text-lg"></i><span>Orders</span>
+    </button>
+    <button onclick="switchTab('profile')" id="nav-profile" class="flex flex-col items-center text-xs text-gray-500">
+      <i class="fa-solid fa-user text-lg"></i><span>Profile</span>
+    </button>
+  </div>
 
-        function openDepositModal() {
-            document.getElementById('depositModal').style.display = 'flex';
-        }
+  <!-- Hidden Admin Floating Button (Visible ONLY to Admin Telegram ID) -->
+  <button id="admin-secret-btn" onclick="openAdminPanel()" class="hidden fixed bottom-16 right-4 bg-red-600 text-white w-12 h-12 rounded-full shadow-2xl z-50 flex items-center justify-center font-bold text-xl animate-bounce">
+    ⚙️
+  </button>
 
-        function closeDepositModal() {
-            document.getElementById('depositModal').style.display = 'none';
-        }
+  <!-- Script Logic -->
+  <script>
+    const ADMIN_ID = 7753794493; // আপনার অ্যাডমিন টেলিগ্রাম আইডি
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-        function selectMethod(element, method) {
-            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedPaymentMethod = method;
-        }
+    // App State Mock Database (Local Storage Persistent)
+    let state = JSON.parse(localStorage.getItem('aura_state')) || {
+      users: {},
+      products: [
+        { id: 1, type: 'vpn', name: 'ExpressVPN Premium', price: 120, image: 'https://cdn-icons-png.flaticon.com/512/2885/2885440.png' },
+        { id: 2, type: 'proxy', name: 'USA Residential SOCKS5 Proxy', price: 50, image: 'https://cdn-icons-png.flaticon.com/512/483/483321.png' }
+      ],
+      orders: [],
+      deposits: []
+    };
 
-        function submitDeposit() {
-            const amount = document.getElementById('depositAmount').value;
-            const trx = document.getElementById('trxId').value;
+    function saveState() {
+      localStorage.setItem('aura_state', JSON.stringify(state));
+    }
 
-            if (!amount || amount <= 0) {
-                alert('Enter amount!');
-                return;
-            }
-            if (!trx) {
-                alert('Enter Transaction ID!');
-                return;
-            }
+    // Get Current User ID from Telegram
+    const currentUser = tg.initDataUnsafe?.user || { id: 12345678, first_name: "Demo User" };
+    const userId = currentUser.id;
 
-            if (tg && tg.initDataUnsafe?.user) {
-                tg.sendData(JSON.stringify({
-                    action: 'deposit',
-                    method: selectedPaymentMethod,
-                    amount: amount,
-                    trx_id: trx,
-                    user_id: tg.initDataUnsafe.user.id
-                }));
-            } else {
-                alert(`Deposit request sent!\nMethod: ${selectedPaymentMethod}\nAmount: ৳${amount}\nTrxID: ${trx}`);
-            }
+    if (!state.users[userId]) {
+      state.users[userId] = { balance: 0.00, name: currentUser.first_name };
+      saveState();
+    }
 
-            closeDepositModal();
-            document.getElementById('depositAmount').value = '';
-            document.getElementById('trxId').value = '';
-        }
-    </script>
+    // Checking Admin Privilege
+    if (userId === ADMIN_ID) {
+      document.getElementById('admin-secret-btn').classList.remove('hidden');
+    }
+
+    function updateHeaderBalance() {
+      document.getElementById('header-balance').innerText = state.users[userId].balance.toFixed(2);
+    }
+
+    // Navigation Switcher
+    function switchTab(tab) {
+      document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('active-tab', 'text-purple-600'));
+      document.getElementById(`nav-${tab}`).classList.add('active-tab', 'text-purple-600');
+      
+      const content = document.getElementById('app-content');
+      if (tab === 'home') renderHome(content);
+      if (tab === 'add-fund') renderAddFund(content);
+      if (tab === 'orders') renderOrders(content);
+      if (tab === 'profile') renderProfile(content);
+      updateHeaderBalance();
+    }
+
+    // --- HOME PAGE ---
+    function renderHome(container) {
+      container.innerHTML = `
+        <!-- Balance Card -->
+        <div class="bg-purple-gradient text-white p-5 rounded-2xl shadow-lg mb-4 relative overflow-hidden">
+          <p class="text-xs text-purple-200">Available Balance</p>
+          <h2 class="text-3xl font-black mt-1">৳ ${state.users[userId].balance.toFixed(2)}</h2>
+          <button onclick="switchTab('add-fund')" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-bold border border-white/30">+ Add Fund</button>
+        </div>
+
+        <!-- Banner Announcement -->
+        <div class="bg-blue-600 text-white p-4 rounded-2xl mb-6 flex justify-between items-center shadow-md">
+          <div>
+            <h3 class="font-bold text-sm">Big Announcement!</h3>
+            <p class="text-[11px] text-blue-100">We have something new for you</p>
+            <button class="bg-white text-blue-600 text-[10px] font-bold px-3 py-1 rounded-lg mt-2">Learn More →</button>
+          </div>
+          <div class="text-3xl opacity-80">📣</div>
+        </div>
+
+        <h3 class="font-bold text-gray-700 text-sm mb-3">Our Services</h3>
+
+        <!-- Service Cards -->
+        <div class="space-y-3">
+          <!-- VPN -->
+          <div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="p-3 bg-blue-50 text-blue-500 rounded-xl"><i class="fa-solid fa-lock text-xl"></i></div>
+              <div>
+                <h4 class="font-bold text-sm">VPN</h4>
+                <p class="text-[10px] text-gray-400">Fast & Secure VPN</p>
+              </div>
+            </div>
+            <button onclick="openProductModal('vpn')" class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-2 rounded-xl">View Packages →</button>
+          </div>
+
+          <!-- Proxy -->
+          <div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="p-3 bg-purple-50 text-purple-500 rounded-xl"><i class="fa-solid fa-globe text-xl"></i></div>
+              <div>
+                <h4 class="font-bold text-sm">Proxy</h4>
+                <p class="text-[10px] text-gray-400">High Quality Proxy</p>
+              </div>
+            </div>
+            <button onclick="openProductModal('proxy')" class="bg-purple-50 text-purple-600 text-xs font-bold px-3 py-2 rounded-xl">View Packages →</button>
+          </div>
+
+          <!-- P2P Dollar -->
+          <div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="p-3 bg-green-50 text-green-500 rounded-xl"><i class="fa-solid fa-arrows-rotate text-xl"></i></div>
+              <div>
+                <h4 class="font-bold text-sm">P2P Dollar</h4>
+                <p class="text-[10px] text-gray-400">Buy & Sell Dollar</p>
+              </div>
+            </div>
+            <button onclick="alert('P2P Exchange Service Coming Soon or Contact Support!')" class="bg-green-50 text-green-600 text-xs font-bold px-3 py-2 rounded-xl">Buy / Sell →</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- ADD FUND PAGE ---
+    function renderAddFund(container) {
+      container.innerHTML = `
+        <div class="bg-white p-4 rounded-2xl border shadow-sm">
+          <h3 class="font-bold text-sm mb-3">Select Payment Method</h3>
+          <div class="grid grid-cols-3 gap-2 mb-4">
+            <button onclick="selectMethod('bKash')" class="p-3 border rounded-xl text-center text-xs font-bold hover:border-pink-500 focus:border-pink-500">bKash</button>
+            <button onclick="selectMethod('Nagad')" class="p-3 border rounded-xl text-center text-xs font-bold hover:border-orange-500 focus:border-orange-500">Nagad</button>
+            <button onclick="selectMethod('Binance')" class="p-3 border rounded-xl text-center text-xs font-bold hover:border-yellow-500 focus:border-yellow-500">Binance</button>
+          </div>
+
+          <p class="text-xs text-gray-500 mb-2">Select Amount Chips:</p>
+          <div class="grid grid-cols-4 gap-2 mb-4">
+            <button onclick="setAmount(100)" class="p-2 border rounded-lg text-xs font-bold bg-gray-50">৳100</button>
+            <button onclick="setAmount(200)" class="p-2 border rounded-lg text-xs font-bold bg-gray-50">৳200</button>
+            <button onclick="setAmount(500)" class="p-2 border rounded-lg text-xs font-bold bg-gray-50">৳500</button>
+            <button onclick="setAmount(1000)" class="p-2 border rounded-lg text-xs font-bold bg-gray-50">৳1000</button>
+          </div>
+
+          <input id="deposit-amount" type="number" placeholder="Enter Amount" class="w-full p-3 border rounded-xl mb-3 text-sm outline-none focus:border-purple-600">
+          <input id="deposit-trx" type="text" placeholder="Transaction ID (TrxID)" class="w-full p-3 border rounded-xl mb-4 text-sm outline-none focus:border-purple-600">
+
+          <button onclick="submitDeposit()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl text-sm shadow-md">Submit Deposit Request</button>
+        </div>
+      `;
+    }
+
+    let selectedPaymentMethod = "bKash";
+    function selectMethod(method) { selectedPaymentMethod = method; alert("Selected Method: " + method); }
+    function setAmount(amt) { document.getElementById('deposit-amount').value = amt; }
+
+    function submitDeposit() {
+      const amt = parseFloat(document.getElementById('deposit-amount').value);
+      const trx = document.getElementById('deposit-trx').value;
+      if (!amt || !trx) return alert("Please fill amount & transaction ID!");
+
+      state.deposits.push({
+        id: Date.now(),
+        userId: userId,
+        userName: state.users[userId].name,
+        amount: amt,
+        method: selectedPaymentMethod,
+        trx: trx,
+        status: 'Pending'
+      });
+      saveState();
+      alert("Deposit request submitted! Admin will verify soon.");
+      switchTab('orders');
+    }
+
+    // --- ORDERS PAGE ---
+    function renderOrders(container) {
+      const myOrders = state.orders.filter(o => o.userId === userId);
+      const myDeposits = state.deposits.filter(d => d.userId === userId);
+
+      container.innerHTML = `
+        <h3 class="font-bold text-sm mb-3">Deposit Requests</h3>
+        <div class="space-y-2 mb-6">
+          ${myDeposits.length === 0 ? '<p class="text-xs text-gray-400">No deposit history.</p>' : ''}
+          ${myDeposits.map(d => `
+            <div class="bg-white p-3 rounded-xl border flex justify-between items-center text-xs">
+              <div>
+                <p class="font-bold">${d.method} - ৳${d.amount}</p>
+                <p class="text-[10px] text-gray-400">Trx: ${d.trx}</p>
+              </div>
+              <span class="px-2 py-1 rounded-full text-[10px] font-bold ${d.status === 'Approved' ? 'bg-green-100 text-green-700' : d.status === 'Rejected' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}">${d.status}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <h3 class="font-bold text-sm mb-3">Purchased Products</h3>
+        <div class="space-y-2">
+          ${myOrders.length === 0 ? '<p class="text-xs text-gray-400">No purchase history.</p>' : ''}
+          ${myOrders.map(o => `
+            <div class="bg-white p-3 rounded-xl border flex justify-between items-center text-xs">
+              <div>
+                <p class="font-bold">${o.productName} (x${o.qty})</p>
+                <p class="text-[10px] text-gray-400">Duration: ${o.days} Days | Total: ৳${o.total}</p>
+              </div>
+              <span class="text-purple-600 font-bold">Active</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // --- PROFILE PAGE ---
+    function renderProfile(container) {
+      container.innerHTML = `
+        <div class="bg-white p-5 rounded-2xl border text-center shadow-sm">
+          <div class="w-16 h-16 rounded-full bg-purple-100 text-purple-600 font-bold text-2xl flex items-center justify-center mx-auto mb-3">
+            ${currentUser.first_name[0]}
+          </div>
+          <h3 class="font-bold text-base">${currentUser.first_name}</h3>
+          <p class="text-xs text-gray-400 mb-4">Telegram ID: ${userId}</p>
+
+          <div class="bg-gray-50 p-3 rounded-xl border mb-4">
+            <span class="text-xs text-gray-500">Current Balance</span>
+            <p class="text-2xl font-black text-purple-700">৳ ${state.users[userId].balance.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- PRODUCT PURCHASE MODAL ---
+    function openProductModal(type) {
+      const items = state.products.filter(p => p.type === type);
+      const modal = document.createElement('div');
+      modal.className = "fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end justify-center";
+      modal.id = "product-modal";
+      modal.innerHTML = `
+        <div class="bg-white w-full max-w-md rounded-t-3xl p-5 max-h-[80vh] overflow-y-auto">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-base capitalize">Select ${type}</h3>
+            <button onclick="document.getElementById('product-modal').remove()" class="text-gray-400 font-bold">✕</button>
+          </div>
+          <div class="space-y-3">
+            ${items.length === 0 ? '<p class="text-xs text-gray-400">No products available.</p>' : ''}
+            ${items.map(item => `
+              <div class="p-3 border rounded-xl flex items-center gap-3">
+                <img src="${item.image}" class="w-10 h-10 object-contain rounded-lg">
+                <div class="flex-1">
+                  <h4 class="font-bold text-xs">${item.name}</h4>
+                  <p class="text-xs text-purple-600 font-bold">৳${item.price}/day</p>
+                </div>
+                <button onclick="buyProduct(${item.id})" class="bg-purple-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg">Buy</button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function buyProduct(prodId) {
+      const prod = state.products.find(p => p.id === prodId);
+      const days = parseInt(prompt("কয়দিনের জন্য কিনবেন (Days)?", "1")) || 1;
+      const qty = parseInt(prompt("কয়টা কিনবেন (Quantity)?", "1")) || 1;
+      const totalPrice = prod.price * days * qty;
+
+      if (state.users[userId].balance < totalPrice) {
+        return alert(`পর্যাপ্ত ব্যালেন্স নেই! মোট লাগবে: ৳${totalPrice}`);
+      }
+
+      state.users[userId].balance -= totalPrice;
+      state.orders.push({
+        id: Date.now(),
+        userId: userId,
+        productName: prod.name,
+        days: days,
+        qty: qty,
+        total: totalPrice
+      });
+      saveState();
+      alert("পণ্য সফলভাবে কেনা হয়েছে!");
+      document.getElementById('product-modal').remove();
+      switchTab('orders');
+    }
+
+    // --- ADMIN PANEL ---
+    function openAdminPanel() {
+      const container = document.getElementById('app-content');
+      container.innerHTML = `
+        <div class="bg-white p-4 rounded-2xl border shadow-md mb-6">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold text-red-600 text-sm">⚙️ Secret Admin Panel</h3>
+            <button onclick="switchTab('home')" class="text-xs bg-gray-200 px-2 py-1 rounded">Exit</button>
+          </div>
+
+          <!-- Add Product -->
+          <div class="border-t pt-3 mb-4">
+            <h4 class="font-bold text-xs mb-2">Add New Product (VPN/Proxy)</h4>
+            <select id="adm-type" class="w-full p-2 border rounded-lg text-xs mb-2">
+              <option value="vpn">VPN</option>
+              <option value="proxy">Proxy</option>
+            </select>
+            <input id="adm-name" type="text" placeholder="Product Name" class="w-full p-2 border rounded-lg text-xs mb-2">
+            <input id="adm-price" type="number" placeholder="Price Per Day (BDT)" class="w-full p-2 border rounded-lg text-xs mb-2">
+            <input id="adm-img" type="text" placeholder="Image URL" class="w-full p-2 border rounded-lg text-xs mb-3">
+            <button onclick="adminAddProduct()" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg text-xs">Add Product</button>
+          </div>
+
+          <!-- Deposit Requests -->
+          <div class="border-t pt-3">
+            <h4 class="font-bold text-xs mb-2">Manage Deposit Requests</h4>
+            <div class="space-y-2">
+              ${state.deposits.filter(d => d.status === 'Pending').length === 0 ? '<p class="text-[10px] text-gray-400">No pending requests.</p>' : ''}
+              ${state.deposits.filter(d => d.status === 'Pending').map(d => `
+                <div class="p-2 border rounded-lg bg-gray-50 text-xs">
+                  <p><b>User:</b> ${d.userName} (${d.userId})</p>
+                  <p><b>Amount:</b> ৳${d.amount} (${d.method})</p>
+                  <p><b>TrxID:</b> ${d.trx}</p>
+                  <div class="flex gap-2 mt-2">
+                    <button onclick="processDeposit(${d.id}, true)" class="flex-1 bg-green-600 text-white py-1 rounded text-[10px] font-bold">Approve</button>
+                    <button onclick="processDeposit(${d.id}, false)" class="flex-1 bg-red-600 text-white py-1 rounded text-[10px] font-bold">Reject</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function adminAddProduct() {
+      const type = document.getElementById('adm-type').value;
+      const name = document.getElementById('adm-name').value;
+      const price = parseFloat(document.getElementById('adm-price').value);
+      const img = document.getElementById('adm-img').value || 'https://cdn-icons-png.flaticon.com/512/2885/2885440.png';
+
+      if (!name || !price) return alert("Product Name and Price are required!");
+
+      state.products.push({ id: Date.now(), type: type, name: name, price: price, image: img });
+      saveState();
+      alert("Product Added Successfully!");
+      openAdminPanel();
+    }
+
+    function processDeposit(depId, isApprove) {
+      const dep = state.deposits.find(d => d.id === depId);
+      if (!dep) return;
+
+      if (isApprove) {
+        dep.status = 'Approved';
+        state.users[dep.userId].balance += dep.amount;
+        alert("Deposit Approved & Balance Added!");
+      } else {
+        dep.status = 'Rejected';
+        alert("Deposit Request Rejected!");
+      }
+      saveState();
+      openAdminPanel();
+    }
+
+    // Default Load
+    switchTab('home');
+  </script>
 </body>
-    </html>
+</html>
