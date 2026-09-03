@@ -1,54 +1,52 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXORA - DIGITAL SERVICES</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #F4F6F9;
-            --card-bg: #FFFFFF;
-            --primary-purple: #6C5CE7;
-            --primary-teal: #00CEC9;
-            --primary-blue: #0984E3;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --border-radius-lg: 20px;
-            --border-radius-md: 14px;
-            --shadow-soft: 0 8px 24px rgba(149, 157, 165, 0.08);
+            --bg-color: #f4f6fb;
+            --card-bg: #ffffff;
+            --primary-purple: #6c5ce7;
+            --primary-blue: #0984e3;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
+            background-color: #0f172a;
             display: flex;
             justify-content: center;
-            align-items: center;
             min-height: 100vh;
         }
 
-        /* App Wrapper (Mobile View Frame) */
         .app-container {
             width: 100%;
             max-width: 430px;
-            background: #F8FAFC;
+            background: var(--bg-color);
             min-height: 100vh;
             padding: 16px;
             padding-bottom: 90px;
             position: relative;
         }
 
-        /* Top Bar Header */
+        /* Top Bar */
         .header {
             display: flex;
             justify-content: space-between;
@@ -63,31 +61,31 @@
         }
 
         .logo-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #6C5CE7, #81ECEC);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 20px;
-            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         .brand-text h1 {
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            color: #1E293B;
+            color: #0f172a;
             line-height: 1;
         }
 
         .brand-text span {
-            font-size: 8px;
-            font-weight: 600;
-            color: var(--primary-purple);
-            letter-spacing: 1px;
+            font-size: 9px;
+            font-weight: 700;
+            color: #7c3aed;
+            letter-spacing: 0.5px;
         }
 
         .header-actions {
@@ -97,26 +95,26 @@
         }
 
         .icon-btn {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             background: var(--card-bg);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow);
             color: #475569;
             cursor: pointer;
         }
 
         .notification-dot {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 10px;
+            right: 10px;
             width: 8px;
             height: 8px;
-            background-color: #FF7675;
+            background-color: #ef4444;
             border-radius: 50%;
             border: 2px solid white;
         }
@@ -124,70 +122,69 @@
         .balance-badge {
             background: var(--card-bg);
             padding: 8px 14px;
-            border-radius: 20px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow);
             font-weight: 700;
             font-size: 14px;
-            color: #1E293B;
+            color: #0f172a;
         }
 
         .balance-badge i {
-            color: var(--primary-purple);
+            color: #7c3aed;
             font-size: 16px;
         }
 
-        /* User Profile Card */
+        /* Profile Card */
         .profile-card {
             background: var(--card-bg);
-            border-radius: var(--border-radius-lg);
+            border-radius: var(--radius-lg);
             padding: 16px;
             display: flex;
             align-items: center;
             gap: 14px;
-            box-shadow: var(--shadow-soft);
-            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
             position: relative;
         }
 
         .avatar {
-            width: 56px;
-            height: 56px;
-            background: #E2E8F0;
+            width: 54px;
+            height: 54px;
+            background: #f1f5f9;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #94A3B8;
-            font-size: 28px;
+            color: #94a3b8;
+            font-size: 24px;
         }
 
         .user-details h3 {
             font-size: 16px;
             font-weight: 700;
-            color: #0F172A;
-            margin-bottom: 2px;
+            color: #0f172a;
         }
 
         .username {
             font-size: 13px;
-            color: var(--primary-blue);
+            color: #2563eb;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 4px;
-            margin-bottom: 6px;
+            margin: 2px 0 6px;
         }
 
         .badge-verified {
-            background: #EDF2F7;
-            color: var(--primary-purple);
-            font-size: 10px;
+            background: #f1f5f9;
+            color: #7c3aed;
+            font-size: 11px;
             font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -196,10 +193,363 @@
         .arrow-right {
             position: absolute;
             right: 16px;
-            color: #94A3B8;
-            font-size: 14px;
+            color: #94a3b8;
         }
 
         /* Banner Carousel */
         .carousel-container {
-            display: flex
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            margin-bottom: 8px;
+        }
+
+        .carousel-container::-webkit-scrollbar { display: none; }
+
+        .banner-card {
+            min-width: 260px;
+            height: 125px;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            color: white;
+            position: relative;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .banner-1 { background: linear-gradient(135deg, #4338ca, #6366f1); }
+        .banner-2 { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+        .banner-3 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+
+        .banner-card h4 { font-size: 15px; font-weight: 700; }
+        .banner-card p { font-size: 10px; opacity: 0.9; margin-top: 2px; }
+
+        .banner-btn {
+            background: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .banner-1 .banner-btn { color: #4338ca; }
+        .banner-2 .banner-btn { color: #0d9488; }
+        .banner-3 .banner-btn { color: #0284c7; }
+
+        .banner-icon {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 50px;
+            opacity: 0.25;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #cbd5e1;
+            border-radius: 50%;
+        }
+
+        .dot.active {
+            background: #7c3aed;
+            width: 18px;
+            border-radius: 10px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 12px 6px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .service-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .vpn-icon { background: #e0f2fe; color: #0284c7; }
+        .proxy-icon { background: #f3e8ff; color: #9333ea; }
+        .p2p-icon { background: #dcfce7; color: #16a34a; }
+
+        .service-card h4 { font-size: 12px; font-weight: 700; color: #0f172a; }
+        .service-card p { font-size: 9px; color: var(--text-muted); margin: 2px 0 8px; }
+
+        .action-btn {
+            width: 100%;
+            padding: 6px 0;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid transparent;
+        }
+
+        .vpn-btn { border-color: #bae6fd; color: #0284c7; }
+        .proxy-btn { border-color: #e9d5ff; color: #9333ea; }
+        .p2p-btn { background: #e0f2fe; color: #0284c7; }
+
+        /* Add Fund Bar */
+        .add-fund-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+        }
+
+        .add-fund-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fund-icon {
+            width: 40px;
+            height: 40px;
+            background: #e0f2fe;
+            color: #0284c7;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .fund-text h4 { font-size: 13px; font-weight: 700; color: #0f172a; }
+        .fund-text p { font-size: 10px; color: var(--text-muted); }
+
+        .fund-arrow {
+            width: 32px;
+            height: 32px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0284c7;
+            font-size: 12px;
+        }
+
+        /* Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .nav-item i { font-size: 18px; }
+        .nav-item.active { color: #7c3aed; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Top Header -->
+        <header class="header">
+            <div class="brand-logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shapes"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>NEXORA</h1>
+                    <span>✦ DIGITAL SERVICES ✦</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                <div class="balance-badge">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>৳ 0.00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- User Profile Card -->
+        <div class="profile-card">
+            <div class="avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="user-details">
+                <h3>Shakil Hassan</h3>
+                <a href="#" class="username">@shakil_hassan <i class="fa-regular fa-copy"></i></a>
+                <span class="badge-verified"><i class="fa-solid fa-check"></i> Verified User</span>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-right"></i>
+        </div>
+
+        <!-- Banner Carousel -->
+        <div class="carousel-container">
+            <div class="banner-card banner-1">
+                <div>
+                    <h4>Big Announcement!</h4>
+                    <p>We have something new for you</p>
+                </div>
+                <button class="banner-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-bullhorn banner-icon"></i>
+            </div>
+
+            <div class="banner-card banner-2">
+                <div>
+                    <h4>Special Offer!</h4>
+                    <p>Get up to 20% OFF on all services</p>
+                </div>
+                <button class="banner-btn">Grab Now <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-gift banner-icon"></i>
+            </div>
+
+            <div class="banner-card banner-3">
+                <div>
+                    <h4>Fast & Secure Services</h4>
+                    <p>Trusted by thousands of happy users</p>
+                </div>
+                <button class="banner-btn">Explore Now <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-shield-halved banner-icon"></i>
+            </div>
+        </div>
+
+        <!-- Carousel Dots Indicator -->
+        <div class="carousel-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon vpn-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h4>VPN</h4>
+                <p>Fast & Secure VPN</p>
+                <a href="#" class="action-btn vpn-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon proxy-icon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h4>Proxy</h4>
+                <p>High Quality Proxy</p>
+                <a href="#" class="action-btn proxy-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon p2p-icon">
+                    <i class="fa-solid fa-rotate"></i>
+                </div>
+                <h4>P2P Dollar</h4>
+                <p>Buy & Sell Dollar</p>
+                <a href="#" class="action-btn p2p-btn">Buy / Sell <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Add Fund Banner -->
+        <div class="add-fund-card">
+            <div class="add-fund-left">
+                <div class="fund-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <div class="fund-text">
+                    <h4>Add Fund</h4>
+                    <p>Add balance to your account</p>
+                </div>
+            </div>
+            <div class="fund-arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Add Fund</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Orders</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+</body>
+            </html>
