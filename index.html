@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f4f6fb;
+            --bg-color: #f6f8fc;
             --card-bg: #ffffff;
             --text-dark: #0f172a;
             --text-muted: #64748b;
-            --primary-purple: #7c3aed;
-            --radius-lg: 18px;
-            --radius-md: 14px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --primary-purple: #6c5ce7;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
 
         * {
@@ -41,11 +41,11 @@
             background: var(--bg-color);
             min-height: 100vh;
             padding: 14px;
-            padding-bottom: 85px;
+            padding-bottom: 90px;
             position: relative;
         }
 
-        /* 1. Header */
+        /* Top Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -60,23 +60,24 @@
         }
 
         .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #7c3aed, #06b6d4);
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #6c5ce7, #00d2d3);
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 18px;
-            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.25);
         }
 
         .brand-text h1 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 800;
             color: var(--text-dark);
             line-height: 1;
+            letter-spacing: -0.3px;
         }
 
         .brand-text span {
@@ -93,8 +94,8 @@
         }
 
         .icon-btn {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             background: var(--card-bg);
             border-radius: 50%;
             display: flex;
@@ -104,13 +105,13 @@
             box-shadow: var(--shadow);
             color: #475569;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .notification-dot {
             position: absolute;
-            top: 7px;
-            right: 7px;
+            top: 8px;
+            right: 8px;
             width: 7px;
             height: 7px;
             background-color: #ef4444;
@@ -118,48 +119,47 @@
             border: 2px solid white;
         }
 
+        /* Balance Badge (One Line Fixed) */
         .balance-badge {
             background: var(--card-bg);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 6px;
             box-shadow: var(--shadow);
-            font-weight: 700;
-            font-size: 12px;
+            font-weight: 800;
+            font-size: 13px;
             color: var(--text-dark);
             white-space: nowrap;
         }
 
         .balance-badge i {
             color: var(--primary-purple);
-            font-size: 13px;
+            font-size: 14px;
         }
 
-        /* 2. Balance Display Card */
+        /* Main Balance Card */
         .main-balance-card {
             background: linear-gradient(135deg, #6c5ce7, #4834d4);
             border-radius: var(--radius-lg);
-            padding: 16px 18px;
+            padding: 18px 20px;
             color: white;
-            box-shadow: 0 8px 18px rgba(108, 92, 231, 0.3);
-            margin-bottom: 14px;
+            box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.35);
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            overflow: hidden;
         }
 
         .balance-info p {
-            font-size: 11px;
+            font-size: 12px;
             opacity: 0.85;
             font-weight: 500;
         }
 
         .balance-info h2 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
             margin-top: 2px;
         }
@@ -171,7 +171,7 @@
             color: white;
             padding: 8px 14px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -179,23 +179,23 @@
             cursor: pointer;
         }
 
-        /* 3. Carousel Banner */
+        /* Carousel Banner */
         .carousel-container {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .carousel-container::-webkit-scrollbar { display: none; }
 
         .banner-card {
-            min-width: 250px;
-            height: 105px;
+            min-width: 270px;
+            height: 115px;
             border-radius: var(--radius-md);
-            padding: 12px 14px;
+            padding: 14px 16px;
             color: white;
             position: relative;
             scroll-snap-align: start;
@@ -203,20 +203,19 @@
             flex-direction: column;
             justify-content: space-between;
             flex-shrink: 0;
-            overflow: hidden;
         }
 
         .banner-1 { background: linear-gradient(135deg, #4338ca, #6366f1); }
         .banner-2 { background: linear-gradient(135deg, #0d9488, #14b8a6); }
         .banner-3 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
 
-        .banner-card h4 { font-size: 13px; font-weight: 700; }
-        .banner-card p { font-size: 10px; opacity: 0.9; }
+        .banner-card h4 { font-size: 14px; font-weight: 700; }
+        .banner-card p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 
         .banner-btn {
             background: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 15px;
             font-size: 10px;
             font-weight: 700;
@@ -230,9 +229,9 @@
 
         .banner-icon {
             position: absolute;
-            right: 8px;
-            bottom: 4px;
-            font-size: 40px;
+            right: 12px;
+            bottom: 8px;
+            font-size: 48px;
             opacity: 0.25;
         }
 
@@ -240,7 +239,7 @@
             display: flex;
             justify-content: center;
             gap: 5px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .dot {
@@ -252,89 +251,78 @@
 
         .dot.active {
             background: var(--primary-purple);
-            width: 14px;
+            width: 16px;
             border-radius: 10px;
         }
 
-        /* 4. Services List */
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .services-list {
-            display: flex;
-            flex-direction: column;
+        /* 3 Services Grid Layout (Restored & Fixed) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
-        .service-card {
+        .service-box {
             background: var(--card-bg);
             border-radius: var(--radius-md);
-            padding: 12px 14px;
+            padding: 14px 8px;
             box-shadow: var(--shadow);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            text-align: center;
         }
 
-        .service-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .service-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+        .service-box-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 16px;
-            flex-shrink: 0;
+            font-size: 20px;
+            margin-bottom: 8px;
         }
 
-        .vpn-icon { background: #e0f2fe; color: #0284c7; }
-        .proxy-icon { background: #f3e8ff; color: #9333ea; }
-        .p2p-icon { background: #dcfce7; color: #16a34a; }
+        .vpn-bg { background: #e0f2fe; color: #0284c7; }
+        .proxy-bg { background: #f3e8ff; color: #9333ea; }
+        .p2p-bg { background: #dcfce7; color: #16a34a; }
 
-        .service-text h4 {
-            font-size: 13px;
-            font-weight: 700;
+        .service-box h4 {
+            font-size: 12px;
+            font-weight: 800;
             color: var(--text-dark);
         }
 
-        .service-text p {
-            font-size: 10px;
+        .service-box p {
+            font-size: 9px;
             color: var(--text-muted);
-            margin-top: 1px;
+            margin-top: 2px;
+            margin-bottom: 10px;
+            line-height: 1.1;
         }
 
-        .action-btn {
-            padding: 7px 12px;
-            border-radius: 8px;
-            font-size: 11px;
+        .service-action-btn {
+            width: 100%;
+            padding: 6px 0;
+            border-radius: 10px;
+            font-size: 10px;
             font-weight: 700;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
+            display: block;
+            text-align: center;
         }
 
         .vpn-btn { background: #e0f2fe; color: #0284c7; }
         .proxy-btn { background: #f3e8ff; color: #9333ea; }
         .p2p-btn { background: #dcfce7; color: #16a34a; }
 
-        /* Add Fund Bar */
+        /* Add Fund Section Bar */
         .add-fund-card {
             background: var(--card-bg);
             border-radius: var(--radius-md);
-            padding: 12px 14px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -349,30 +337,30 @@
         }
 
         .fund-icon {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: #e0f2fe;
             color: #0284c7;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 15px;
+            font-size: 18px;
         }
 
-        .fund-text h4 { font-size: 12px; font-weight: 700; color: var(--text-dark); }
-        .fund-text p { font-size: 10px; color: var(--text-muted); }
+        .fund-text h4 { font-size: 13px; font-weight: 800; color: var(--text-dark); }
+        .fund-text p { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
 
         .fund-arrow {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             background: #f1f5f9;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #0284c7;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         /* Bottom Nav */
@@ -386,8 +374,8 @@
             background: var(--card-bg);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.04);
+            padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
             border-top: 1px solid #f1f5f9;
         }
 
@@ -395,7 +383,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             text-decoration: none;
             color: #94a3b8;
             font-size: 10px;
@@ -403,10 +391,10 @@
             cursor: pointer;
         }
 
-        .nav-item i { font-size: 16px; }
+        .nav-item i { font-size: 18px; }
         .nav-item.active { color: var(--primary-purple); }
 
-        /* Modal Overlay */
+        /* Deposit Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -414,7 +402,7 @@
             width: 100%;
             height: 100%;
             background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
             align-items: flex-end;
@@ -425,10 +413,10 @@
             background: white;
             width: 100%;
             max-width: 430px;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            padding: 18px;
-            animation: slideUp 0.25s ease-out;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            padding: 20px;
+            animation: slideUp 0.3s ease-out;
         }
 
         @keyframes slideUp {
@@ -440,11 +428,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .modal-header h3 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -452,8 +440,8 @@
         .close-btn {
             background: #f1f5f9;
             border: none;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -465,14 +453,14 @@
         .payment-methods {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
 
         .payment-option {
             border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 8px;
+            border-radius: 12px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             font-size: 12px;
@@ -487,7 +475,7 @@
         }
 
         .input-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .input-group label {
@@ -495,15 +483,15 @@
             font-size: 11px;
             font-weight: 700;
             color: #475569;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1.5px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: 10px;
+            font-size: 14px;
             outline: none;
             font-weight: 600;
         }
@@ -514,12 +502,12 @@
 
         .submit-deposit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #7c3aed, #4834d4);
+            background: linear-gradient(135deg, #6c5ce7, #4834d4);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 13px;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
         }
@@ -564,4 +552,171 @@
                     <h4>Big Announcement!</h4>
                     <p>We have something new for you</p>
                 </div>
-                <button class="banner-btn">
+                <button class="banner-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-bullhorn banner-icon"></i>
+            </div>
+            <div class="banner-card banner-2">
+                <div>
+                    <h4>Special Offer!</h4>
+                    <p>Get up to 20% OFF on all services</p>
+                </div>
+                <button class="banner-btn">Grab Now <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-gift banner-icon"></i>
+            </div>
+            <div class="banner-card banner-3">
+                <div>
+                    <h4>Fast & Secure Services</h4>
+                    <p>Trusted by thousands of happy users</p>
+                </div>
+                <button class="banner-btn">Explore Now <i class="fa-solid fa-arrow-right"></i></button>
+                <i class="fa-solid fa-shield-halved banner-icon"></i>
+            </div>
+        </div>
+
+        <div class="carousel-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-box">
+                <div class="service-box-icon vpn-bg">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h4>VPN</h4>
+                <p>Fast & Secure VPN</p>
+                <a href="#" class="service-action-btn vpn-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-box">
+                <div class="service-box-icon proxy-bg">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h4>Proxy</h4>
+                <p>High Quality Proxy</p>
+                <a href="#" class="service-action-btn proxy-btn">View Packages <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-box">
+                <div class="service-box-icon p2p-bg">
+                    <i class="fa-solid fa-rotate"></i>
+                </div>
+                <h4>P2P Dollar</h4>
+                <p>Buy & Sell Dollar</p>
+                <a href="#" class="service-action-btn p2p-btn">Buy / Sell <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="add-fund-card" onclick="openDepositModal()">
+            <div class="add-fund-left">
+                <div class="fund-icon"><i class="fa-solid fa-wallet"></i></div>
+                <div class="fund-text">
+                    <h4>Add Fund</h4>
+                    <p>Add balance to your account</p>
+                </div>
+            </div>
+            <div class="fund-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <div class="nav-item" onclick="openDepositModal()">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Add Fund</span>
+            </div>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Orders</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="modal-overlay" id="depositModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Deposit Money</h3>
+                <button class="close-btn" onclick="closeDepositModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-option selected" onclick="selectMethod(this, 'bKash')">bKash</div>
+                <div class="payment-option" onclick="selectMethod(this, 'Nagad')">Nagad</div>
+                <div class="payment-option" onclick="selectMethod(this, 'Binance')">Binance</div>
+            </div>
+
+            <div class="input-group">
+                <label>Amount (BDT)</label>
+                <input type="number" id="depositAmount" placeholder="e.g. 500">
+            </div>
+
+            <div class="input-group">
+                <label>Transaction ID (TrxID)</label>
+                <input type="text" id="trxId" placeholder="e.g. 9J8A7K2L">
+            </div>
+
+            <button class="submit-deposit-btn" onclick="submitDeposit()">Submit Deposit</button>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram?.WebApp;
+        if (tg) tg.expand();
+
+        let selectedPaymentMethod = 'bKash';
+
+        function openDepositModal() {
+            document.getElementById('depositModal').style.display = 'flex';
+        }
+
+        function closeDepositModal() {
+            document.getElementById('depositModal').style.display = 'none';
+        }
+
+        function selectMethod(element, method) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPaymentMethod = method;
+        }
+
+        function submitDeposit() {
+            const amount = document.getElementById('depositAmount').value;
+            const trx = document.getElementById('trxId').value;
+
+            if (!amount || amount <= 0) {
+                alert('Enter amount!');
+                return;
+            }
+            if (!trx) {
+                alert('Enter Transaction ID!');
+                return;
+            }
+
+            if (tg && tg.initDataUnsafe?.user) {
+                tg.sendData(JSON.stringify({
+                    action: 'deposit',
+                    method: selectedPaymentMethod,
+                    amount: amount,
+                    trx_id: trx,
+                    user_id: tg.initDataUnsafe.user.id
+                }));
+            } else {
+                alert(`Deposit request sent!\nMethod: ${selectedPaymentMethod}\nAmount: ৳${amount}\nTrxID: ${trx}`);
+            }
+
+            closeDepositModal();
+            document.getElementById('depositAmount').value = '';
+            document.getElementById('trxId').value = '';
+        }
+    </script>
+</body>
+    </html>
