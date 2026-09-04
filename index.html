@@ -1,168 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>NEXORA Mini App</title>
+<title>NEXORA Premium</title>
 <style>
-:root{
-  --bg:#f4f6fb; --card:#fff; --ink:#162039; --muted:#71809a;
-  --purple:#6540e8; --purple2:#9a54f4; --dark:#0b1022;
-  --green:#14a66d; --line:#e6eaf3; --shadow:0 12px 35px rgba(26,35,70,.10);
-}
-*{box-sizing:border-box} body{margin:0;background:#e9edf6;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial;color:var(--ink)}
-.app{max-width:520px;min-height:100vh;margin:auto;background:var(--bg);position:relative;padding-bottom:88px;overflow:hidden}
-.top{background:linear-gradient(135deg,#080d20,#17133c);color:#fff;padding:22px 20px 20px}
-.row{display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center;font-size:26px;font-weight:850;letter-spacing:.5px}
-.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#7d63ff,#2d75df);display:grid;place-items:center;font-weight:900;color:white;box-shadow:0 8px 25px #5140b566}
-.iconbtn{border:1px solid #ffffff20;background:#ffffff0c;color:#fff;width:42px;height:42px;border-radius:14px;font-size:20px}
-.content{padding:18px}
-.balance{border-radius:25px;padding:22px;color:#fff;background:radial-gradient(circle at 90% 20%,#a65cff 0,#6435d8 24%,#161040 72%);box-shadow:0 16px 30px #3f2a9226}
-.balance small{opacity:.82;font-size:15px}.money{font-size:39px;font-weight:850;margin:8px 0 18px}.add{border:0;border-radius:16px;padding:14px 18px;background:#ffffff18;color:#fff;font-size:16px;font-weight:750}
-.hero{margin-top:16px;border-radius:25px;padding:24px;min-height:200px;color:#fff;background:linear-gradient(135deg,#111033,#25105b 55%,#7526c8);position:relative;overflow:hidden}
-.hero:after{content:"🚀";position:absolute;right:25px;top:55px;font-size:72px;filter:drop-shadow(0 12px 12px #0006)}
-.badge{display:inline-block;background:#ffffff18;border:1px solid #ffffff25;border-radius:99px;padding:7px 12px;font-weight:700}.hero h1{font-size:34px;line-height:1.05;margin:18px 0 10px}.grad{color:#b985ff}.hero p{max-width:65%;opacity:.85}.cta{background:linear-gradient(90deg,#6848ef,#b141df);border:0;color:#fff;border-radius:15px;padding:14px 20px;font-size:16px;font-weight:800}
-.sectionTitle{font-size:20px;font-weight:850;margin:24px 0 12px}
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.product{background:#fff;border:1px solid var(--line);border-radius:21px;padding:14px 10px;text-align:center;box-shadow:var(--shadow);cursor:pointer}.picon{width:54px;height:54px;margin:0 auto 10px;border-radius:18px;display:grid;place-items:center;font-size:29px;background:linear-gradient(135deg,#e7eaff,#f5edff)}.product b{display:block;font-size:15px}.product span{display:block;color:var(--muted);font-size:12px;margin:5px 0 11px}.view{border:0;background:linear-gradient(135deg,#6443e8,#9144e8);color:white;border-radius:12px;padding:10px;width:100%;font-weight:800}
-.notice{margin-top:16px;padding:14px;border:1px solid #e5e7f3;border-radius:16px;background:#fff;color:#5f6880}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:5}.nav button{border:0;background:transparent;color:#68748c;font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:66px}.nav i{font-style:normal;font-size:23px}.nav .active{color:var(--purple);font-weight:850}
-.screen{display:none}.screen.active{display:block}.back{font-size:28px;cursor:pointer;margin-right:12px}.pageTitle{font-size:25px;font-weight:850}
-.filters{display:flex;gap:8px;overflow:auto;padding:12px 0}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:10px 14px;font-weight:700}.chip.on{background:linear-gradient(135deg,#6443e8,#8c48ee);color:#fff}
-.list{display:flex;flex-direction:column;gap:11px}.vpn{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;display:grid;grid-template-columns:58px 1fr 90px 40px;align-items:center;gap:10px;box-shadow:var(--shadow);cursor:pointer}.vpnlogo{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;font-size:27px;background:#edf1ff}.vpn h3{margin:0;font-size:18px}.vpn p{margin:4px 0 0;color:var(--muted);font-size:13px}.price{text-align:right;color:#1c7a51;font-weight:850;font-size:20px}.price small{display:block;color:var(--muted);font-size:11px;font-weight:600}.arrow{width:38px;height:38px;border:0;border-radius:50%;background:linear-gradient(135deg,#6142e8,#8d43e7);color:#fff;font-size:22px}
-.detailCard{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}.qty{display:flex;gap:9px;margin:14px 0}.qty button{width:52px;height:48px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:16px;font-weight:800}.qty button.sel{border-color:#7047e9;color:#7047e9;background:#f5f1ff}.summary{margin-top:15px;background:#f8f9fd;border-radius:17px;padding:14px}.sumrow{display:flex;justify-content:space-between;margin:10px 0;color:#59657a}.total{font-size:22px;font-weight:900;color:#563bd3}.buyNow{width:100%;margin-top:16px;border:0;border-radius:17px;padding:17px;background:linear-gradient(135deg,#5c3ae0,#9645ed);color:#fff;font-size:18px;font-weight:850}
-.success{background:linear-gradient(135deg,#effbf5,#f8fffc);border:1px solid #ccebd9;border-radius:20px;padding:18px;color:#187349}.credentials{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px}.cred{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #eef0f5}.cred:last-child{border:0}.copy{border:0;background:#f0ecff;color:#6643e7;border-radius:10px;padding:6px 10px}
-.addfund .method{display:flex;gap:10px;overflow:auto}.method button{min-width:115px;padding:15px;border-radius:17px;border:1px solid var(--line);background:#fff;font-weight:800}.method .sel{border-color:#e84d99;box-shadow:0 0 0 2px #ffe4f2}.amountInput{width:100%;margin:16px 0;padding:18px;border-radius:18px;border:1px solid var(--line);font-size:24px;font-weight:800}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{padding:10px 14px;border:1px solid var(--line);background:#fff;border-radius:12px;font-weight:750}
-@media(max-width:390px){.products{grid-template-columns:1fr}.vpn{grid-template-columns:52px 1fr 75px 34px}.money{font-size:34px}}
+:root{--p:#673de6;--p2:#9148eb;--ink:#17213a;--muted:#73809a;--line:#e4e8f1;--bg:#f5f6fb;--dark:#0c1026}
+*{box-sizing:border-box}html,body{margin:0;background:#e9edf5;font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+.app{width:100%;max-width:520px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:88px;overflow:hidden}
+.top{height:88px;background:linear-gradient(100deg,#090d20,#1a153e);color:#fff;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.top h1{margin:0;font-size:30px}.back{font-size:38px;line-height:1;cursor:pointer}.content{padding:18px}
+.screen{display:none}.screen.active{display:block}
+.balance{background:radial-gradient(circle at 92% 10%,#a65cff,#6334d5 28%,#1b173f 74%);border-radius:28px;color:#fff;padding:26px;box-shadow:0 16px 35px rgba(77,46,176,.25)}
+.balance small{font-size:16px;opacity:.85}.money{font-size:38px;font-weight:900;margin:12px 0 18px}.addbtn,.primary{border:0;background:linear-gradient(135deg,#5d38db,#9849ec);color:#fff;border-radius:16px;padding:15px 20px;font-size:17px;font-weight:800}
+.hero{margin-top:16px;border-radius:26px;padding:25px;color:#fff;background:linear-gradient(135deg,#0b1030,#29105f,#7b27c5);min-height:205px;position:relative;overflow:hidden}.hero h2{font-size:34px;margin:16px 0 8px}.hero span{color:#bd8cff}.hero p{font-size:16px;max-width:60%;line-height:1.5}.hero .rocket{position:absolute;right:28px;top:55px;font-size:76px}
+.notice{margin:16px 0;padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff;color:#5d6880;font-size:15px}
+.title{font-size:22px;font-weight:900;margin:22px 0 13px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px 10px;text-align:center;box-shadow:0 10px 25px rgba(31,42,77,.07)}.serviceIcon{height:58px;width:58px;margin:auto;background:#f0edff;border-radius:18px;display:grid;place-items:center}.serviceIcon svg{width:34px;height:34px}.card b{display:block;margin:10px 0 5px;font-size:16px}.card span{display:block;color:var(--muted);font-size:12px;min-height:28px}.view{width:100%;border:0;border-radius:13px;margin-top:9px;padding:11px 5px;background:linear-gradient(135deg,#603ce1,#9348e9);color:#fff;font-weight:800}
+.nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;height:78px;background:rgba(255,255,255,.98);border-top:1px solid #e1e5ee;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -8px 25px rgba(25,35,70,.05)}
+.nav button{flex:1;min-width:0;border:0;background:transparent;color:#6d778c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap;padding:4px 1px;overflow:hidden}.nav button.active{color:#633fe2;font-weight:900}.nav svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2}.nav .navtext{overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.filters{display:flex;gap:9px;overflow-x:auto;padding:14px 0 5px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.chip{flex:0 0 auto;padding:11px 17px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:800}.chip.on{color:#fff;background:linear-gradient(135deg,#623de1,#9047e8)}
+.list{display:flex;flex-direction:column;gap:12px}.item{background:#fff;border:1px solid var(--line);border-radius:22px;padding:13px;display:grid;grid-template-columns:64px minmax(0,1fr) 86px 42px;gap:10px;align-items:center;box-shadow:0 10px 25px rgba(31,42,77,.07);cursor:pointer}.logoBox{height:60px;width:60px;border-radius:18px;background:#f5f7fc;display:grid;place-items:center;padding:9px}.logoBox img{max-width:100%;max-height:100%;object-fit:contain}.item h3{margin:0;font-size:18px}.item p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.3}.price{text-align:right;color:#19734f;font-size:21px;font-weight:900}.price small{display:block;color:var(--muted);font-size:11px}.go{height:40px;width:40px;border:0;border-radius:50%;background:linear-gradient(135deg,#603de1,#9148e9);color:#fff;font-size:25px}
+.payMethods{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.pay{height:105px;background:#fff;border:1px solid var(--line);border-radius:20px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;font-weight:900;font-size:17px;cursor:pointer}.pay.active{border:2px solid #e42d72;box-shadow:0 0 0 3px #ffe7f0}.brand{height:38px;max-width:125px;display:flex;align-items:center;justify-content:center;font-weight:900}.bkash{color:#e21365;font-size:27px}.nagad{color:#ef5a24;font-size:26px}.rocket{color:#5a318a;font-size:24px}.binanceLogo{width:34px;height:34px}.amount{width:100%;margin:18px 0 12px;border:1px solid var(--line);border-radius:20px;background:#fff;padding:22px;font-size:30px;font-weight:900;outline:none}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px 15px;font-weight:800}
+.detail{background:#fff;border:1px solid var(--line);border-radius:25px;padding:18px}.qty{display:flex;gap:9px;flex-wrap:wrap}.qty button{width:52px;height:48px;border:1px solid var(--line);background:#fff;border-radius:14px;font-weight:900}.qty .sel{border:2px solid var(--p);color:var(--p);background:#f6f2ff}.summary{margin-top:16px;padding:16px;border-radius:18px;background:#f8f9fd}.sum{display:flex;justify-content:space-between;padding:8px 0;color:#566177}.total{font-size:22px;font-weight:900;color:#563ad4}
+@media(max-width:390px){.top h1{font-size:27px}.cards{grid-template-columns:1fr}.item{grid-template-columns:58px minmax(0,1fr) 75px 38px}.price{font-size:18px}.nav button{font-size:10px}.nav svg{width:22px;height:22px}}
 </style>
 </head>
 <body>
 <div class="app">
 
 <section id="home" class="screen active">
-  <div class="top"><div class="row"><div class="brand"><div class="logo">N</div>NEXORA</div><button class="iconbtn">🔔</button></div></div>
-  <main class="content">
-    <div class="balance"><small>Available Balance</small><div class="money">৳ <span id="homeBalance">1,250.00</span></div><button class="add" onclick="show('fund')">＋ Add Fund</button></div>
-    <div class="hero"><span class="badge">🎧 24/7 Support</span><h1>Lightning Fast<br><span class="grad">Auto Delivery</span></h1><p>অর্ডার করার সাথে সাথেই প্রোডাক্ট পেয়ে যাবেন।</p><button class="cta">Get Support 💬</button></div>
-    <div class="notice">📢 Instant delivery on all orders • 24/7 Support Available</div>
-    <div class="sectionTitle">Choose a Service</div>
-    <div class="products">
-      <div class="product" onclick="show('vpn')"><div class="picon">🛡️</div><b>Buy VPN</b><span>Premium VPN</span><button class="view">View Packages</button></div>
-      <div class="product" onclick="show('proxy')"><div class="picon">🌐</div><b>Buy Proxy</b><span>Fast & Private</span><button class="view">View Packages</button></div>
-      <div class="product" onclick="show('mail')"><div class="picon">📧</div><b>Buy Mail</b><span>Hotmail/Outlook</span><button class="view">View Packages</button></div>
-    </div>
-  </main>
+ <header class="top"><h1>NEXORA</h1><span style="font-size:22px">🔔</span></header>
+ <main class="content">
+  <div class="balance"><small>Available Balance</small><div class="money">৳ <span class="bal">1,100.00</span></div><button class="addbtn" onclick="showPage('fund')">＋ Add Fund</button></div>
+  <div class="hero"><b style="background:#ffffff18;padding:8px 12px;border-radius:99px">🎧 24/7 Support</b><h2>Lightning Fast<br><span>Auto Delivery</span></h2><p>অর্ডার করার সাথে সাথেই প্রোডাক্ট পেয়ে যাবেন।</p><div class="rocket">🚀</div></div>
+  <div class="notice">📢 Instant delivery on all orders • 24/7 Support Available</div>
+  <div class="title">Choose a Service</div>
+  <div class="cards">
+   <div class="card"><div class="serviceIcon">🛡️</div><b>Buy VPN</b><span>Premium VPN</span><button class="view" onclick="showPage('vpn')">View Packages</button></div>
+   <div class="card"><div class="serviceIcon">🌐</div><b>Buy Proxy</b><span>Fast & Private</span><button class="view" onclick="showPage('proxy')">View Packages</button></div>
+   <div class="card"><div class="serviceIcon">✉️</div><b>Buy Mail</b><span>Hotmail/Outlook</span><button class="view" onclick="showPage('mail')">View Packages</button></div>
+  </div>
+ </main>
 </section>
 
 <section id="vpn" class="screen">
- <div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('home')">‹</span><span class="pageTitle">Buy VPN</span></div><span>🛒</span></div></div>
+ <header class="top"><span class="back" onclick="showPage('home')">‹</span><h1>Buy VPN</h1><span>🛒</span></header>
  <main class="content">
-   <div class="balance"><small>Available Balance</small><div class="money">৳ <span class="balanceNum">1,250.00</span></div><button class="add" onclick="show('fund')">＋ Add Fund</button></div>
-   <div class="filters"><span class="chip on">All VPN</span><span class="chip">Premium</span><span class="chip">⚡ Fast</span><span class="chip">🛡 Secure</span></div>
-   <div id="vpnList" class="list"></div>
+  <div class="balance"><small>Available Balance</small><div class="money">৳ <span class="bal">1,100.00</span></div><button class="addbtn" onclick="showPage('fund')">＋ Add Fund</button></div>
+  <div class="filters"><div class="chip on">All VPN</div><div class="chip">Premium</div><div class="chip">⚡ Fast</div><div class="chip">🛡 Secure</div></div>
+  <div id="vpnList" class="list"></div>
  </main>
 </section>
 
 <section id="details" class="screen">
- <div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('vpn')">‹</span><span class="pageTitle">Package Details</span></div><span>🛒</span></div></div>
+ <header class="top"><span class="back" onclick="showPage('vpn')">‹</span><h1>Package Details</h1><span>🛒</span></header>
  <main class="content">
-  <div class="detailCard">
-   <div class="row"><div><div style="font-size:34px" id="detailIcon">🛡️</div><h2 id="detailName" style="margin:8px 0">NordVPN</h2><p style="color:var(--muted);margin:0">Premium • Fast • Secure</p></div><div class="price">৳ <span id="unitPrice">120</span><small>/ 30 Days</small></div></div>
-   <h3>Select Quantity</h3><div class="qty" id="qtyBtns"></div>
-   <div class="summary"><div class="sumrow"><span>Price per item</span><b>৳ <span id="sPrice">120</span></b></div><div class="sumrow"><span>Quantity</span><b>× <span id="sQty">1</span></b></div><hr style="border:0;border-top:1px solid #e8eaf1"><div class="row total"><span>Total Amount</span><span>৳ <span id="total">120</span></span></div></div>
-   <div class="notice">⚡ টাকা সরাসরি আপনার NEXORA Balance থেকে কেটে নেওয়া হবে।</div>
-   <button class="buyNow" onclick="confirmBuy()">Confirm Purchase</button>
+  <div class="detail">
+   <div class="item" style="box-shadow:none;border:0;padding:0"><div class="logoBox"><img id="dLogo"></div><div><h3 id="dName">NordVPN</h3><p>Premium • Fast • Secure</p></div><div class="price">৳ <span id="dPrice">120</span><small>30 Days</small></div></div>
+   <h3>Select Quantity</h3><div id="qty" class="qty"></div>
+   <div class="summary"><div class="sum"><span>Price per item</span><b>৳ <span id="sp">120</span></b></div><div class="sum"><span>Quantity</span><b>× <span id="sq">1</span></b></div><hr style="border:0;border-top:1px solid #e4e7ef"><div class="sum total"><span>Total Amount</span><span>৳ <span id="st">120</span></span></div></div>
+   <div class="notice">⚡ টাকা সরাসরি NEXORA Balance থেকে কেটে নেওয়া হবে।</div>
+   <button class="primary" style="width:100%;margin-top:10px" onclick="purchase()">Confirm Purchase</button>
   </div>
  </main>
 </section>
-
-<section id="delivery" class="screen">
- <div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('home')">‹</span><span class="pageTitle">Order Details</span></div><span>✓</span></div></div>
- <main class="content">
-  <div class="success"><b style="font-size:20px">✓ Order Placed Successfully!</b><div style="margin-top:7px">আপনার ব্যালেন্স থেকে টাকা কেটে নেওয়া হয়েছে এবং অর্ডারটি সফলভাবে ডেলিভার করা হয়েছে।</div></div>
-  <div class="credentials">
-   <h2 style="margin-top:0">🚀 Instant Delivery</h2>
-   <div class="cred"><span>Product</span><b id="delProduct">NordVPN</b></div>
-   <div class="cred"><span>Quantity</span><b id="delQty">1</b></div>
-   <div class="cred"><span>Order Total</span><b>৳ <span id="delTotal">120</span></b></div>
-   <div class="cred"><span>VPN Account</span><b id="account">nexora_vpn_7890</b></div>
-   <div class="cred"><span>Password</span><b id="password">Nexora@7890</b><button class="copy" onclick="navigator.clipboard?.writeText(document.getElementById('password').innerText)">Copy</button></div>
-   <div class="cred"><span>Host / Server</span><b>us1.nexora-vpn.com</b></div>
-   <div class="cred"><span>Expires</span><b>30 Days</b></div>
-  </div>
-  <div class="notice">ℹ️ Credentials কপি করে আপনার VPN অ্যাপে লগইন করুন।</div>
- </main>
-</section>
-
-<section id="proxy" class="screen"><div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('home')">‹</span><span class="pageTitle">Buy Proxy</span></div></div></div><main class="content"><div class="detailCard"><div class="picon">🌐</div><h2>Proxy Packages</h2><p>High quality proxy packages এখানে দেখানো হবে। একইভাবে Quantity → Balance থেকে কাটবে → Instant Delivery.</p><button class="buyNow" onclick="alert('Proxy package list এখানে যুক্ত করা হবে')">View Packages</button></div></main></section>
-<section id="mail" class="screen"><div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('home')">‹</span><span class="pageTitle">Buy Hotmail/Outlook</span></div></div></div><main class="content"><div class="detailCard"><div class="picon">📧</div><h2>Mail Packages</h2><p>Hotmail/Outlook packages এখানে দেখানো হবে। একইভাবে Quantity নির্বাচন করে Balance থেকে পেমেন্ট হবে।</p><button class="buyNow">View Packages</button></div></main></section>
 
 <section id="fund" class="screen">
- <div class="top"><div class="row"><div style="display:flex;align-items:center"><span class="back" onclick="show('home')">‹</span><span class="pageTitle">Add Fund</span></div><span>🛡</span></div></div>
- <main class="content addfund">
-  <div class="balance"><small>Available Balance</small><div class="money">৳ <span class="balanceNum">1,250.00</span></div></div>
-  <h2>Select Payment Method</h2><div class="method"><button class="sel">bKash</button><button>Nagad</button><button>Rocket</button><button>Binance</button></div>
-  <input id="fundAmount" class="amountInput" value="500" inputmode="numeric">
-  <div class="quick"><button onclick="fundAmount.value=100">৳100</button><button onclick="fundAmount.value=500">৳500</button><button onclick="fundAmount.value=1000">৳1000</button><button onclick="fundAmount.value=2000">৳2000</button></div>
-  <button class="buyNow" onclick="addFund()">Proceed to Deposit</button>
+ <header class="top"><span class="back" onclick="showPage('home')">‹</span><h1>Add Fund</h1><span>🛡️</span></header>
+ <main class="content">
+  <div class="balance"><small>Available Balance</small><div class="money">৳ <span class="bal">1,100.00</span></div></div>
+  <div class="title">Select Payment Method</div>
+  <div class="payMethods">
+   <button class="pay active" onclick="selectPay(this)"><div class="brand bkash">bKash</div><small>Instant</small></button>
+   <button class="pay" onclick="selectPay(this)"><div class="brand nagad">নগদ</div><small>Instant</small></button>
+   <button class="pay" onclick="selectPay(this)"><div class="brand rocket">ROCKET</div><small>Instant</small></button>
+   <button class="pay" onclick="selectPay(this)"><img class="binanceLogo" src="https://cdn.simpleicons.org/binance/F3BA2F" alt="Binance"><div>Binance</div></button>
+  </div>
+  <div class="title">Enter Amount</div><input id="fundInput" class="amount" type="number" value="500">
+  <div class="quick"><button onclick="setFund(100)">৳100</button><button onclick="setFund(500)">৳500</button><button onclick="setFund(1000)">৳1000</button><button onclick="setFund(2000)">৳2000</button></div>
+  <button class="primary" style="width:100%;margin-top:22px" onclick="depositDemo()">Proceed to Deposit</button>
  </main>
 </section>
 
+<section id="proxy" class="screen"><header class="top"><span class="back" onclick="showPage('home')">‹</span><h1>Buy Proxy</h1><span>🌐</span></header><main class="content"><div class="detail"><h2>Proxy Packages</h2><p style="color:var(--muted)">Premium proxy packages এখানে যোগ করা হবে।</p></div></main></section>
+<section id="mail" class="screen"><header class="top"><span class="back" onclick="showPage('home')">‹</span><h1>Buy Mail</h1><span>✉️</span></header><main class="content"><div class="detail"><h2>Hotmail / Outlook</h2><p style="color:var(--muted)">Mail packages এখানে যোগ করা হবে।</p></div></main></section>
+
 <nav class="nav">
- <button class="active" onclick="show('home')"><i>⌂</i>Home</button>
- <button onclick="show('vpn')"><i>🛡</i>Buy VPN</button>
- <button onclick="show('proxy')"><i>◎</i>Buy Proxy</button>
- <button onclick="show('mail')"><i>✉</i>Buy Mail</button>
- <button onclick="show('fund')"><i>▣</i>Add Fund</button>
+ <button data-page="home" class="active" onclick="showPage('home')"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span class="navtext">Home</span></button>
+ <button data-page="vpn" onclick="showPage('vpn')"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span class="navtext">Buy VPN</span></button>
+ <button data-page="proxy" onclick="showPage('proxy')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a12 12 0 0 1 0 16M12 4a12 12 0 0 0 0 16"/></svg><span class="navtext">Buy Proxy</span></button>
+ <button data-page="mail" onclick="showPage('mail')"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="m4 8 8 6 8-6"/></svg><span class="navtext">Buy Mail</span></button>
+ <button data-page="fund" onclick="showPage('fund')"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12h3M7 6V4h10v2"/></svg><span class="navtext">Add Fund</span></button>
 </nav>
 </div>
 
 <script>
-let balance=1250, selected={name:'NordVPN',price:120,icon:'🛡️'}, qty=1;
+let balance=1100,qty=1,current=null;
 const vpns=[
- ['NordVPN',120,'🛡️','Ultra Fast • 100% Secure'],
- ['ExpressVPN',150,'⚡','Blazing Fast • No Logs'],
- ['Surfshark',100,'🌊','Unlimited Device • Safe'],
- ['ProtonVPN',130,'🔒','Privacy Focused • Secure'],
- ['CyberGhost',90,'👻','Easy to Use • High Speed'],
- ['PrivateVPN',110,'🟣','Strong Encryption • Secure']
+ ['NordVPN',120,'https://cdn.simpleicons.org/nordvpn/4687FF','Ultra Fast • 100% Secure'],
+ ['ExpressVPN',150,'https://cdn.simpleicons.org/expressvpn/DA3940','Blazing Fast • No Logs'],
+ ['Surfshark',100,'https://cdn.simpleicons.org/surfshark/1A9BAA','Unlimited Device • Safe'],
+ ['Proton VPN',130,'https://cdn.simpleicons.org/protonvpn/6D4AFF','Privacy Focused • Secure'],
+ ['CyberGhost',90,'https://cdn.simpleicons.org/cyberghost/FFC20A','Easy to Use • High Speed'],
+ ['PrivateVPN',110,'https://cdn.simpleicons.org/privateinternetaccess/5B3DF5','Strong Encryption • Secure']
 ];
-function show(id){
- document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
- const map={home:0,vpn:1,proxy:2,mail:3,fund:4};
- if(map[id]!==undefined) document.querySelectorAll('.nav button')[map[id]].classList.add('active');
- updateBalances(); window.scrollTo({top:0,behavior:'smooth'});
+function showPage(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));
+ updateBal();scrollTo(0,0);
 }
-function renderVPN(){
- vpnList.innerHTML=vpns.map((v,i)=>`<div class="vpn" onclick="openPackage(${i})"><div class="vpnlogo">${v[2]}</div><div><h3>${v[0]}</h3><p>${v[3]}</p></div><div class="price">৳ ${v[1]}<small>30 Days</small></div><button class="arrow">›</button></div>`).join('');
+function updateBal(){document.querySelectorAll('.bal').forEach(x=>x.textContent=balance.toLocaleString('en-US',{minimumFractionDigits:2}))}
+function render(){
+ vpnList.innerHTML=vpns.map((v,i)=>`<div class="item" onclick="openVPN(${i})"><div class="logoBox"><img src="${v[2]}" alt="${v[0]} logo" onerror="this.style.display='none';this.parentNode.innerHTML='🛡️'"></div><div><h3>${v[0]}</h3><p>${v[3]}</p></div><div class="price">৳ ${v[1]}<small>30 Days</small></div><button class="go">›</button></div>`).join('');
 }
-function openPackage(i){
- selected={name:vpns[i][0],price:vpns[i][1],icon:vpns[i][2]}; qty=1;
- detailName.textContent=selected.name; detailIcon.textContent=selected.icon;
- unitPrice.textContent=sPrice.textContent=selected.price;
- renderQty(); updateSummary(); show('details');
-}
-function renderQty(){
- qtyBtns.innerHTML=[1,2,3,5,10].map(n=>`<button class="${n===qty?'sel':''}" onclick="setQty(${n})">${n}</button>`).join('');
-}
-function setQty(n){qty=n;renderQty();updateSummary()}
-function updateSummary(){sQty.textContent=qty; total.textContent=selected.price*qty}
-function confirmBuy(){
- const total=selected.price*qty;
- if(balance<total){alert('Insufficient balance! আগে Add Fund করুন।');show('fund');return}
- if(!confirm(`Confirm purchase?\n${selected.name} × ${qty}\nTotal ৳${total}\n\nNEXORA Balance থেকে টাকা কাটা হবে.`))return;
- balance-=total; delProduct.textContent=selected.name;delQty.textContent=qty;delTotal.textContent=total;
- account.textContent='nexora_'+selected.name.toLowerCase().replace(/\W/g,'')+'_7890';
- password.textContent='Nexora@'+Math.floor(1000+Math.random()*8999);
- show('delivery');
-}
-function updateBalances(){document.querySelectorAll('.balanceNum').forEach(e=>e.textContent=balance.toLocaleString(undefined,{minimumFractionDigits:2}));homeBalance.textContent=balance.toLocaleString(undefined,{minimumFractionDigits:2})}
-function addFund(){
- let a=Number(fundAmount.value)||0;if(a<=0)return alert('Valid amount দিন');
- balance+=a; alert('Demo mode: ৳'+a+' balance-এ যোগ হয়েছে।');show('home');
-}
-renderVPN();updateBalances();
+function openVPN(i){current=vpns[i];qty=1;dLogo.src=current[2];dName.textContent=current[0];dPrice.textContent=sp.textContent=current[1];renderQty();sum();showPage('details')}
+function renderQty(){qty.innerHTML=[1,2,3,5,10].map(n=>`<button class="${n===qty?'sel':''}" onclick="qty=${n};renderQty();sum()">${n}</button>`).join('')}
+function sum(){sq.textContent=qty;st.textContent=current[1]*qty}
+function purchase(){let t=current[1]*qty;if(balance<t){alert('Insufficient balance. আগে Add Fund করুন।');showPage('fund');return}balance-=t;updateBal();alert(`Order Successful!\n${current[0]} × ${qty}\n৳${t} NEXORA Balance থেকে কাটা হয়েছে.\n\nInstant delivery demo সম্পন্ন।`);showPage('home')}
+function selectPay(el){document.querySelectorAll('.pay').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+function setFund(n){fundInput.value=n}
+function depositDemo(){let n=Number(fundInput.value)||0;if(n<=0)return alert('সঠিক Amount দিন');alert('Demo only: আসল payment gateway এখনও যুক্ত করা হয়নি।');}
+render();updateBal();
 </script>
-</body>
-       </html>
+</body></html>
